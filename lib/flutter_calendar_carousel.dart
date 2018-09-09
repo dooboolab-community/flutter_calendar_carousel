@@ -113,24 +113,26 @@ class _CalendarState extends State<CalendarCarousel> {
                 height: double.infinity,
                 child: GridView.count(
                   crossAxisCount: 7,
+                  childAspectRatio: 0.8,
                   children: List.generate(
-                      totalItemCount, /// last day of month + weekday
-                          (index) {
-                        DateTime now = DateTime(year, month, 1);
-                        if (index <= this._startWeekday) {
-                          now = now.subtract(Duration(days: this._startWeekday - index));
-                        } else if (index > (DateTime(year, month + 1, 0).day) + this._startWeekday) {
-                          now = DateTime(year, month, index + 1 - this._startWeekday);
-                        } else {
-                          now = DateTime(year, month, index + 1 - this._startWeekday);
-                        }
-                        return Center(
-                          child: Text(
-                            '${now.day}',
-                            style: Theme.of(context).textTheme.headline,
-                          ),
-                        );
-                      }),
+                    totalItemCount, /// last day of month + weekday
+                        (index) {
+                      DateTime now = DateTime(year, month, 1);
+                      if (index <= this._startWeekday) {
+                        now = now.subtract(Duration(days: this._startWeekday - index));
+                      } else if (index > (DateTime(year, month + 1, 0).day) + this._startWeekday) {
+                        now = DateTime(year, month, index + 1 - this._startWeekday);
+                      } else {
+                        now = DateTime(year, month, index + 1 - this._startWeekday);
+                      }
+                      return Center(
+                        child: Text(
+                          '${now.day}',
+                          style: Theme.of(context).textTheme.headline,
+                        ),
+                      );
+                    }
+                  ),
                 ),
               ),
             ),
