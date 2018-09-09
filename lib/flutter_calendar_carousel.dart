@@ -22,7 +22,8 @@ class CalendarCarousel extends StatefulWidget {
 class _CalendarState extends State<CalendarCarousel> {
   PageController _controller;
   List<DateTime> _dates = List(3);
-  int _currentWeekDay = 0;
+  int _startWeekday = 0;
+  int _endWeekday = 0;
 
   @override
   initState() {
@@ -78,6 +79,14 @@ class _CalendarState extends State<CalendarCarousel> {
 
   builder(int slideIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
+    int totalItemCount = DateTime(
+      this._dates[slideIndex].year,
+      this._dates[slideIndex].month + 1,
+      0,
+    ).day + this._startWeekday + (7 - this._endWeekday);
+    int year = this._dates[slideIndex].year;
+    int month = this._dates[slideIndex].month;
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -105,13 +114,19 @@ class _CalendarState extends State<CalendarCarousel> {
                 child: GridView.count(
                   crossAxisCount: 7,
                   children: List.generate(
-                      DateTime(this._dates[slideIndex].year, this._dates[slideIndex].month + 1, 0).day + this._currentWeekDay, /// last day of month + weekday
+                      totalItemCount, /// last day of month + weekday
                           (index) {
+                        DateTime now = DateTime(year, month, 1);
+                        if (index <= this._startWeekday) {
+                          now = now.subtract(Duration(days: this._startWeekday - index));
+                        } else if (index > (DateTime(year, month + 1, 0).day) + this._startWeekday) {
+                          now = DateTime(year, month, index + 1 - this._startWeekday);
+                        } else {
+                          now = DateTime(year, month, index + 1 - this._startWeekday);
+                        }
                         return Center(
                           child: Text(
-                            this._currentWeekDay > index
-                                ? ''
-                                : '${index - this._currentWeekDay + 1}',
+                            '${now.day}',
                             style: Theme.of(context).textTheme.headline,
                           ),
                         );
@@ -136,7 +151,8 @@ class _CalendarState extends State<CalendarCarousel> {
 
       this.setState(() {
         /// setup current day
-        _currentWeekDay = date1.weekday;
+        _startWeekday = date1.weekday;
+        _endWeekday = date2.weekday;
         this._dates = [
           date0, date1, date2,
         ];
@@ -160,7 +176,8 @@ class _CalendarState extends State<CalendarCarousel> {
       }
 
       this.setState(() {
-        _currentWeekDay = dates[page].weekday;
+        _startWeekday = dates[page].weekday;
+        _endWeekday = dates[page + 1].weekday;
         this._dates = dates;
       });
 
@@ -169,5 +186,8 @@ class _CalendarState extends State<CalendarCarousel> {
 
       _controller.animateToPage(page, duration: Duration(milliseconds: 1), curve: Threshold(0.0));
     }
+
+    print('startWeekDay: $_startWeekday');
+    print('endWeekDay: $_endWeekday');
   }
 }
