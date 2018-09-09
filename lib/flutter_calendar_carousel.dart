@@ -141,26 +141,33 @@ class _CalendarState extends State<CalendarCarousel> {
           date0, date1, date2,
         ];
       });
+    } else if (page == 1) {
+      return;
     } else {
-      List<DateTime> dates = this._dates;
       print('page: $page');
+      List<DateTime> dates = this._dates;
       print('dateLength: ${dates.length}');
       if (page == 0) {
-        dates[1] = dates[0];
-        dates[2] = dates[1];
-        dates[0] = DateTime(this._dates[0].year, this._dates[0].month - 1, 1);
+        dates[2] = DateTime(dates[0].year, dates[0].month + 1, 1);
+        dates[1] = DateTime(dates[0].year, dates[0].month, 1);
+        dates[0] = DateTime(dates[0].year, dates[0].month - 1, 1);
         page = page + 1;
-      } else if (page == dates.length - 1) {
-        dates[0] = dates[1];
-        dates[1] = dates[2];
-        dates[2] = DateTime(this._dates[dates.length - 1].year, this._dates[dates.length - 1].month + 1, 1);page = page - 1;
+      } else if (page == 2) {
+        dates[0] = DateTime(dates[2].year, dates[2].month - 1, 1);
+        dates[1] = DateTime(dates[2].year, dates[2].month, 1);
+        dates[2] = DateTime(dates[2].year, dates[2].month + 1, 1);
+        page = page - 1;
       }
-      _controller.animateToPage(page, duration: Duration(milliseconds: 1), curve: Threshold(0.0));
 
       this.setState(() {
         _currentWeekDay = dates[page].weekday;
         this._dates = dates;
       });
+
+      print('dates');
+      print(this._dates);
+
+      _controller.animateToPage(page, duration: Duration(milliseconds: 1), curve: Threshold(0.0));
     }
   }
 }
