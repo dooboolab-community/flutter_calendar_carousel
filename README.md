@@ -1,9 +1,5 @@
 # flutter_calendar_carousel
-
 Calendar widget for flutter that is swipeable.
-
-<img src="Logotype primary.png" width="70%" height="70%" />
-
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
@@ -18,7 +14,7 @@ For help getting started with Flutter, view our online
 
 ## Props
 | props | types | defaultValues |
-| :------------ |:---------------:|
+| :------------ |:---------------: |:---------------:|
 | weekDays | | ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'] |
 | viewPortFraction | `double` | 1.0 |
 | prevDaysTextStyle | `TextStyle` | |
