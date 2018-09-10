@@ -226,7 +226,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         ? widget.selectedDayTextStyle
                         : isToday
                         ? widget.todayTextStyle
-                        : widget.nextDaysTextStyle;
+                        : widget.daysTextStyle;
                       defaultTextStyle = isSelectedDay
                         ? widget.defaultSelectedDayTextStyle
                         : isToday
@@ -234,7 +234,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         : widget.defaultDaysTextStyle;
                     } else {
                       now = DateTime(year, month, index + 1 - this._startWeekday);
-                      textStyle = widget.daysTextStyle;
+                      textStyle = widget.nextDaysTextStyle;
                       defaultTextStyle = widget.defaultNextDaysTextStyle;
                     }
                     return Container(

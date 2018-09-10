@@ -1,8 +1,8 @@
 name: flutter_calendar_carousel
 description: Calendar widget for flutter that is swipeable.
 version: 0.1.0
-author:
-homepage:
+author: dooboolab<dooboolab@gmail.com>
+homepage: https://github.com/dooboolab/flutter_inapp_purchase/blob/master/pubspec.yaml
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
