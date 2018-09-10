@@ -50,6 +50,7 @@ class CalendarCarousel extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
+  final Function(DateTime) onDayPressed;
 
   CalendarCarousel({
     @required this.current,
@@ -72,6 +73,7 @@ class CalendarCarousel extends StatefulWidget {
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
+    this.onDayPressed
   });
 
   @override
@@ -177,7 +179,10 @@ class _CalendarState extends State<CalendarCarousel> {
                     totalItemCount, /// last day of month + weekday
                         (index) {
                       bool isToday = DateTime.now().day == index + 1 - this._startWeekday;
-                      bool isSelectedDay = widget.selectedDateTime != null && widget.selectedDateTime.day == index + 1 - this._startWeekday;
+                      bool isSelectedDay = widget.selectedDateTime != null
+                        && widget.selectedDateTime.year == year
+                        && widget.selectedDateTime.month == month
+                        && widget.selectedDateTime.day == index + 1 - this._startWeekday;
                       bool isPrevMonthDay = index < this._startWeekday;
                       bool isNextMonthDay  = index >= (DateTime(year, month + 1, 0).day) + this._startWeekday;
                       bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
@@ -214,7 +219,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             : isToday && widget.todayBorderColor != null
                             ? widget.todayButtonColor
                             : widget.dayButtonColor,
-                          onPressed: () {},
+                          onPressed: () => widget.onDayPressed(DateTime(year, month, index + 1 - this._startWeekday)),
                           padding: EdgeInsets.all(widget.dayPadding),
                           shape: widget.daysHaveCircularBorder == null
                             ? null

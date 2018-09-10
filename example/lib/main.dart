@@ -44,6 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  DateTime _currentDate = DateTime(2018, 8, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
         margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel(
           current: DateTime.now(),
+          onDayPressed: (DateTime date) {
+            this.setState(() => _currentDate = date);
+          },
           thisMonthDayBorderColor: Colors.grey,
           height: 420.0,
-          selectedDateTime: DateTime(2018, 8, 1),
+          selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
