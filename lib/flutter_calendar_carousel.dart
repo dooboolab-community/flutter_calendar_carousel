@@ -120,11 +120,24 @@ class _CalendarState extends State<CalendarCarousel> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.symmetric(vertical: 24.0),
+            margin: EdgeInsets.symmetric(vertical: 16.0),
             child: DefaultTextStyle(
               style: widget.defaultHeaderTextStyle,
-              child: Text(
-                '${DateFormat.yMMM().format(this._dates[1])}',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () => _setDate(page: 0),
+                    icon: Icon(Icons.keyboard_arrow_left),
+                  ),
+                  Text(
+                    '${DateFormat.yMMM().format(this._dates[1])}',
+                  ),
+                  IconButton(
+                    onPressed: () => _setDate(page: 2),
+                    icon: Icon(Icons.keyboard_arrow_right),
+                  ),
+                ],
               ),
             ),
           ),
