@@ -43,6 +43,7 @@ For help on adding as a dependency, view the [documentation](https://flutter.io/
 
 ## Usage
 ```dart
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 Widget widget() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0),
