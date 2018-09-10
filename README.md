@@ -65,6 +65,7 @@ Widget widget() {
 - [ ] Customizable header.
 - [ ] Customizable textStyles for days in weekend.
 - [ ] Multiple days selections. 
+- [ ] Widget test. 
 
 ## Help Maintenance
 I've been maintaining quite many repos these days and burning out slowly. If you could help me cheer up, buying me a cup of coffee will make my life really happy and get much energy out of it.
