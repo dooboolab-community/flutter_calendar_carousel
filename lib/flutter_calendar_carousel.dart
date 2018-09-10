@@ -21,6 +21,10 @@ class CalendarCarousel extends StatefulWidget {
     color: Colors.grey,
     fontSize: 14.0,
   );
+  final TextStyle defaultTodayTextStyle = TextStyle(
+    color: Colors.red,
+    fontSize: 14.0,
+  );
 
   final DateTime current;
   final double viewportFraction;
@@ -151,7 +155,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     totalItemCount, /// last day of month + weekday
                         (index) {
                       bool isPrevMonthDay = index < this._startWeekday;
-                      bool isNextMonthDay = index > (DateTime(year, month + 1, 0).day) + this._startWeekday;
+                      bool isNextMonthDay = index >= (DateTime(year, month + 1, 0).day) + this._startWeekday;
                       bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
 
                       DateTime now = DateTime(year, month, 1);
