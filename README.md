@@ -3,9 +3,9 @@ Calendar widget for flutter that is swipeable. This widget can help you build cu
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
-<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar1.gif"/>
-<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar2.gif"/>
-<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar3.gif"/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar1.gif"/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar2.gif"/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar3.gif"/>
 
 ## Getting Started
 For help getting started with Flutter, view our online

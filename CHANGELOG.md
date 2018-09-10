@@ -1,4 +1,4 @@
-## [0.1.2]
+## [0.1.3]
 * Rename the top-level "docs" directory to "doc".
 
 ## [0.1.1]
