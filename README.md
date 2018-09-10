@@ -1,12 +1,11 @@
 # flutter_calendar_carousel
-Calendar widget for flutter that is swipeable.
+Calendar widget for flutter that is swipeable. This widget can help you build customizable calendar with scrollable actions.
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
-This is a widget that helps you build customizable calendar with scrollable actions.
-<br/><https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar1.gif/>
-<br/><https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar2.gif/>
-<br/><https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar3.gif/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar1.gif"/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar2.gif"/>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/docs/calendar3.gif"/>
 
 ## Getting Started
 For help getting started with Flutter, view our online
@@ -45,18 +44,28 @@ For help on adding as a dependency, view the [documentation](https://flutter.io/
 ## Usage
 ```dart
 Widget widget() {
-	return Container(
-		margin: EdgeInsets.symmetric(horizontal: 16.0),
-		child: CalendarCarousel(
-			current: DateTime.now(),
-			onDayPressed: (DateTime date) {
-				this.setState(() => _currentDate = date);
-			},
-			thisMonthDayBorderColor: Colors.grey,
-			height: 420.0,
-			selectedDateTime: _currentDate,
-			daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-		),
-	);
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 16.0),
+    child: CalendarCarousel(
+      current: DateTime.now(),
+      onDayPressed: (DateTime date) {
+        this.setState(() => _currentDate = date);
+      },
+      thisMonthDayBorderColor: Colors.grey,
+      height: 420.0,
+      selectedDateTime: _currentDate,
+      daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+    ),
+  );
 }
 ```
+
+### TODO
+- [x] Render weekdays.
+- [ ] Customizable header.
+- [ ] Customizable textStyles for days in weekend.
+- [ ] Multiple days selections. 
+
+## Help Maintenance
+I've been maintaining quite many repos these days and burning out slowly. If you could help me cheer up, buying me a cup of coffee will make my life really happy and get much energy out of it.
+<br/><a href="https://www.buymeacoffee.com/dooboolab" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
