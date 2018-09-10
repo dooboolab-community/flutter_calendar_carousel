@@ -95,11 +95,14 @@ class _CalendarState extends State<CalendarCarousel> {
   @override
   initState() {
     super.initState();
+
     /// setup pageController
     _controller = PageController(
       initialPage: 1,
       keepPage: true,
-      viewportFraction: widget.viewportFraction, /// width percentage
+      viewportFraction: widget.viewportFraction,
+
+      /// width percentage
     );
     this._setDate();
   }
@@ -166,10 +169,12 @@ class _CalendarState extends State<CalendarCarousel> {
   builder(int slideIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
     int totalItemCount = DateTime(
-      this._dates[slideIndex].year,
-      this._dates[slideIndex].month + 1,
-      0,
-    ).day + this._startWeekday + (7 - this._endWeekday);
+          this._dates[slideIndex].year,
+          this._dates[slideIndex].month + 1,
+          0,
+        ).day +
+        this._startWeekday +
+        (7 - this._endWeekday);
     int year = this._dates[slideIndex].year;
     int month = this._dates[slideIndex].month;
 
@@ -199,91 +204,102 @@ class _CalendarState extends State<CalendarCarousel> {
               child: GridView.count(
                 crossAxisCount: 7,
                 childAspectRatio: 1.0,
-                children: List.generate(
-                  totalItemCount, /// last day of month + weekday
-                      (index) {
-                    bool isToday = DateTime.now().day == index + 1 - this._startWeekday;
-                    bool isSelectedDay = widget.selectedDateTime != null
-                      && widget.selectedDateTime.year == year
-                      && widget.selectedDateTime.month == month
-                      && widget.selectedDateTime.day == index + 1 - this._startWeekday;
-                    bool isPrevMonthDay = index < this._startWeekday;
-                    bool isNextMonthDay  = index >= (DateTime(year, month + 1, 0).day) + this._startWeekday;
-                    bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
+                children: List.generate(totalItemCount,
 
-                    DateTime now = DateTime(year, month, 1);
-                    TextStyle textStyle;
-                    TextStyle defaultTextStyle;
-                    if (isPrevMonthDay) {
-                      now = now.subtract(Duration(days: this._startWeekday - index));
-                      textStyle = widget.prevDaysTextStyle;
-                      defaultTextStyle = widget.defaultPrevDaysTextStyle;
-                    } else if (isThisMonthDay) {
-                      now = DateTime(year, month, index + 1 - this._startWeekday);
-                      textStyle = isSelectedDay
+                    /// last day of month + weekday
+                    (index) {
+                  bool isToday =
+                      DateTime.now().day == index + 1 - this._startWeekday;
+                  bool isSelectedDay = widget.selectedDateTime != null &&
+                      widget.selectedDateTime.year == year &&
+                      widget.selectedDateTime.month == month &&
+                      widget.selectedDateTime.day ==
+                          index + 1 - this._startWeekday;
+                  bool isPrevMonthDay = index < this._startWeekday;
+                  bool isNextMonthDay = index >=
+                      (DateTime(year, month + 1, 0).day) + this._startWeekday;
+                  bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
+
+                  DateTime now = DateTime(year, month, 1);
+                  TextStyle textStyle;
+                  TextStyle defaultTextStyle;
+                  if (isPrevMonthDay) {
+                    now = now
+                        .subtract(Duration(days: this._startWeekday - index));
+                    textStyle = widget.prevDaysTextStyle;
+                    defaultTextStyle = widget.defaultPrevDaysTextStyle;
+                  } else if (isThisMonthDay) {
+                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    textStyle = isSelectedDay
                         ? widget.selectedDayTextStyle
                         : isToday
-                        ? widget.todayTextStyle
-                        : widget.daysTextStyle;
-                      defaultTextStyle = isSelectedDay
+                            ? widget.todayTextStyle
+                            : widget.daysTextStyle;
+                    defaultTextStyle = isSelectedDay
                         ? widget.defaultSelectedDayTextStyle
                         : isToday
-                        ? widget.defaultTodayTextStyle
-                        : widget.defaultDaysTextStyle;
-                    } else {
-                      now = DateTime(year, month, index + 1 - this._startWeekday);
-                      textStyle = widget.nextDaysTextStyle;
-                      defaultTextStyle = widget.defaultNextDaysTextStyle;
-                    }
-                    return Container(
-                      margin: EdgeInsets.all(widget.dayPadding),
-                      child: FlatButton(
-                        color: isSelectedDay && widget.todayBorderColor != null
+                            ? widget.defaultTodayTextStyle
+                            : widget.defaultDaysTextStyle;
+                  } else {
+                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    textStyle = widget.nextDaysTextStyle;
+                    defaultTextStyle = widget.defaultNextDaysTextStyle;
+                  }
+                  return Container(
+                    margin: EdgeInsets.all(widget.dayPadding),
+                    child: FlatButton(
+                      color: isSelectedDay && widget.todayBorderColor != null
                           ? widget.selectedDayBorderColor
                           : isToday && widget.todayBorderColor != null
-                          ? widget.todayButtonColor
-                          : widget.dayButtonColor,
-                        onPressed: () => widget.onDayPressed(DateTime(year, month, index + 1 - this._startWeekday)),
-                        padding: EdgeInsets.all(widget.dayPadding),
-                        shape: widget.daysHaveCircularBorder == null
+                              ? widget.todayButtonColor
+                              : widget.dayButtonColor,
+                      onPressed: () => widget.onDayPressed(DateTime(
+                          year, month, index + 1 - this._startWeekday)),
+                      padding: EdgeInsets.all(widget.dayPadding),
+                      shape: widget.daysHaveCircularBorder == null
                           ? null
                           : widget.daysHaveCircularBorder
-                          ? CircleBorder(
-                            side: BorderSide(
-                              color: isPrevMonthDay
-                                ? widget.prevMonthDayBorderColor
-                                : isNextMonthDay
-                                ? widget.nextMonthDayBorderColor
-                                : isToday && widget.todayBorderColor != null
-                                ? widget.todayBorderColor
-                                : widget.thisMonthDayBorderColor,
-                            ),
-                          )
-                          : RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: isPrevMonthDay
-                                ? widget.prevMonthDayBorderColor
-                                : isNextMonthDay
-                                ? widget.nextMonthDayBorderColor
-                                : isToday && widget.todayBorderColor != null
-                                ? widget.todayBorderColor
-                                : widget.thisMonthDayBorderColor,
-                            ),
-                          ),
-                        child: Center(
-                          child: DefaultTextStyle(
-                            style: defaultTextStyle,
-                            child: Text(
-                              '${now.day}',
-                              style: textStyle,
-                              maxLines: 1,
-                            ),
+                              ? CircleBorder(
+                                  side: BorderSide(
+                                    color: isPrevMonthDay
+                                        ? widget.prevMonthDayBorderColor
+                                        : isNextMonthDay
+                                            ? widget.nextMonthDayBorderColor
+                                            : isToday &&
+                                                    widget.todayBorderColor !=
+                                                        null
+                                                ? widget.todayBorderColor
+                                                : widget
+                                                    .thisMonthDayBorderColor,
+                                  ),
+                                )
+                              : RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: isPrevMonthDay
+                                        ? widget.prevMonthDayBorderColor
+                                        : isNextMonthDay
+                                            ? widget.nextMonthDayBorderColor
+                                            : isToday &&
+                                                    widget.todayBorderColor !=
+                                                        null
+                                                ? widget.todayBorderColor
+                                                : widget
+                                                    .thisMonthDayBorderColor,
+                                  ),
+                                ),
+                      child: Center(
+                        child: DefaultTextStyle(
+                          style: defaultTextStyle,
+                          child: Text(
+                            '${now.day}',
+                            style: textStyle,
+                            maxLines: 1,
                           ),
                         ),
                       ),
-                    );
-                  }
-                ),
+                    ),
+                  );
+                }),
               ),
             ),
           ),
@@ -297,16 +313,20 @@ class _CalendarState extends State<CalendarCarousel> {
   }) {
     if (page == null) {
       /// setup dates
-      DateTime date0 = DateTime(DateTime.now().year, DateTime.now().month - 1 , 1);
-      DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month , 1);
-      DateTime date2 = DateTime(DateTime.now().year, DateTime.now().month + 1 , 1);
+      DateTime date0 =
+          DateTime(DateTime.now().year, DateTime.now().month - 1, 1);
+      DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month, 1);
+      DateTime date2 =
+          DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
 
       this.setState(() {
         /// setup current day
         _startWeekday = date1.weekday;
         _endWeekday = date2.weekday;
         this._dates = [
-          date0, date1, date2,
+          date0,
+          date1,
+          date2,
         ];
       });
     } else if (page == 1) {
@@ -336,7 +356,8 @@ class _CalendarState extends State<CalendarCarousel> {
       print('dates');
       print(this._dates);
 
-      _controller.animateToPage(page, duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+      _controller.animateToPage(page,
+          duration: Duration(milliseconds: 1), curve: Threshold(0.0));
     }
 
     print('startWeekDay: $_startWeekday');
@@ -348,19 +369,18 @@ class _CalendarState extends State<CalendarCarousel> {
     for (var weekDay in widget.weekDays) {
       list.add(
         Expanded(
-          child: Container(
-            margin: EdgeInsets.only(bottom: 4.0),
-            child: Center(
-              child: DefaultTextStyle(
-                style: widget.defaultWeekdayTextStyle,
-                child: Text(
-                  weekDay,
-                  style: widget.weekdayTextStyle,
-                ),
+            child: Container(
+          margin: EdgeInsets.only(bottom: 4.0),
+          child: Center(
+            child: DefaultTextStyle(
+              style: widget.defaultWeekdayTextStyle,
+              child: Text(
+                weekDay,
+                style: widget.weekdayTextStyle,
               ),
             ),
-          )
-        ),
+          ),
+        )),
       );
     }
     return list;
