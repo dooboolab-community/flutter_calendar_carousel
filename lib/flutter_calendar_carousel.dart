@@ -5,14 +5,39 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:flutter/material.dart';
 
 class CalendarCarousel extends StatefulWidget {
+  final TextStyle defaultHeaderTextStyle = TextStyle(
+    fontSize: 20.0,
+    color: Colors.blue,
+  );
+  final TextStyle defaultPrevDaysTextStyle = TextStyle(
+    color: Colors.grey,
+    fontSize: 14.0,
+  );
+  final TextStyle defaultNextDaysTextStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 14.0,
+  );
+  final TextStyle defaultDaysTextStyle = TextStyle(
+    color: Colors.grey,
+    fontSize: 14.0,
+  );
+
   final DateTime current;
-  final double height;
   final double viewportFraction;
+  final TextStyle prevDaysTextStyle;
+  final TextStyle daysTextStyle;
+  final TextStyle nextDaysTextStyle;
+  final double height;
+  final double width;
 
   CalendarCarousel({
     @required this.current,
-    this.height = 400.0,
     this.viewportFraction = 1.0,
+    this.prevDaysTextStyle,
+    this.daysTextStyle,
+    this.nextDaysTextStyle,
+    this.height = double.infinity,
+    this.width = double.infinity,
   });
 
   @override
@@ -47,15 +72,15 @@ class _CalendarState extends State<CalendarCarousel> {
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
+      width: widget.width,
       child: Column(
         children: <Widget>[
           Container(
             margin: EdgeInsets.symmetric(vertical: 24.0),
-            child: Text(
-              '${DateFormat.yMMM().format(this._dates[1])}',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.blue,
+            child: DefaultTextStyle(
+              style: widget.defaultHeaderTextStyle,
+              child: Text(
+                '${DateFormat.yMMM().format(this._dates[1])}',
               ),
             ),
           ),
@@ -118,17 +143,32 @@ class _CalendarState extends State<CalendarCarousel> {
                     totalItemCount, /// last day of month + weekday
                         (index) {
                       DateTime now = DateTime(year, month, 1);
+                      TextStyle textStyle;
+                      TextStyle defaultTextStyle;
                       if (index <= this._startWeekday) {
                         now = now.subtract(Duration(days: this._startWeekday - index));
+                        textStyle = widget.prevDaysTextStyle;
+                        defaultTextStyle = widget.defaultPrevDaysTextStyle;
                       } else if (index > (DateTime(year, month + 1, 0).day) + this._startWeekday) {
                         now = DateTime(year, month, index + 1 - this._startWeekday);
+                        textStyle = widget.daysTextStyle;
+                        defaultTextStyle = widget.defaultDaysTextStyle;
                       } else {
                         now = DateTime(year, month, index + 1 - this._startWeekday);
+                        textStyle = widget.nextDaysTextStyle;
+                        defaultTextStyle = widget.defaultNextDaysTextStyle;
                       }
-                      return Center(
-                        child: Text(
-                          '${now.day}',
-                          style: Theme.of(context).textTheme.headline,
+                      return FlatButton(
+                        shape: CircleBorder(),
+                        onPressed: () {},
+                        child: Center(
+                          child: DefaultTextStyle(
+                            style: defaultTextStyle,
+                            child: Text(
+                              '${now.day}',
+                              style: textStyle,
+                            ),
+                          ),
                         ),
                       );
                     }
