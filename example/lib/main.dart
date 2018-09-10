@@ -52,10 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: Container(
-        child: Center(
-          child: CalendarCarousel(
-            current: DateTime.now(),
-          ),
+        child: CalendarCarousel(
+          current: DateTime.now(),
+          thisMonthDayBorderColor: Colors.grey,
+          height: 420.0,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

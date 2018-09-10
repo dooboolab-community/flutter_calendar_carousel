@@ -27,6 +27,10 @@ class CalendarCarousel extends StatefulWidget {
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
   final TextStyle nextDaysTextStyle;
+  final Color prevMonthDayBorderColor;
+  final Color thisMonthDayBorderColor;
+  final Color nextMonthDayBorderColor;
+  final double dayPadding;
   final double height;
   final double width;
 
@@ -36,6 +40,10 @@ class CalendarCarousel extends StatefulWidget {
     this.prevDaysTextStyle,
     this.daysTextStyle,
     this.nextDaysTextStyle,
+    this.prevMonthDayBorderColor = Colors.transparent,
+    this.thisMonthDayBorderColor = Colors.transparent,
+    this.nextMonthDayBorderColor = Colors.transparent,
+    this.dayPadding = 2.0,
     this.height = double.infinity,
     this.width = double.infinity,
   });
@@ -71,8 +79,8 @@ class _CalendarState extends State<CalendarCarousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height,
       width: widget.width,
+      height: widget.height,
       child: Column(
         children: <Widget>[
           Container(
@@ -138,18 +146,22 @@ class _CalendarState extends State<CalendarCarousel> {
                 height: double.infinity,
                 child: GridView.count(
                   crossAxisCount: 7,
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 1.0,
                   children: List.generate(
                     totalItemCount, /// last day of month + weekday
                         (index) {
+                      bool isPrevMonthDay = index < this._startWeekday;
+                      bool isNextMonthDay = index > (DateTime(year, month + 1, 0).day) + this._startWeekday;
+                      bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
+
                       DateTime now = DateTime(year, month, 1);
                       TextStyle textStyle;
                       TextStyle defaultTextStyle;
-                      if (index <= this._startWeekday) {
+                      if (isPrevMonthDay) {
                         now = now.subtract(Duration(days: this._startWeekday - index));
                         textStyle = widget.prevDaysTextStyle;
                         defaultTextStyle = widget.defaultPrevDaysTextStyle;
-                      } else if (index > (DateTime(year, month + 1, 0).day) + this._startWeekday) {
+                      } else if (isNextMonthDay) {
                         now = DateTime(year, month, index + 1 - this._startWeekday);
                         textStyle = widget.daysTextStyle;
                         defaultTextStyle = widget.defaultDaysTextStyle;
@@ -158,15 +170,24 @@ class _CalendarState extends State<CalendarCarousel> {
                         textStyle = widget.nextDaysTextStyle;
                         defaultTextStyle = widget.defaultNextDaysTextStyle;
                       }
-                      return FlatButton(
-                        shape: CircleBorder(),
-                        onPressed: () {},
-                        child: Center(
-                          child: DefaultTextStyle(
-                            style: defaultTextStyle,
-                            child: Text(
-                              '${now.day}',
-                              style: textStyle,
+                      return Container(
+                        margin: EdgeInsets.all(widget.dayPadding),
+                        child: FlatButton(
+                          onPressed: () {},
+                          padding: EdgeInsets.all(widget.dayPadding),
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              color: isPrevMonthDay ? widget.prevMonthDayBorderColor : isThisMonthDay ? widget.thisMonthDayBorderColor : widget.nextMonthDayBorderColor,
+                            ),
+                          ),
+                          child: Center(
+                            child: DefaultTextStyle(
+                              style: defaultTextStyle,
+                              child: Text(
+                                '${now.day}',
+                                style: textStyle,
+                                maxLines: 1,
+                              ),
                             ),
                           ),
                         ),
