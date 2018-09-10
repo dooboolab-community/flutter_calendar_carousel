@@ -25,6 +25,10 @@ class CalendarCarousel extends StatefulWidget {
     color: Colors.white,
     fontSize: 14.0,
   );
+  final TextStyle defaultSelectedDayTextStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 14.0,
+  );
 
   final DateTime current;
   final double viewportFraction;
@@ -41,6 +45,10 @@ class CalendarCarousel extends StatefulWidget {
   final Color dayButtonColor;
   final Color todayBorderColor;
   final Color todayButtonColor;
+  final DateTime selectedDateTime;
+  final TextStyle selectedDayTextStyle;
+  final Color selectedDayButtonColor;
+  final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
 
   CalendarCarousel({
@@ -57,8 +65,12 @@ class CalendarCarousel extends StatefulWidget {
     this.width = double.infinity,
     this.todayTextStyle,
     this.dayButtonColor = Colors.transparent,
-    this.todayBorderColor = Colors.white,
+    this.todayBorderColor = Colors.red,
     this.todayButtonColor = Colors.red,
+    this.selectedDateTime,
+    this.selectedDayTextStyle,
+    this.selectedDayBorderColor = Colors.green,
+    this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
   });
 
@@ -165,6 +177,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     totalItemCount, /// last day of month + weekday
                         (index) {
                       bool isToday = DateTime.now().day == index + 1 - this._startWeekday;
+                      bool isSelectedDay = widget.selectedDateTime != null && widget.selectedDateTime.day == index + 1 - this._startWeekday;
                       bool isPrevMonthDay = index < this._startWeekday;
                       bool isNextMonthDay  = index >= (DateTime(year, month + 1, 0).day) + this._startWeekday;
                       bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
@@ -178,8 +191,16 @@ class _CalendarState extends State<CalendarCarousel> {
                         defaultTextStyle = widget.defaultPrevDaysTextStyle;
                       } else if (isThisMonthDay) {
                         now = DateTime(year, month, index + 1 - this._startWeekday);
-                        textStyle = isToday && widget.todayTextStyle != null ? widget.todayTextStyle : widget.nextDaysTextStyle;
-                        defaultTextStyle = isToday ? widget.defaultTodayTextStyle : widget.defaultDaysTextStyle;
+                        textStyle = isSelectedDay
+                          ? widget.selectedDayTextStyle
+                          : isToday
+                          ? widget.todayTextStyle
+                          : widget.nextDaysTextStyle;
+                        defaultTextStyle = isSelectedDay
+                          ? widget.defaultSelectedDayTextStyle
+                          : isToday
+                          ? widget.defaultTodayTextStyle
+                          : widget.defaultDaysTextStyle;
                       } else {
                         now = DateTime(year, month, index + 1 - this._startWeekday);
                         textStyle = widget.daysTextStyle;
@@ -188,7 +209,11 @@ class _CalendarState extends State<CalendarCarousel> {
                       return Container(
                         margin: EdgeInsets.all(widget.dayPadding),
                         child: FlatButton(
-                          color: isToday && widget.todayBorderColor != null ? widget.todayButtonColor : widget.dayButtonColor,
+                          color: isSelectedDay && widget.todayBorderColor != null
+                            ? widget.selectedDayBorderColor
+                            : isToday && widget.todayBorderColor != null
+                            ? widget.todayButtonColor
+                            : widget.dayButtonColor,
                           onPressed: () {},
                           padding: EdgeInsets.all(widget.dayPadding),
                           shape: widget.daysHaveCircularBorder == null

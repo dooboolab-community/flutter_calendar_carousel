@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           current: DateTime.now(),
           thisMonthDayBorderColor: Colors.grey,
           height: 420.0,
+          selectedDateTime: DateTime(2018, 8, 1),
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
