@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel(
-          current: DateTime.now(),
           onDayPressed: (DateTime date) {
             this.setState(() => _currentDate = date);
           },

@@ -35,7 +35,6 @@ class CalendarCarousel extends StatefulWidget {
   );
 
   final List<String> weekDays;
-  final DateTime current;
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -59,7 +58,6 @@ class CalendarCarousel extends StatefulWidget {
   final TextStyle weekdayTextStyle;
 
   CalendarCarousel({
-    @required this.current,
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
@@ -299,9 +297,9 @@ class _CalendarState extends State<CalendarCarousel> {
   }) {
     if (page == null) {
       /// setup dates
-      DateTime date0 = DateTime(widget.current.year, widget.current.month - 1 , 1);
-      DateTime date1 = DateTime(widget.current.year, widget.current.month , 1);
-      DateTime date2 = DateTime(widget.current.year, widget.current.month + 1 , 1);
+      DateTime date0 = DateTime(DateTime.now().year, DateTime.now().month - 1 , 1);
+      DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month , 1);
+      DateTime date2 = DateTime(DateTime.now().year, DateTime.now().month + 1 , 1);
 
       this.setState(() {
         /// setup current day
