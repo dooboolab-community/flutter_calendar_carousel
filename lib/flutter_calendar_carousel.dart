@@ -41,6 +41,7 @@ class CalendarCarousel extends StatefulWidget {
   final Color dayButtonColor;
   final Color todayBorderColor;
   final Color todayButtonColor;
+  final bool daysHaveCircularBorder;
 
   CalendarCarousel({
     @required this.current,
@@ -58,6 +59,7 @@ class CalendarCarousel extends StatefulWidget {
     this.dayButtonColor = Colors.transparent,
     this.todayBorderColor = Colors.white,
     this.todayButtonColor = Colors.red,
+    this.daysHaveCircularBorder,
   });
 
   @override
@@ -189,17 +191,31 @@ class _CalendarState extends State<CalendarCarousel> {
                           color: isToday && widget.todayBorderColor != null ? widget.todayButtonColor : widget.dayButtonColor,
                           onPressed: () {},
                           padding: EdgeInsets.all(widget.dayPadding),
-                          shape: CircleBorder(
-                            side: BorderSide(
-                              color: isPrevMonthDay
-                                ? widget.prevMonthDayBorderColor
-                                : isNextMonthDay
+                          shape: widget.daysHaveCircularBorder == null
+                            ? null
+                            : widget.daysHaveCircularBorder
+                            ? CircleBorder(
+                              side: BorderSide(
+                                color: isPrevMonthDay
+                                  ? widget.prevMonthDayBorderColor
+                                  : isNextMonthDay
                                   ? widget.nextMonthDayBorderColor
                                   : isToday && widget.todayBorderColor != null
-                                    ? widget.todayBorderColor
-                                    : widget.thisMonthDayBorderColor,
+                                  ? widget.todayBorderColor
+                                  : widget.thisMonthDayBorderColor,
+                              ),
+                            )
+                            : RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: isPrevMonthDay
+                                  ? widget.prevMonthDayBorderColor
+                                  : isNextMonthDay
+                                  ? widget.nextMonthDayBorderColor
+                                  : isToday && widget.todayBorderColor != null
+                                  ? widget.todayBorderColor
+                                  : widget.thisMonthDayBorderColor,
+                              ),
                             ),
-                          ),
                           child: Center(
                             child: DefaultTextStyle(
                               style: defaultTextStyle,
