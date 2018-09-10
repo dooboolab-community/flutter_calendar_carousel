@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel(
           current: DateTime.now(),
           thisMonthDayBorderColor: Colors.grey,
