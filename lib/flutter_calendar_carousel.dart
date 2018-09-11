@@ -418,7 +418,7 @@ class _CalendarState extends State<CalendarCarousel> {
     if (widget.markedDates != null && widget.markedDates.length > 0 && widget.markedDates.contains(now)) {
       return Positioned(
         child: Container(
-          color: Colors.red,
+          color: widget.markedDateColor,
           height: 4.0,
           width: 4.0,
         ),
