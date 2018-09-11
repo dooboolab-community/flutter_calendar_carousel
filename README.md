@@ -25,19 +25,20 @@ For help getting started with Flutter, view our online
 | dayPadding | `double` | 2.0 |
 | height | `double` | double.infinity |
 | width | `double` | double.infinity |
-| todayTextStyle | `TextStyle` | |
-| dayButtonColor | `TextStyle` | Colors.red |
+| todayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.white` |
+| dayButtonColor | `Color` | Colors.red |
 | todayBorderColor | `Color` | Colors.red |
 | todayButtonColor | `Colors` | Colors.red |
 | selectedDateTime | `DateTime` | |
-| selectedDayTextStyle | `TextStyle` | |
+| selectedDayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.white` |
 | selectedDayBorderColor | `Color` | Colors.green |
 | selectedDayButtonColor | `Color` | Colors.green |
 | daysHaveCircularBorder | `bool` | |
 | onDayPressed | `Func` | |
-| weekdayTextStyle | `TextStyle` | |
+| weekdayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.deepOrange` |
 | iconColor | `Color` | Colors.blueAccent |
 | headerText | `Text` | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
+| weekendTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.pinkAccent` |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
@@ -58,6 +59,9 @@ Widget widget() {
       height: 420.0,
       selectedDateTime: _currentDate,
       daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+///         weekendStyle: TextStyle(
+///           color: Colors.red,
+///         ),
 //          weekDays: null, /// for pass null when you do not want to render weekDays
 //          headerText: Container( /// Example for rendering custom header
 //            child: Text('Custom Header'),

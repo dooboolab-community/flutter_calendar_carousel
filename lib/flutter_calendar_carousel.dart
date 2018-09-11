@@ -33,6 +33,10 @@ class CalendarCarousel extends StatefulWidget {
     color: Colors.deepOrange,
     fontSize: 14.0,
   );
+  final TextStyle defaultWeekendTextStyle = TextStyle(
+    color: Colors.pinkAccent,
+    fontSize: 14.0,
+  );
 
   final List<String> weekDays;
   final double viewportFraction;
@@ -58,6 +62,7 @@ class CalendarCarousel extends StatefulWidget {
   final TextStyle weekdayTextStyle;
   final Color iconColor;
   final Widget headerText;
+  final TextStyle weekendTextStyle;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -84,6 +89,7 @@ class CalendarCarousel extends StatefulWidget {
     this.weekdayTextStyle,
     this.iconColor = Colors.blueAccent,
     this.headerText,
+    this.weekendTextStyle,
   });
 
   @override
@@ -219,7 +225,6 @@ class _CalendarState extends State<CalendarCarousel> {
                 crossAxisCount: 7,
                 childAspectRatio: 1.0,
                 children: List.generate(totalItemCount,
-
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
@@ -297,16 +302,16 @@ class _CalendarState extends State<CalendarCarousel> {
                                                     widget.todayBorderColor !=
                                                         null
                                                 ? widget.todayBorderColor
-                                                : widget
-                                                    .thisMonthDayBorderColor,
+                                                : widget.thisMonthDayBorderColor,
                                   ),
                                 ),
                       child: Center(
                         child: DefaultTextStyle(
-                          style: defaultTextStyle,
+                          style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay
+                              ? widget.defaultWeekendTextStyle : defaultTextStyle,
                           child: Text(
                             '${now.day}',
-                            style: textStyle,
+                            style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay ? widget.weekendTextStyle : textStyle,
                             maxLines: 1,
                           ),
                         ),

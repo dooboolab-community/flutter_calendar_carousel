@@ -58,6 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
           onDayPressed: (DateTime date) {
             this.setState(() => _currentDate = date);
           },
+          weekendTextStyle: TextStyle(
+            color: Colors.red,
+          ),
           thisMonthDayBorderColor: Colors.grey,
 //          weekDays: null, /// for pass null when you do not want to render weekDays
 //          headerText: Container( /// Example for rendering custom header

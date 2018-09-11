@@ -1,3 +1,8 @@
+## [0.2.0]
+* Customizable headerWidget.
+* Setting weekdays visibility
+* Customizable weekend color.
+
 ## [0.1.3]
 * Rename the top-level "docs" directory to "doc".
 
