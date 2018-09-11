@@ -1,3 +1,6 @@
+## [1.0.1]
+* Show markedDates.
+
 ## [0.2.0]
 * Customizable headerWidget.
 * Setting weekdays visibility

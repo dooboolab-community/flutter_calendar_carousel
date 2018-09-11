@@ -3,9 +3,14 @@
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
+<h5>Rectangular style</h5>
 <br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar1.gif"/>
+<h5>Circular style</h5>
 <br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar2.gif"/>
+<h5>No border</h5>
 <br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar3.gif"/>
+<h5>Marked Dates</h5>
+<br/><img src="https://github.com/dooboolab/flutter_calendar_carousel/blob/master/doc/calendar4.gif"/>
 
 ## Getting Started
 For help getting started with Flutter, view our online
@@ -39,6 +44,8 @@ For help getting started with Flutter, view our online
 | iconColor | `Color` | Colors.blueAccent |
 | headerText | `Text` | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
 | weekendTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.pinkAccent` |
+| markedDates | `List<DateTime` | [] |
+| markedDateColor | `Color` | Colors.blueAccent |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
@@ -76,6 +83,7 @@ Widget widget() {
 - [x] Customizable headerWidget.
 - [x] Set weekdays visibility.
 - [x] Customizable textStyles for days in weekend.
+- [x] Marked Dates.
 - [ ] Multiple days selections. 
 - [ ] Widget test. 
 

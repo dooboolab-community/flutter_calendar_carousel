@@ -63,6 +63,8 @@ class CalendarCarousel extends StatefulWidget {
   final Color iconColor;
   final Widget headerText;
   final TextStyle weekendTextStyle;
+  final List<DateTime> markedDates;
+  final Color markedDateColor;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -90,6 +92,8 @@ class CalendarCarousel extends StatefulWidget {
     this.iconColor = Colors.blueAccent,
     this.headerText,
     this.weekendTextStyle,
+    this.markedDates,
+    this.markedDateColor = Colors.blueAccent,
   });
 
   @override
@@ -305,16 +309,21 @@ class _CalendarState extends State<CalendarCarousel> {
                                                 : widget.thisMonthDayBorderColor,
                                   ),
                                 ),
-                      child: Center(
-                        child: DefaultTextStyle(
-                          style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay
-                              ? widget.defaultWeekendTextStyle : defaultTextStyle,
-                          child: Text(
-                            '${now.day}',
-                            style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay ? widget.weekendTextStyle : textStyle,
-                            maxLines: 1,
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: DefaultTextStyle(
+                              style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay
+                                  ? widget.defaultWeekendTextStyle : defaultTextStyle,
+                              child: Text(
+                                '${now.day}',
+                                style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay ? widget.weekendTextStyle : textStyle,
+                                maxLines: 1,
+                              ),
+                            ),
                           ),
-                        ),
+                          _renderMarked(now),
+                        ],
                       ),
                     ),
                   );
@@ -403,5 +412,20 @@ class _CalendarState extends State<CalendarCarousel> {
       );
     }
     return list;
+  }
+
+  Widget _renderMarked(DateTime now) {
+    if (widget.markedDates != null && widget.markedDates.length > 0 && widget.markedDates.contains(now)) {
+      return Positioned(
+        child: Container(
+          color: Colors.red,
+          height: 4.0,
+          width: 4.0,
+        ),
+        bottom: 4.0,
+        left: 18.0,
+      );
+    }
+    return Container();
   }
 }
