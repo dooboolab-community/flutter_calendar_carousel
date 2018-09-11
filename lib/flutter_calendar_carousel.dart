@@ -56,6 +56,8 @@ class CalendarCarousel extends StatefulWidget {
   final bool daysHaveCircularBorder;
   final Function(DateTime) onDayPressed;
   final TextStyle weekdayTextStyle;
+  final Color iconColor;
+  final Widget headerText;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -80,6 +82,8 @@ class CalendarCarousel extends StatefulWidget {
     this.daysHaveCircularBorder,
     this.onDayPressed,
     this.weekdayTextStyle,
+    this.iconColor = Colors.blueAccent,
+    this.headerText,
   });
 
   @override
@@ -129,21 +133,31 @@ class _CalendarState extends State<CalendarCarousel> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () => _setDate(page: 0),
-                    icon: Icon(Icons.keyboard_arrow_left),
+                    icon: Icon(
+                      Icons.keyboard_arrow_left,
+                      color: widget.iconColor,
+                    ),
                   ),
-                  Text(
-                    '${DateFormat.yMMM().format(this._dates[1])}',
+                  Container(
+                    child: widget.headerText != null
+                      ? widget.headerText
+                      : Text(
+                        '${DateFormat.yMMM().format(this._dates[1])}',
+                      ),
                   ),
                   IconButton(
                     onPressed: () => _setDate(page: 2),
-                    icon: Icon(Icons.keyboard_arrow_right),
+                    icon: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: widget.iconColor,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
           Container(
-            child: Row(
+            child: widget.weekDays == null ? Container() : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: this._renderWeekDays(),
             ),
@@ -257,7 +271,7 @@ class _CalendarState extends State<CalendarCarousel> {
                           year, month, index + 1 - this._startWeekday)),
                       padding: EdgeInsets.all(widget.dayPadding),
                       shape: widget.daysHaveCircularBorder == null
-                          ? null
+                          ? CircleBorder()
                           : widget.daysHaveCircularBorder
                               ? CircleBorder(
                                   side: BorderSide(

@@ -31,11 +31,13 @@ For help getting started with Flutter, view our online
 | todayButtonColor | `Colors` | Colors.red |
 | selectedDateTime | `DateTime` | |
 | selectedDayTextStyle | `TextStyle` | |
-| selectedDayBorderColor | `color` | Colors.green |
-| selectedDayButtonColor | `color` | Colors.green |
+| selectedDayBorderColor | `Color` | Colors.green |
+| selectedDayButtonColor | `Color` | Colors.green |
 | daysHaveCircularBorder | `bool` | |
 | onDayPressed | `Func` | |
 | weekdayTextStyle | `TextStyle` | |
+| iconColor | `Color` | Colors.blueAccent |
+| headerText | `Text` | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
@@ -56,6 +58,10 @@ Widget widget() {
       height: 420.0,
       selectedDateTime: _currentDate,
       daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+//          weekDays: null, /// for pass null when you do not want to render weekDays
+//          headerText: Container( /// Example for rendering custom header
+//            child: Text('Custom Header'),
+//          ),
     ),
   );
 }
@@ -63,7 +69,8 @@ Widget widget() {
 
 ### TODO
 - [x] Render weekdays.
-- [ ] Customizable header.
+- [x] Customizable headerWidget.
+- [x] Set weekdays visibility.
 - [ ] Customizable textStyles for days in weekend.
 - [ ] Multiple days selections. 
 - [ ] Widget test. 

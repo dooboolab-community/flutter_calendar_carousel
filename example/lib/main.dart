@@ -59,6 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
             this.setState(() => _currentDate = date);
           },
           thisMonthDayBorderColor: Colors.grey,
+//          weekDays: null, /// for pass null when you do not want to render weekDays
+//          headerText: Container( /// Example for rendering custom header
+//            child: Text('Custom Header'),
+//          ),
           height: 420.0,
           selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
