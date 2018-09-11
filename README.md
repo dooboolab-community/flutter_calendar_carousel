@@ -1,5 +1,5 @@
 # flutter_calendar_carousel
-Calendar widget for flutter that is swipeable. This widget can help you build customizable calendar with scrollable actions.
+ Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable.
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
