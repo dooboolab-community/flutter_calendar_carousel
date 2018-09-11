@@ -75,7 +75,7 @@ Widget widget() {
 - [x] Render weekdays.
 - [x] Customizable headerWidget.
 - [x] Set weekdays visibility.
-- [ ] Customizable textStyles for days in weekend.
+- [x] Customizable textStyles for days in weekend.
 - [ ] Multiple days selections. 
 - [ ] Widget test. 
 
