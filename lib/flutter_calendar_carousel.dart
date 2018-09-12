@@ -47,7 +47,6 @@ class CalendarCarousel extends StatefulWidget {
     left: 18.0,
   );
 
-
   final List<String> weekDays;
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
@@ -162,10 +161,10 @@ class _CalendarState extends State<CalendarCarousel> {
                   ),
                   Container(
                     child: widget.headerText != null
-                      ? widget.headerText
-                      : Text(
-                        '${DateFormat.yMMM().format(this._dates[1])}',
-                      ),
+                        ? widget.headerText
+                        : Text(
+                            '${DateFormat.yMMM().format(this._dates[1])}',
+                          ),
                   ),
                   IconButton(
                     onPressed: () => _setDate(page: 2),
@@ -179,10 +178,12 @@ class _CalendarState extends State<CalendarCarousel> {
             ),
           ),
           Container(
-            child: widget.weekDays == null ? Container() : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: this._renderWeekDays(),
-            ),
+            child: widget.weekDays == null
+                ? Container()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: this._renderWeekDays(),
+                  ),
           ),
           Expanded(
             child: PageView.builder(
@@ -241,6 +242,7 @@ class _CalendarState extends State<CalendarCarousel> {
                 crossAxisCount: 7,
                 childAspectRatio: 1.0,
                 children: List.generate(totalItemCount,
+
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
@@ -318,18 +320,24 @@ class _CalendarState extends State<CalendarCarousel> {
                                                     widget.todayBorderColor !=
                                                         null
                                                 ? widget.todayBorderColor
-                                                : widget.thisMonthDayBorderColor,
+                                                : widget
+                                                    .thisMonthDayBorderColor,
                                   ),
                                 ),
                       child: Stack(
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay
-                                  ? widget.defaultWeekendTextStyle : defaultTextStyle,
+                              style: (index % 7 == 0 || index % 7 == 6) &&
+                                      !isSelectedDay
+                                  ? widget.defaultWeekendTextStyle
+                                  : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (index % 7 == 0 || index % 7 == 6) && !isSelectedDay ? widget.weekendTextStyle : textStyle,
+                                style: (index % 7 == 0 || index % 7 == 6) &&
+                                        !isSelectedDay
+                                    ? widget.weekendTextStyle
+                                    : textStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -427,8 +435,12 @@ class _CalendarState extends State<CalendarCarousel> {
   }
 
   Widget _renderMarked(DateTime now) {
-    if (widget.markedDates != null && widget.markedDates.length > 0 && widget.markedDates.contains(now)) {
-      return widget.markedDateWidget != null ? widget.markedDateWidget : widget.defaultMarkedDateWidget;
+    if (widget.markedDates != null &&
+        widget.markedDates.length > 0 &&
+        widget.markedDates.contains(now)) {
+      return widget.markedDateWidget != null
+          ? widget.markedDateWidget
+          : widget.defaultMarkedDateWidget;
     }
     return Container();
   }
