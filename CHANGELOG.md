@@ -1,3 +1,6 @@
+## [1.0.2]
+* Use `Position` widget to mark the dates.
+
 ## [1.0.1]
 * Show markedDates.
 

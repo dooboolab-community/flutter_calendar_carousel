@@ -37,6 +37,16 @@ class CalendarCarousel extends StatefulWidget {
     color: Colors.pinkAccent,
     fontSize: 14.0,
   );
+  final Widget defaultMarkedDateWidget = Positioned(
+    child: Container(
+      color: Colors.blueAccent,
+      height: 4.0,
+      width: 4.0,
+    ),
+    bottom: 4.0,
+    left: 18.0,
+  );
+
 
   final List<String> weekDays;
   final double viewportFraction;
@@ -65,6 +75,7 @@ class CalendarCarousel extends StatefulWidget {
   final TextStyle weekendTextStyle;
   final List<DateTime> markedDates;
   final Color markedDateColor;
+  final Widget markedDateWidget;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -93,7 +104,8 @@ class CalendarCarousel extends StatefulWidget {
     this.headerText,
     this.weekendTextStyle,
     this.markedDates,
-    this.markedDateColor = Colors.blueAccent,
+    @deprecated this.markedDateColor,
+    this.markedDateWidget,
   });
 
   @override
@@ -416,15 +428,7 @@ class _CalendarState extends State<CalendarCarousel> {
 
   Widget _renderMarked(DateTime now) {
     if (widget.markedDates != null && widget.markedDates.length > 0 && widget.markedDates.contains(now)) {
-      return Positioned(
-        child: Container(
-          color: widget.markedDateColor,
-          height: 4.0,
-          width: 4.0,
-        ),
-        bottom: 4.0,
-        left: 18.0,
-      );
+      return widget.markedDateWidget != null ? widget.markedDateWidget : widget.defaultMarkedDateWidget;
     }
     return Container();
   }
