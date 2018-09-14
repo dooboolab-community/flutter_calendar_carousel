@@ -1,3 +1,6 @@
+## [1.0.3]
+* Fixed pub broken image.
+
 ## [1.0.2]
 * Use `Position` widget to mark the dates.
 
