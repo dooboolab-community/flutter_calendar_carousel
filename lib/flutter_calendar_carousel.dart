@@ -246,7 +246,9 @@ class _CalendarState extends State<CalendarCarousel> {
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
-                      DateTime.now().day == index + 1 - this._startWeekday && DateTime.now().month == month && DateTime.now().year == year;
+                      DateTime.now().day == index + 1 - this._startWeekday &&
+                          DateTime.now().month == month &&
+                          DateTime.now().year == year;
                   bool isSelectedDay = widget.selectedDateTime != null &&
                       widget.selectedDateTime.year == year &&
                       widget.selectedDateTime.month == month &&
@@ -329,15 +331,21 @@ class _CalendarState extends State<CalendarCarousel> {
                           Center(
                             child: DefaultTextStyle(
                               style: (index % 7 == 0 || index % 7 == 6) &&
-                                      !isSelectedDay
+                                      !isSelectedDay &&
+                                      !isToday
                                   ? widget.defaultWeekendTextStyle
-                                  : defaultTextStyle,
+                                  : isToday
+                                      ? widget.defaultTodayTextStyle
+                                      : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
                                 style: (index % 7 == 0 || index % 7 == 6) &&
-                                        !isSelectedDay
+                                        !isSelectedDay &&
+                                        !isToday
                                     ? widget.weekendTextStyle
-                                    : textStyle,
+                                    : isToday
+                                        ? widget.todayTextStyle
+                                        : textStyle,
                                 maxLines: 1,
                               ),
                             ),
