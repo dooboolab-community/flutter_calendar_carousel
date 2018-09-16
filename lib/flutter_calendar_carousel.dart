@@ -246,7 +246,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
-                      DateTime.now().day == index + 1 - this._startWeekday;
+                      DateTime.now().day == index + 1 - this._startWeekday && DateTime.now().month == month && DateTime.now().year == year;
                   bool isSelectedDay = widget.selectedDateTime != null &&
                       widget.selectedDateTime.year == year &&
                       widget.selectedDateTime.month == month &&
