@@ -47,6 +47,9 @@ For help getting started with Flutter, view our online
 | markedDates | `List<DateTime` | [] |
 | markedDateColor | `Color` | Colors.blueAccent |
 | markedDateWidget | `Color` | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
+| headerMargin | `EdgetInsets` | `const EdgeInsets.symmetric(vertical: 16.0)` |
+| childAspectRatio | `double` | `1.0` |
+| weekDayMargin | `EdgeInsets` | `const EdgeInsets.only(bottom: 4.0)` |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml

@@ -75,6 +75,9 @@ class CalendarCarousel extends StatefulWidget {
   final List<DateTime> markedDates;
   final Color markedDateColor;
   final Widget markedDateWidget;
+  final EdgeInsets headerMargin;
+  final double childAspectRatio;
+  final EdgeInsets weekDayMargin;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -105,6 +108,9 @@ class CalendarCarousel extends StatefulWidget {
     this.markedDates,
     @deprecated this.markedDateColor,
     this.markedDateWidget,
+    this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
+    this.childAspectRatio = 1.0,
+    this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
   });
 
   @override
@@ -146,7 +152,7 @@ class _CalendarState extends State<CalendarCarousel> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0),
+            margin: widget.headerMargin,
             child: DefaultTextStyle(
               style: widget.defaultHeaderTextStyle,
               child: Row(
@@ -240,9 +246,9 @@ class _CalendarState extends State<CalendarCarousel> {
               height: double.infinity,
               child: GridView.count(
                 crossAxisCount: 7,
-                childAspectRatio: 1.0,
+                childAspectRatio: widget.childAspectRatio,
+                padding: EdgeInsets.zero,
                 children: List.generate(totalItemCount,
-
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
@@ -426,7 +432,7 @@ class _CalendarState extends State<CalendarCarousel> {
       list.add(
         Expanded(
             child: Container(
-          margin: EdgeInsets.only(bottom: 4.0),
+          margin: widget.weekDayMargin,
           child: Center(
             child: DefaultTextStyle(
               style: widget.defaultWeekdayTextStyle,

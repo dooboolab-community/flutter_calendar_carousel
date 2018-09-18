@@ -1,3 +1,7 @@
+## [1.1.1]
+* Expose new variables.
+  - headerMargin, childAspectRatio, weekDayMargin
+
 ## [1.1.0]
 * Give proper text color in weekend when it is today.
 * Compare month and year for marking today's date. Resolve #3.
