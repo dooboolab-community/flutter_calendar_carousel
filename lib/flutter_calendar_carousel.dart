@@ -70,6 +70,7 @@ class CalendarCarousel extends StatefulWidget {
   final Function(DateTime) onDayPressed;
   final TextStyle weekdayTextStyle;
   final Color iconColor;
+  final TextStyle headerTextStyle;
   final Widget headerText;
   final TextStyle weekendTextStyle;
   final List<DateTime> markedDates;
@@ -103,6 +104,7 @@ class CalendarCarousel extends StatefulWidget {
     this.onDayPressed,
     this.weekdayTextStyle,
     this.iconColor = Colors.blueAccent,
+    this.headerTextStyle,
     this.headerText,
     this.weekendTextStyle,
     this.markedDates,
@@ -154,7 +156,9 @@ class _CalendarState extends State<CalendarCarousel> {
           Container(
             margin: widget.headerMargin,
             child: DefaultTextStyle(
-              style: widget.defaultHeaderTextStyle,
+              style: widget.headerTextStyle != null
+                ? widget.headerTextStyle
+                : widget.defaultHeaderTextStyle,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
