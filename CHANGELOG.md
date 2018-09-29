@@ -1,3 +1,6 @@
+## [1.1.2]
+* Implemented a way to change the header text style.
+
 ## [1.1.1]
 * Expose new variables.
   - headerMargin, childAspectRatio, weekDayMargin
