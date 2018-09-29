@@ -42,6 +42,7 @@ For help getting started with Flutter, view our online
 | onDayPressed | `Func` | |
 | weekdayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.deepOrange` |
 | iconColor | `Color` | Colors.blueAccent |
+| headerTextStyle | `TextStyle` | `fontSize: 20.0, color: Colors.blue` |
 | headerText | `Text` | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
 | weekendTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.pinkAccent` |
 | markedDates | `List<DateTime` | [] |
