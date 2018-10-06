@@ -454,11 +454,15 @@ class _CalendarState extends State<CalendarCarousel> {
 
   Widget _renderMarked(DateTime now) {
     if (widget.markedDates != null &&
-        widget.markedDates.length > 0 &&
-        widget.markedDates.contains(now)) {
-      return widget.markedDateWidget != null
-          ? widget.markedDateWidget
-          : widget.defaultMarkedDateWidget;
+        widget.markedDates.length > 0) {
+      List<DateTime> markedDates = widget.markedDates.map((date) {
+        return DateTime(date.year, date.month, date.day);
+      }).toList();
+      if (markedDates.contains(now)) {
+        return widget.markedDateWidget != null
+            ? widget.markedDateWidget
+            : widget.defaultMarkedDateWidget;
+      }
     }
     return Container();
   }
