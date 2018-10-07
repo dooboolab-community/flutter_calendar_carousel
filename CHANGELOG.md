@@ -1,3 +1,6 @@
+## [1.1.3]
+* Mark dates with non-zero times.
+
 ## [1.1.2]
 * Implemented a way to change the header text style.
 
