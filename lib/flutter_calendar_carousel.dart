@@ -116,7 +116,7 @@ class CalendarCarousel extends StatefulWidget {
   });
 
   @override
-  _CalendarState createState() => _CalendarState();
+  State createState() => _CalendarState();
 }
 
 class _CalendarState extends State<CalendarCarousel> {
@@ -157,8 +157,8 @@ class _CalendarState extends State<CalendarCarousel> {
             margin: widget.headerMargin,
             child: DefaultTextStyle(
               style: widget.headerTextStyle != null
-                ? widget.headerTextStyle
-                : widget.defaultHeaderTextStyle,
+                  ? widget.headerTextStyle
+                  : widget.defaultHeaderTextStyle,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -253,6 +253,7 @@ class _CalendarState extends State<CalendarCarousel> {
                 childAspectRatio: widget.childAspectRatio,
                 padding: EdgeInsets.zero,
                 children: List.generate(totalItemCount,
+
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
@@ -453,8 +454,7 @@ class _CalendarState extends State<CalendarCarousel> {
   }
 
   Widget _renderMarked(DateTime now) {
-    if (widget.markedDates != null &&
-        widget.markedDates.length > 0) {
+    if (widget.markedDates != null && widget.markedDates.length > 0) {
       List<DateTime> markedDates = widget.markedDates.map((date) {
         return DateTime(date.year, date.month, date.day);
       }).toList();
