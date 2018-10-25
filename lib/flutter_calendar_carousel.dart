@@ -116,7 +116,7 @@ class CalendarCarousel extends StatefulWidget {
   });
 
   @override
-  State createState() => _CalendarState();
+  _CalendarState createState() => _CalendarState();
 }
 
 class _CalendarState extends State<CalendarCarousel> {
