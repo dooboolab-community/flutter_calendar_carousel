@@ -2,6 +2,7 @@ library flutter_calendar_dooboo;
 
 /// A Calculator.
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 
 class CalendarCarousel extends StatefulWidget {
@@ -128,6 +129,7 @@ class _CalendarState extends State<CalendarCarousel> {
   @override
   initState() {
     super.initState();
+    initializeDateFormatting();
 
     /// setup pageController
     _controller = PageController(
