@@ -552,6 +552,7 @@ class _CalendarState extends State<CalendarCarousel> {
     setState(() {
       this._selectedDate = picked;
     });
+    widget.onDayPressed(picked);
   }
 
   Future<Null> selectDateFromPicker() async {
@@ -590,8 +591,9 @@ class _CalendarState extends State<CalendarCarousel> {
           date1,
           date2,
         ];
-        this._selectedDate =
-            widget.selectedDateTime ? widget.selectedDateTime : DateTime.now();
+        this._selectedDate = widget.selectedDateTime != null
+            ? widget.selectedDateTime
+            : DateTime.now();
       });
     } else if (page == 1) {
       return;
