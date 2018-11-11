@@ -13,6 +13,7 @@ Widget widget() {
       height: 420.0,
       selectedDateTime: _currentDate,
       daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+      markedDatesMap: _markedDateMap,
 //          weekendStyle: TextStyle(
 //            color: Colors.red,
 //          ),

@@ -1,3 +1,7 @@
+## [1.1.8]
+* Render multiple marked dates.
+* `markedDates` is deprecated. Use `markedDatesMap` instead.
+
 ## [1.1.3]
 * Mark dates with non-zero times.
 

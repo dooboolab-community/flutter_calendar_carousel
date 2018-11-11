@@ -46,6 +46,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime(2018, 8, 1);
   List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
+  Map<DateTime, int> _markedDateMap = {
+    DateTime(2018, 9, 20) : 4,
+    DateTime(2018, 10, 11) : 1,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //          headerText: Container( /// Example for rendering custom header
 //            child: Text('Custom Header'),
 //          ),
-          markedDates: _markedDate,
+//          markedDates: _markedDate,
+          markedDatesMap: _markedDateMap,
           height: 420.0,
           selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border

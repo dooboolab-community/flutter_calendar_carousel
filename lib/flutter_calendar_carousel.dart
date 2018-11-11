@@ -39,14 +39,11 @@ class CalendarCarousel extends StatefulWidget {
     color: Colors.pinkAccent,
     fontSize: 14.0,
   );
-  final Widget defaultMarkedDateWidget = Positioned(
-    child: Container(
-      color: Colors.blueAccent,
-      height: 4.0,
-      width: 4.0,
-    ),
-    bottom: 4.0,
-    left: 18.0,
+  final Widget defaultMarkedDateWidget = Container(
+    margin: EdgeInsets.symmetric(horizontal: 1.0),
+    color: Colors.blueAccent,
+    height: 4.0,
+    width: 4.0,
   );
 
   final List<String> weekDays;
@@ -76,6 +73,7 @@ class CalendarCarousel extends StatefulWidget {
   final Widget headerText;
   final TextStyle weekendTextStyle;
   final List<DateTime> markedDates;
+  final Map<DateTime, int> markedDatesMap;
   final Color markedDateColor;
   final Widget markedDateWidget;
   final EdgeInsets headerMargin;
@@ -83,40 +81,42 @@ class CalendarCarousel extends StatefulWidget {
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
 
-  CalendarCarousel(
-      {this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
-      this.viewportFraction = 1.0,
-      this.prevDaysTextStyle,
-      this.daysTextStyle,
-      this.nextDaysTextStyle,
-      this.prevMonthDayBorderColor = Colors.transparent,
-      this.thisMonthDayBorderColor = Colors.transparent,
-      this.nextMonthDayBorderColor = Colors.transparent,
-      this.dayPadding = 2.0,
-      this.height = double.infinity,
-      this.width = double.infinity,
-      this.todayTextStyle,
-      this.dayButtonColor = Colors.transparent,
-      this.todayBorderColor = Colors.red,
-      this.todayButtonColor = Colors.red,
-      this.selectedDateTime,
-      this.selectedDayTextStyle,
-      this.selectedDayBorderColor = Colors.green,
-      this.selectedDayButtonColor = Colors.green,
-      this.daysHaveCircularBorder,
-      this.onDayPressed,
-      this.weekdayTextStyle,
-      this.iconColor = Colors.blueAccent,
-      this.headerTextStyle,
-      this.headerText,
-      this.weekendTextStyle,
-      this.markedDates,
-      @deprecated this.markedDateColor,
-      this.markedDateWidget,
-      this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
-      this.childAspectRatio = 1.0,
-      this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
-      this.weekFormat = false});
+  CalendarCarousel({
+    this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+    this.viewportFraction = 1.0,
+    this.prevDaysTextStyle,
+    this.daysTextStyle,
+    this.nextDaysTextStyle,
+    this.prevMonthDayBorderColor = Colors.transparent,
+    this.thisMonthDayBorderColor = Colors.transparent,
+    this.nextMonthDayBorderColor = Colors.transparent,
+    this.dayPadding = 2.0,
+    this.height = double.infinity,
+    this.width = double.infinity,
+    this.todayTextStyle,
+    this.dayButtonColor = Colors.transparent,
+    this.todayBorderColor = Colors.red,
+    this.todayButtonColor = Colors.red,
+    this.selectedDateTime,
+    this.selectedDayTextStyle,
+    this.selectedDayBorderColor = Colors.green,
+    this.selectedDayButtonColor = Colors.green,
+    this.daysHaveCircularBorder,
+    this.onDayPressed,
+    this.weekdayTextStyle,
+    this.iconColor = Colors.blueAccent,
+    this.headerTextStyle,
+    this.headerText,
+    this.weekendTextStyle,
+    @deprecated this.markedDates,
+    this.markedDatesMap,
+    @deprecated this.markedDateColor,
+    this.markedDateWidget,
+    this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
+    this.childAspectRatio = 1.0,
+    this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
+    this.weekFormat = false
+  });
 
   @override
   _CalendarState createState() => _CalendarState();
@@ -392,7 +392,18 @@ class _CalendarState extends State<CalendarCarousel> {
                               ),
                             ),
                           ),
-                          _renderMarked(now),
+                          widget.markedDatesMap != null
+                              ? Container(
+                                  height: double.infinity,
+                                  padding: EdgeInsets.only(bottom: 4.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: _renderMarkedMap(now),
+                                  ),
+                                )
+                              : _renderMarked(now),
                         ],
                       ),
                     ),
@@ -664,5 +675,26 @@ class _CalendarState extends State<CalendarCarousel> {
       }
     }
     return Container();
+  }
+
+  List<Widget> _renderMarkedMap(DateTime now) {
+    if (widget.markedDatesMap != null && widget.markedDatesMap.length > 0) {
+      for (DateTime key in widget.markedDatesMap.keys) {
+        if (key.year == now.year &&
+            key.month == now.month &&
+            key.day == now.day) {
+          List<Widget> tmp = [];
+          for (int i = 0; i < widget.markedDatesMap[key]; i++) {
+            if (widget.markedDateWidget != null) {
+              tmp.add(widget.markedDateWidget);
+            } else {
+              tmp.add(widget.defaultMarkedDateWidget);
+            }
+          }
+          return tmp;
+        }
+      }
+    }
+    return [];
   }
 }
