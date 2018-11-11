@@ -169,20 +169,23 @@ class _CalendarState extends State<CalendarCarousel> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                           IconButton(
-                            onPressed: () => _onDayPressed(DateTime.now()),
-                            icon: Icon(Icons.today, color: widget.iconColor),
+                            onPressed: () => _previousWeek(),
+                            icon: Icon(Icons.chevron_left,
+                                color: widget.iconColor),
                           ),
-                          Container(
+                          FlatButton(
+                            onPressed: () => _selectDateFromPicker(),
+                            textColor: widget.iconColor,
                             child: widget.headerText != null
                                 ? widget.headerText
                                 : Text(
-                                    '${DateFormat.yMMM().format(this._dates[1])}',
+                                    '${DateFormat.yMMM().format(this._selectedDate)}',
                                   ),
                           ),
                           IconButton(
-                            onPressed: () => _selectDateFromPicker(),
+                            onPressed: () => _nextWeek(),
                             icon: Icon(
-                              Icons.calendar_today,
+                              Icons.chevron_right,
                               color: widget.iconColor,
                             ),
                           ),
@@ -556,6 +559,19 @@ class _CalendarState extends State<CalendarCarousel> {
       this._selectedDate = picked;
     });
     widget.onDayPressed(picked);
+  }
+
+  void _previousWeek() {
+    setState(() {
+      this._selectedDate = this._selectedDate.subtract(new Duration(days: 7));
+    });
+  }
+
+  void _nextWeek() {
+    setState(() {
+      this._selectedDate = this._selectedDate.add(new Duration(days: 7));
+
+    });
   }
 
   Future<Null> _selectDateFromPicker() async {
