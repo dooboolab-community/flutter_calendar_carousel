@@ -64,13 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.6"
-  date_utils:
-    dependency: "direct main"
-    description:
-      name: date_utils
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0+2"
   flutter:
     dependency: "direct main"
     description: flutter
