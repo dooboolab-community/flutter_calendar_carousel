@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //          ),
 //          markedDates: _markedDate,
           markedDatesMap: _markedDateMap,
+          weekFormat: true,
           height: 420.0,
           selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border

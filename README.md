@@ -45,7 +45,8 @@ For help getting started with Flutter, view our online
 | headerTextStyle         | `TextStyle`     | `fontSize: 20.0, color: Colors.blue`                                                                              |
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
-| markedDates             | `List<DateTime` | []                                                                                                                |
+| ~markedDates            | `List<DateTime>` | []                                                                                                               |
+| ~markedDatesMap         | `Map<DateTime, int>` | `null`                                                                                                       |
 | markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
