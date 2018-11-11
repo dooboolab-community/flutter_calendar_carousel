@@ -17,7 +17,6 @@ For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
 
 ## Props
-<<<<<<< HEAD
 | props                   | types           | defaultValues                                                                                                     |
 | :---------------------- | :-------------: | :---------------------------------------------------------------------------------------------------------------: |
 | weekDays                |                 | ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']                                                                |
@@ -47,49 +46,13 @@ For help getting started with Flutter, view our online
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
 | ~markedDates            | `List<DateTime>` | []                                                                                                               |
-| ~markedDatesMap         | `Map<DateTime, int>` | `null`                                                                                                       |
+| markedDatesMap         | `Map<DateTime, int>` | `null`                                                                                                       |
 | markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
 | weekFormat              | `bool`          | `false`                                                                                                           |
-=======
-| props | types | defaultValues |
-| :------------ |:---------------: |:---------------:|
-| weekDays | | ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'] |
-| viewPortFraction | `double` | 1.0 |
-| prevDaysTextStyle | `TextStyle` | |
-| daysTextStyle | `TextStyle` | |
-| nextDaysTextStyle | `TextStyle` | |
-| prevMonthDayBorderColor | `Color` | Colors.transparent |
-| thisMonthDayBorderColor | `Color` | Colors.transparent |
-| nextMonthDayBorderColor | `Color` | Colors.transparent |
-| dayPadding | `double` | 2.0 |
-| height | `double` | double.infinity |
-| width | `double` | double.infinity |
-| todayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.white` |
-| dayButtonColor | `Color` | Colors.red |
-| todayBorderColor | `Color` | Colors.red |
-| todayButtonColor | `Colors` | Colors.red |
-| selectedDateTime | `DateTime` | |
-| selectedDayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.white` |
-| selectedDayBorderColor | `Color` | Colors.green |
-| selectedDayButtonColor | `Color` | Colors.green |
-| daysHaveCircularBorder | `bool` | |
-| onDayPressed | `Func` | |
-| weekdayTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.deepOrange` |
-| iconColor | `Color` | Colors.blueAccent |
-| headerTextStyle | `TextStyle` | `fontSize: 20.0, color: Colors.blue` |
-| headerText | `Text` | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
-| weekendTextStyle | `TextStyle` | `fontSize: 14.0, color: Colors.pinkAccent` |
-| markedDates | `List<DateTime` | [] |
-| markedDateColor | `Color` | Colors.blueAccent |
-| markedDateWidget | `Color` | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
-| headerMargin | `EdgetInsets` | `const EdgeInsets.symmetric(vertical: 16.0)` |
-| childAspectRatio | `double` | `1.0` |
-| weekDayMargin | `EdgeInsets` | `const EdgeInsets.only(bottom: 4.0)` |
->>>>>>> fa39a1fdc54f014443712fdc74d90096bc8230b1
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml

@@ -1,3 +1,6 @@
+## [1.1.9]
+* Updated readme.
+
 ## [1.1.8]
 * Render multiple marked dates.
 * `markedDates` is deprecated. Use `markedDatesMap` instead.
