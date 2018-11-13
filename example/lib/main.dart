@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //            child: Text('Custom Header'),
 //          ),
 //          markedDates: _markedDate,
+          weekFormat: false,
           markedDatesMap: _markedDateMap,
           height: 420.0,
           selectedDateTime: _currentDate,

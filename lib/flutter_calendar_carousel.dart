@@ -142,6 +142,8 @@ class _CalendarState extends State<CalendarCarousel> {
 
       /// width percentage
     );
+
+    _selectedDate = widget.selectedDateTime;
     this._setDate();
   }
 
@@ -200,12 +202,16 @@ class _CalendarState extends State<CalendarCarousel> {
                             color: widget.iconColor,
                           ),
                         ),
-                        Container(
-                          child: widget.headerText != null
-                              ? widget.headerText
-                              : Text(
-                                  '${DateFormat.yMMM().format(this._dates[1])}',
-                                ),
+                        FlatButton(
+                          onPressed: () => _selectDateFromPicker(),
+                          textColor: widget.iconColor,
+                          child: Container(
+                            child: widget.headerText != null
+                                ? widget.headerText
+                                : Text(
+                              '${DateFormat.yMMM().format(this._dates[1])}',
+                            ),
+                          ),
                         ),
                         IconButton(
                           onPressed: () => _setDate(page: 2),
@@ -577,17 +583,18 @@ class _CalendarState extends State<CalendarCarousel> {
   Future<Null> _selectDateFromPicker() async {
     DateTime selected = await showDatePicker(
       context: context,
-      initialDate: this._selectedDate ?? new DateTime.now(),
-      firstDate: new DateTime(1960),
-      lastDate: new DateTime(2050),
+      initialDate: _selectedDate ?? new DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
     );
 
     if (selected != null) {
       // updating selected date range based on selected week
       setState(() {
-        this._selectedDate = selected;
+        _selectedDate = selected;
       });
       widget.onDayPressed(selected);
+      _setDate();
     }
   }
 
@@ -596,11 +603,15 @@ class _CalendarState extends State<CalendarCarousel> {
   }) {
     if (page == null) {
       /// setup dates
+      var _date = DateTime.now();
+      if (_selectedDate != null) {
+        _date = _selectedDate;
+      }
       DateTime date0 =
-          DateTime(DateTime.now().year, DateTime.now().month - 1, 1);
-      DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month, 1);
+          DateTime(_date.year, _date.month - 1, 1);
+      DateTime date1 = DateTime(_date.year, _date.month, 1);
       DateTime date2 =
-          DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
+          DateTime(_date.year, _date.month + 1, 1);
 
       this.setState(() {
         /// setup current day
@@ -611,8 +622,8 @@ class _CalendarState extends State<CalendarCarousel> {
           date1,
           date2,
         ];
-        this._selectedDate = widget.selectedDateTime != null
-            ? widget.selectedDateTime
+        _selectedDate = _selectedDate != null
+            ? _selectedDate
             : DateTime.now();
       });
     } else if (page == 1) {
