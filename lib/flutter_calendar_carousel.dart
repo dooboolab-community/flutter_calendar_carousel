@@ -144,7 +144,7 @@ class _CalendarState extends State<CalendarCarousel> {
     );
 
     _selectedDate = widget.selectedDateTime;
-    this._setDate();
+    _setDate();
   }
 
   @override
@@ -209,7 +209,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             child: widget.headerText != null
                                 ? widget.headerText
                                 : Text(
-                              '${DateFormat.yMMM().format(this._dates[1])}',
+                              '${DateFormat.yMMM().format(_dates[1])}',
                             ),
                           ),
                         ),
@@ -229,7 +229,7 @@ class _CalendarState extends State<CalendarCarousel> {
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: this._renderWeekDays(),
+                    children: _renderWeekDays(),
                   ),
           ),
           Expanded(
@@ -238,7 +238,7 @@ class _CalendarState extends State<CalendarCarousel> {
                 : PageView.builder(
                     itemCount: 3,
                     onPageChanged: (value) {
-                      this._setDate(page: value);
+                      _setDate(page: value);
                     },
                     controller: _controller,
                     itemBuilder: (context, index) {
@@ -255,14 +255,14 @@ class _CalendarState extends State<CalendarCarousel> {
   builder(int slideIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
     int totalItemCount = DateTime(
-          this._dates[slideIndex].year,
-          this._dates[slideIndex].month + 1,
+          _dates[slideIndex].year,
+          _dates[slideIndex].month + 1,
           0,
         ).day +
-        this._startWeekday +
-        (7 - this._endWeekday);
-    int year = this._dates[slideIndex].year;
-    int month = this._dates[slideIndex].month;
+        _startWeekday +
+        (7 - _endWeekday);
+    int year = _dates[slideIndex].year;
+    int month = _dates[slideIndex].month;
 
     return AnimatedBuilder(
       animation: _controller,
@@ -296,17 +296,17 @@ class _CalendarState extends State<CalendarCarousel> {
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
-                      DateTime.now().day == index + 1 - this._startWeekday &&
+                      DateTime.now().day == index + 1 - _startWeekday &&
                           DateTime.now().month == month &&
                           DateTime.now().year == year;
                   bool isSelectedDay = widget.selectedDateTime != null &&
                       widget.selectedDateTime.year == year &&
                       widget.selectedDateTime.month == month &&
                       widget.selectedDateTime.day ==
-                          index + 1 - this._startWeekday;
-                  bool isPrevMonthDay = index < this._startWeekday;
+                          index + 1 - _startWeekday;
+                  bool isPrevMonthDay = index < _startWeekday;
                   bool isNextMonthDay = index >=
-                      (DateTime(year, month + 1, 0).day) + this._startWeekday;
+                      (DateTime(year, month + 1, 0).day) + _startWeekday;
                   bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
 
                   DateTime now = DateTime(year, month, 1);
@@ -314,11 +314,11 @@ class _CalendarState extends State<CalendarCarousel> {
                   TextStyle defaultTextStyle;
                   if (isPrevMonthDay) {
                     now = now
-                        .subtract(Duration(days: this._startWeekday - index));
+                        .subtract(Duration(days: _startWeekday - index));
                     textStyle = widget.prevDaysTextStyle;
                     defaultTextStyle = widget.defaultPrevDaysTextStyle;
                   } else if (isThisMonthDay) {
-                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = isSelectedDay
                         ? widget.selectedDayTextStyle
                         : isToday
@@ -330,7 +330,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             ? widget.defaultTodayTextStyle
                             : widget.defaultDaysTextStyle;
                   } else {
-                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = widget.nextDaysTextStyle;
                     defaultTextStyle = widget.defaultNextDaysTextStyle;
                   }
@@ -343,7 +343,7 @@ class _CalendarState extends State<CalendarCarousel> {
                               ? widget.todayButtonColor
                               : widget.dayButtonColor,
                       onPressed: () => widget.onDayPressed(DateTime(
-                          year, month, index + 1 - this._startWeekday)),
+                          year, month, index + 1 - _startWeekday)),
                       padding: EdgeInsets.all(widget.dayPadding),
                       shape: widget.daysHaveCircularBorder == null
                           ? CircleBorder()
@@ -426,7 +426,7 @@ class _CalendarState extends State<CalendarCarousel> {
   }
 
   Widget weekBuilder(BuildContext context) {
-    List<DateTime> weekDays = _getDaysInWeek(selectedDate: this._selectedDate);
+    List<DateTime> weekDays = _getDaysInWeek(selectedDate: _selectedDate);
 
     return Stack(
       children: <Widget>[
@@ -445,14 +445,14 @@ class _CalendarState extends State<CalendarCarousel> {
                 bool isToday = weekDays[index].day == DateTime.now().day &&
                     weekDays[index].month == DateTime.now().month &&
                     weekDays[index].year == DateTime.now().year;
-                bool isSelectedDay = this._selectedDate != null &&
-                    this._selectedDate.year == weekDays[index].year &&
-                    this._selectedDate.month == weekDays[index].month &&
-                    this._selectedDate.day == weekDays[index].day;
+                bool isSelectedDay = _selectedDate != null &&
+                    _selectedDate.year == weekDays[index].year &&
+                    _selectedDate.month == weekDays[index].month &&
+                    _selectedDate.day == weekDays[index].day;
                 bool isPrevMonthDay =
-                    weekDays[index].month < this._selectedDate.month;
+                    weekDays[index].month < _selectedDate.month;
                 bool isNextMonthDay =
-                    weekDays[index].month > this._selectedDate.month;
+                    weekDays[index].month > _selectedDate.month;
                 bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
 
                 DateTime now = weekDays[index];
@@ -562,21 +562,20 @@ class _CalendarState extends State<CalendarCarousel> {
   void _onDayPressed(DateTime picked) {
     if (picked == null) return;
     setState(() {
-      this._selectedDate = picked;
+      _selectedDate = picked;
     });
     widget.onDayPressed(picked);
   }
 
   void _previousWeek() {
     setState(() {
-      this._selectedDate = this._selectedDate.subtract(new Duration(days: 7));
+      _selectedDate = _selectedDate.subtract(new Duration(days: 7));
     });
   }
 
   void _nextWeek() {
     setState(() {
-      this._selectedDate = this._selectedDate.add(new Duration(days: 7));
-
+      _selectedDate = _selectedDate.add(new Duration(days: 7));
     });
   }
 
@@ -613,11 +612,11 @@ class _CalendarState extends State<CalendarCarousel> {
       DateTime date2 =
           DateTime(_date.year, _date.month + 1, 1);
 
-      this.setState(() {
+      setState(() {
         /// setup current day
         _startWeekday = date1.weekday;
         _endWeekday = date2.weekday;
-        this._dates = [
+        _dates = [
           date0,
           date1,
           date2,
@@ -630,7 +629,7 @@ class _CalendarState extends State<CalendarCarousel> {
       return;
     } else {
       print('page: $page');
-      List<DateTime> dates = this._dates;
+      List<DateTime> dates = _dates;
       print('dateLength: ${dates.length}');
       if (page == 0) {
         dates[2] = DateTime(dates[0].year, dates[0].month + 1, 1);
@@ -644,14 +643,14 @@ class _CalendarState extends State<CalendarCarousel> {
         page = page - 1;
       }
 
-      this.setState(() {
+      setState(() {
         _startWeekday = dates[page].weekday;
         _endWeekday = dates[page + 1].weekday;
-        this._dates = dates;
+        _dates = dates;
       });
 
       print('dates');
-      print(this._dates);
+      print(_dates);
 
       _controller.animateToPage(page,
           duration: Duration(milliseconds: 1), curve: Threshold(0.0));
