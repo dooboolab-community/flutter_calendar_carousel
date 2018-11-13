@@ -6,6 +6,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
 
+enum WeekDay { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+
 class CalendarCarousel extends StatefulWidget {
   final TextStyle defaultHeaderTextStyle = TextStyle(
     fontSize: 20.0,
@@ -47,6 +49,7 @@ class CalendarCarousel extends StatefulWidget {
   );
 
   final List<String> weekDays;
+  final List<WeekDay> weekends;
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -83,6 +86,7 @@ class CalendarCarousel extends StatefulWidget {
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+    this.weekends = const [WeekDay.Saturday, WeekDay.Sunday], // SAT, SUN
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
     this.daysTextStyle,
@@ -380,7 +384,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (index % 7 == 0 || index % 7 == 6) &&
+                              style: (widget.weekends.contains(WeekDay.values[index % 7])) &&
                                       !isSelectedDay &&
                                       !isToday
                                   ? widget.defaultWeekendTextStyle
@@ -389,7 +393,7 @@ class _CalendarState extends State<CalendarCarousel> {
                                       : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (index % 7 == 0 || index % 7 == 6) &&
+                                style: (widget.weekends.contains(index % 7)) &&
                                         !isSelectedDay &&
                                         !isToday
                                     ? widget.weekendTextStyle

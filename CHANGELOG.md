@@ -1,3 +1,6 @@
+## [1.1.11]
+* Ability to customize weekend days [#13](https://github.com/dooboolab/flutter_calendar_carousel/issues/13).
+
 ## [1.1.10]
 * Support weekFormat but without carousel.
 
