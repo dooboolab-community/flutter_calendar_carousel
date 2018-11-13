@@ -1,3 +1,6 @@
+## [1.1.10]
+* Support weekFormat but without carousel.
+
 ## [1.1.9]
 * Updated readme.
 
