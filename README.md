@@ -46,13 +46,14 @@ For help getting started with Flutter, view our online
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
 | ~markedDates            | `List<DateTime>` | []                                                                                                               |
-| markedDatesMap         | `Map<DateTime, int>` | `null`                                                                                                       |
+| markedDatesMap          | `Map<DateTime, int>` | `null`                                                                                                       |
 | markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
 | weekFormat              | `bool`          | `false`                                                                                                           |
+| weekends                | `List<WeekDay>` | `[WeekDay.Saturday, WeekDay.Sunday]`                                                                              |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
@@ -91,6 +92,10 @@ Widget widget() {
 - [x] Set weekdays visibility.
 - [x] Customizable textStyles for days in weekend.
 - [x] Marked Dates.
+- [x] Multiple Marked Dates.
+- [x] Customizable weekend days.
+- [x] Week Calendar.
+- [ ] Carousel Week Calendar.
 - [ ] Multiple days selections. 
 - [ ] Widget test. 
 

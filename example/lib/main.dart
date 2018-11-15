@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
 
 void main() => runApp(new MyApp());
 
@@ -72,6 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //            child: Text('Custom Header'),
 //          ),
 //          markedDates: _markedDate,
+          weekFormat: false,
+          weekends: [WeekDay.Sunday, WeekDay.Saturday],
           markedDatesMap: _markedDateMap,
           height: 420.0,
           selectedDateTime: _currentDate,

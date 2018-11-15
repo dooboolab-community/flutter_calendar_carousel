@@ -6,6 +6,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
 
+enum WeekDay { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+
 class CalendarCarousel extends StatefulWidget {
   final TextStyle defaultHeaderTextStyle = TextStyle(
     fontSize: 20.0,
@@ -47,6 +49,7 @@ class CalendarCarousel extends StatefulWidget {
   );
 
   final List<String> weekDays;
+  final List<WeekDay> weekends;
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -83,6 +86,7 @@ class CalendarCarousel extends StatefulWidget {
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+    this.weekends = const [WeekDay.Saturday, WeekDay.Sunday], // SAT, SUN
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
     this.daysTextStyle,
@@ -143,7 +147,9 @@ class _CalendarState extends State<CalendarCarousel> {
 
       /// width percentage
     );
-    this._setDate();
+
+    _selectedDate = widget.selectedDateTime;
+    _setDate();
   }
 
   @override
@@ -195,7 +201,7 @@ class _CalendarState extends State<CalendarCarousel> {
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: this._renderWeekDays(),
+                    children: _renderWeekDays(),
                   ),
           ),
           Expanded(
@@ -218,14 +224,14 @@ class _CalendarState extends State<CalendarCarousel> {
   AnimatedBuilder builder(int slideIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
     int totalItemCount = DateTime(
-          this._dates[slideIndex].year,
-          this._dates[slideIndex].month + 1,
+          _dates[slideIndex].year,
+          _dates[slideIndex].month + 1,
           0,
         ).day +
-        this._startWeekday +
-        (7 - this._endWeekday);
-    int year = this._dates[slideIndex].year;
-    int month = this._dates[slideIndex].month;
+        _startWeekday +
+        (7 - _endWeekday);
+    int year = _dates[slideIndex].year;
+    int month = _dates[slideIndex].month;
 
     return AnimatedBuilder(
       animation: _controller,
@@ -259,17 +265,17 @@ class _CalendarState extends State<CalendarCarousel> {
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
-                      DateTime.now().day == index + 1 - this._startWeekday &&
+                      DateTime.now().day == index + 1 - _startWeekday &&
                           DateTime.now().month == month &&
                           DateTime.now().year == year;
                   bool isSelectedDay = widget.selectedDateTime != null &&
                       widget.selectedDateTime.year == year &&
                       widget.selectedDateTime.month == month &&
                       widget.selectedDateTime.day ==
-                          index + 1 - this._startWeekday;
-                  bool isPrevMonthDay = index < this._startWeekday;
+                          index + 1 - _startWeekday;
+                  bool isPrevMonthDay = index < _startWeekday;
                   bool isNextMonthDay = index >=
-                      (DateTime(year, month + 1, 0).day) + this._startWeekday;
+                      (DateTime(year, month + 1, 0).day) + _startWeekday;
                   bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
 
                   DateTime now = DateTime(year, month, 1);
@@ -277,11 +283,11 @@ class _CalendarState extends State<CalendarCarousel> {
                   TextStyle defaultTextStyle;
                   if (isPrevMonthDay) {
                     now = now
-                        .subtract(Duration(days: this._startWeekday - index));
+                        .subtract(Duration(days: _startWeekday - index));
                     textStyle = widget.prevDaysTextStyle;
                     defaultTextStyle = widget.defaultPrevDaysTextStyle;
                   } else if (isThisMonthDay) {
-                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = isSelectedDay
                         ? widget.selectedDayTextStyle
                         : isToday
@@ -293,7 +299,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             ? widget.defaultTodayTextStyle
                             : widget.defaultDaysTextStyle;
                   } else {
-                    now = DateTime(year, month, index + 1 - this._startWeekday);
+                    now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = widget.nextDaysTextStyle;
                     defaultTextStyle = widget.defaultNextDaysTextStyle;
                   }
@@ -306,7 +312,7 @@ class _CalendarState extends State<CalendarCarousel> {
                               ? widget.todayButtonColor
                               : widget.dayButtonColor,
                       onPressed: () => widget.onDayPressed(DateTime(
-                          year, month, index + 1 - this._startWeekday)),
+                          year, month, index + 1 - _startWeekday)),
                       padding: EdgeInsets.all(widget.dayPadding),
                       shape: widget.daysHaveCircularBorder == null
                           ? CircleBorder()
@@ -343,7 +349,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (index % 7 == 0 || index % 7 == 6) &&
+                              style: (widget.weekends.contains(WeekDay.values[index % 7])) &&
                                       !isSelectedDay &&
                                       !isToday
                                   ? widget.defaultWeekendTextStyle
@@ -352,7 +358,7 @@ class _CalendarState extends State<CalendarCarousel> {
                                       : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (index % 7 == 0 || index % 7 == 6) &&
+                                style: (widget.weekends.contains(index % 7)) &&
                                         !isSelectedDay &&
                                         !isToday
                                     ? widget.weekendTextStyle
@@ -549,7 +555,7 @@ class _CalendarState extends State<CalendarCarousel> {
   void _onDayPressed(DateTime picked) {
     if (picked == null) return;
     setState(() {
-      this._selectedDate = picked;
+      _selectedDate = picked;
     });
     widget.onDayPressed(picked);
   }
@@ -557,17 +563,18 @@ class _CalendarState extends State<CalendarCarousel> {
   Future<Null> _selectDateFromPicker() async {
     DateTime selected = await showDatePicker(
       context: context,
-      initialDate: this._selectedDate ?? new DateTime.now(),
-      firstDate: new DateTime(1960),
-      lastDate: new DateTime(2050),
+      initialDate: _selectedDate ?? new DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
     );
 
     if (selected != null) {
       // updating selected date range based on selected week
       setState(() {
-        this._selectedDate = selected;
+        _selectedDate = selected;
       });
       widget.onDayPressed(selected);
+      _setDate();
     }
   }
 
