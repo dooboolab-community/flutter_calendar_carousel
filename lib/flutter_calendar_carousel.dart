@@ -271,8 +271,7 @@ class _CalendarState extends State<CalendarCarousel> {
                   bool isSelectedDay = widget.selectedDateTime != null &&
                       widget.selectedDateTime.year == year &&
                       widget.selectedDateTime.month == month &&
-                      widget.selectedDateTime.day ==
-                          index + 1 - _startWeekday;
+                      widget.selectedDateTime.day == index + 1 - _startWeekday;
                   bool isPrevMonthDay = index < _startWeekday;
                   bool isNextMonthDay = index >=
                       (DateTime(year, month + 1, 0).day) + _startWeekday;
@@ -282,8 +281,7 @@ class _CalendarState extends State<CalendarCarousel> {
                   TextStyle textStyle;
                   TextStyle defaultTextStyle;
                   if (isPrevMonthDay) {
-                    now = now
-                        .subtract(Duration(days: _startWeekday - index));
+                    now = now.subtract(Duration(days: _startWeekday - index));
                     textStyle = widget.prevDaysTextStyle;
                     defaultTextStyle = widget.defaultPrevDaysTextStyle;
                   } else if (isThisMonthDay) {
@@ -311,8 +309,8 @@ class _CalendarState extends State<CalendarCarousel> {
                           : isToday && widget.todayBorderColor != null
                               ? widget.todayButtonColor
                               : widget.dayButtonColor,
-                      onPressed: () => widget.onDayPressed(DateTime(
-                          year, month, index + 1 - _startWeekday)),
+                      onPressed: () => widget.onDayPressed(
+                          DateTime(year, month, index + 1 - _startWeekday)),
                       padding: EdgeInsets.all(widget.dayPadding),
                       shape: widget.daysHaveCircularBorder == null
                           ? CircleBorder()
@@ -349,7 +347,8 @@ class _CalendarState extends State<CalendarCarousel> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (widget.weekends.contains(WeekDay.values[index % 7])) &&
+                              style: (widget.weekends.contains(
+                                          WeekDay.values[index % 7])) &&
                                       !isSelectedDay &&
                                       !isToday
                                   ? widget.defaultWeekendTextStyle
@@ -580,45 +579,37 @@ class _CalendarState extends State<CalendarCarousel> {
 
   void _setDate([int page = -1]) {
     if (page == -1) {
-      if (widget.weekFormat) {
-        DateTime now = DateTime.now();
-        List<DateTime> date1 = _getDaysInWeek(now);
-        List<DateTime> date0 =
-            _getDaysInWeek(now.subtract(new Duration(days: 7)));
-        List<DateTime> date2 = _getDaysInWeek(now.add(new Duration(days: 7)));
+      /// Setup default calendar format
+      DateTime date0 =
+          DateTime(DateTime.now().year, DateTime.now().month - 1, 1);
+      DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month, 1);
+      DateTime date2 =
+          DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
 
-        setState(() {
-          this._weeks = [
-            date0,
-            date1,
-            date2,
-          ];
-          this._selectedDate = widget.selectedDateTime != null
-              ? widget.selectedDateTime
-              : DateTime.now();
-        });
-      } else {
-        /// setup dates
-        DateTime date0 =
-            DateTime(DateTime.now().year, DateTime.now().month - 1, 1);
-        DateTime date1 = DateTime(DateTime.now().year, DateTime.now().month, 1);
-        DateTime date2 =
-            DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
+      /// Setup week-only format
+      DateTime now = DateTime.now();
+      List<DateTime> week0 = _getDaysInWeek(now);
+      List<DateTime> week1 =
+          _getDaysInWeek(now.subtract(new Duration(days: 7)));
+      List<DateTime> week2 = _getDaysInWeek(now.add(new Duration(days: 7)));
 
-        this.setState(() {
-          /// setup current day
-          _startWeekday = date1.weekday;
-          _endWeekday = date2.weekday;
-          this._dates = [
-            date0,
-            date1,
-            date2,
-          ];
-          this._selectedDate = widget.selectedDateTime != null
-              ? widget.selectedDateTime
-              : DateTime.now();
-        });
-      }
+      setState(() {
+        _startWeekday = date1.weekday;
+        _endWeekday = date2.weekday;
+        this._dates = [
+          date0,
+          date1,
+          date2,
+        ];
+        this._weeks = [
+          week0,
+          week1,
+          week2,
+        ];
+        this._selectedDate = widget.selectedDateTime != null
+            ? widget.selectedDateTime
+            : DateTime.now();
+      });
     } else if (page == 1) {
       return;
     } else {
