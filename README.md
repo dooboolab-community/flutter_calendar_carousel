@@ -95,7 +95,7 @@ Widget widget() {
 - [x] Multiple Marked Dates.
 - [x] Customizable weekend days.
 - [x] Week Calendar.
-- [ ] Carousel Week Calendar.
+- [x] Carousel Week Calendar.
 - [ ] Multiple days selections. 
 - [ ] Widget test. 
 
