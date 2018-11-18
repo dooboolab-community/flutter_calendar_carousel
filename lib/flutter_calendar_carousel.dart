@@ -588,9 +588,9 @@ class _CalendarState extends State<CalendarCarousel> {
 
       /// Setup week-only format
       DateTime now = DateTime.now();
-      List<DateTime> week0 = _getDaysInWeek(now);
-      List<DateTime> week1 =
+      List<DateTime> week0 =
           _getDaysInWeek(now.subtract(new Duration(days: 7)));
+      List<DateTime> week1 = _getDaysInWeek(now);
       List<DateTime> week2 = _getDaysInWeek(now.add(new Duration(days: 7)));
 
       setState(() {
