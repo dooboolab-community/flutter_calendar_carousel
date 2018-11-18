@@ -1,3 +1,6 @@
+## [1.2.1]
+* Week-format shows current week [#15](https://github.com/dooboolab/flutter_calendar_carousel/issues/15).
+
 ## [1.2.0]
 * Support carousel week calendar.
 
