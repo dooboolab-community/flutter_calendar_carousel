@@ -83,6 +83,7 @@ class CalendarCarousel extends StatefulWidget {
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
+  final bool showHeaderButton;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -120,6 +121,7 @@ class CalendarCarousel extends StatefulWidget {
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
     this.weekFormat = false,
+    this.showHeaderButton = true,
   });
 
   @override
@@ -174,26 +176,28 @@ class _CalendarState extends State<CalendarCarousel> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      IconButton(
+                      widget.showHeaderButton
+                       ? IconButton(
                         onPressed: () => _setDate(0),
                         icon: Icon(Icons.chevron_left, color: widget.iconColor),
-                      ),
+                      ) : Container(),
                       FlatButton(
                         onPressed: () => _selectDateFromPicker(),
-                        textColor: widget.iconColor,
                         child: widget.headerText != null
                             ? widget.headerText
                             : Text(
                                 widget.weekFormat
                                     ? '${DateFormat.yMMM().format(_weeks[1].first)}'
                                     : '${DateFormat.yMMM().format(this._dates[1])}',
+                                style: widget.headerTextStyle,
                               ),
                       ),
-                      IconButton(
+                      widget.showHeaderButton
+                      ? IconButton(
                         onPressed: () => _setDate(2),
                         icon:
                             Icon(Icons.chevron_right, color: widget.iconColor),
-                      ),
+                      ) : Container(),
                     ])),
           ),
           Container(
