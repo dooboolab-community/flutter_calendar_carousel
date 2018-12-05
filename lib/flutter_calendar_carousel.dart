@@ -84,6 +84,7 @@ class CalendarCarousel extends StatefulWidget {
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
   final bool showHeaderButton;
+  final ScrollPhysics customGridViewPhysics;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -122,6 +123,7 @@ class CalendarCarousel extends StatefulWidget {
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
     this.weekFormat = false,
     this.showHeaderButton = true,
+    this.customGridViewPhysics,
   });
 
   @override
@@ -261,6 +263,7 @@ class _CalendarState extends State<CalendarCarousel> {
               width: double.infinity,
               height: double.infinity,
               child: GridView.count(
+                physics: widget.customGridViewPhysics,
                 crossAxisCount: 7,
                 childAspectRatio: widget.childAspectRatio,
                 padding: EdgeInsets.zero,
