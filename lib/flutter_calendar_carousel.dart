@@ -353,7 +353,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(index % 7)) &&
+                              style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                       !isSelectedDay &&
                                       !isToday
                                   ? widget.defaultWeekendTextStyle
@@ -362,7 +362,7 @@ class _CalendarState extends State<CalendarCarousel> {
                                       : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(index % 7)) &&
+                                style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                         !isSelectedDay &&
                                         !isToday
                                     ? widget.weekendTextStyle
