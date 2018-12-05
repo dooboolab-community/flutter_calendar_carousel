@@ -1,3 +1,6 @@
+## [1.2.3]
+* Add custom physics parameter. Feature in [#21](https://github.com/dooboolab/flutter_calendar_carousel/pull/21).
+
 ## [1.2.2]
 * headerTextStyle fix[#17](https://github.com/dooboolab/flutter_calendar_carousel/issues/17).
 * Can show or hide header button with `showHeaderButton` attribute.
