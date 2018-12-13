@@ -78,6 +78,7 @@ class CalendarCarousel extends StatefulWidget {
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
+  final bool showWeekDays;
   final bool showHeaderButton;
   final ScrollPhysics customGridViewPhysics;
   final String locale;
@@ -115,6 +116,7 @@ class CalendarCarousel extends StatefulWidget {
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
+    this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeaderButton = true,
     this.customGridViewPhysics,
@@ -204,9 +206,11 @@ class _CalendarState extends State<CalendarCarousel> {
                     ])),
           ),
           Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _renderWeekDays(),
+            child: widget.showWeekDays
+                ? Container()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: _renderWeekDays(),
             ),
           ),
           Expanded(
@@ -683,7 +687,7 @@ class _CalendarState extends State<CalendarCarousel> {
 
   List<Widget> _renderWeekDays() {
     List<Widget> list = [];
-    for (var i = firstDayOfWeek; true; i = (i + 1) % 7) {
+    for (var i = firstDayOfWeek; i != (firstDayOfWeek - 1) % 7; i = (i + 1) % 7) {
       String weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
       list.add(
         Expanded(
@@ -700,9 +704,6 @@ class _CalendarState extends State<CalendarCarousel> {
           ),
         )),
       );
-      if (i == (firstDayOfWeek - 1) % 7) {
-        break;
-      }
     }
 
     return list;
