@@ -1,5 +1,5 @@
 # flutter_calendar_carousel
- Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable.
+ Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable. Now you can even add your icon for each event.
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
@@ -11,6 +11,8 @@
 <br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar3.gif"/>
 <h5>Marked Dates</h5>
 <br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar4.gif"/>
+<h5>Custom Icon Events</h5>
+<br/><img src="https://raw.githubusercontent.com/icemanbsi/flutter_calendar_carousel/master/doc/calendar5.png"/>
 
 ## Getting Started
 For help getting started with Flutter, view our online
@@ -46,9 +48,16 @@ For help getting started with Flutter, view our online
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
 | ~~markedDates~~            | `List<DateTime>` | []                                                                                                               |
-| markedDatesMap          | `Map<DateTime, int>` | `null`                                                                                                       |
+| markedDatesMap          | `List<Event>`    | `null`                                                                                                       |
 | markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
+| markedDateShowIcon      | `bool`          | false                                                                                                             |
+| markedDateIconBorderColor | `Color`        |                                                                                                                   |
+| markedDateIconMaxShown  | `int`           | 2                                                                                                                 |
+| markedDateIconMargin    | `double`        | 5.0                                                                                                               |
+| markedDateIconOffset    | `double`        | 5.0                                                                                                               |
+| markedDateMoreCustomDecoration | `Decoration`    |                                                                                                                   |
+| markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
 
 enum WeekDay { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
@@ -76,9 +77,16 @@ class CalendarCarousel extends StatefulWidget {
   final Widget headerText;
   final TextStyle weekendTextStyle;
   final List<DateTime> markedDates;
-  final Map<DateTime, int> markedDatesMap;
+  final List<Event> markedDatesMap;
   final Color markedDateColor;
   final Widget markedDateWidget;
+  final bool markedDateShowIcon;
+  final Color markedDateIconBorderColor;
+  final int markedDateIconMaxShown;
+  final double markedDateIconMargin;
+  final double markedDateIconOffset;
+  final Decoration markedDateMoreCustomDecoration;
+  final TextStyle markedDateMoreCustomTextStyle;
   final EdgeInsets headerMargin;
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
@@ -117,6 +125,13 @@ class CalendarCarousel extends StatefulWidget {
     @deprecated this.markedDates,
     this.markedDatesMap,
     @deprecated this.markedDateColor,
+    this.markedDateShowIcon = false,
+    this.markedDateIconBorderColor,
+    this.markedDateIconMaxShown = 2,
+    this.markedDateIconMargin = 5,
+    this.markedDateIconOffset = 5,
+    this.markedDateMoreCustomDecoration,
+    this.markedDateMoreCustomTextStyle,
     this.markedDateWidget,
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
     this.childAspectRatio = 1.0,
@@ -376,16 +391,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             ),
                           ),
                           widget.markedDatesMap != null
-                              ? Container(
-                                  height: double.infinity,
-                                  padding: EdgeInsets.only(bottom: 4.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _renderMarkedMap(now),
-                                  ),
-                                )
+                              ? _renderMarkedMapContainer(now)
                               : _renderMarked(now),
                         ],
                       ),
@@ -719,23 +725,103 @@ class _CalendarState extends State<CalendarCarousel> {
     return Container();
   }
 
+  Widget _renderMarkedMapContainer(DateTime now) {
+    if(widget.markedDateShowIcon) {
+      return Stack(
+        children: _renderMarkedMap(now),
+      );
+    }
+    else {
+      return Container(
+        height: double.infinity,
+        padding: EdgeInsets.only(bottom: 4.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _renderMarkedMap(now),
+        ),
+      );
+    }
+  }
+
   List<Widget> _renderMarkedMap(DateTime now) {
     if (widget.markedDatesMap != null && widget.markedDatesMap.length > 0) {
-      for (DateTime key in widget.markedDatesMap.keys) {
-        if (key.year == now.year &&
-            key.month == now.month &&
-            key.day == now.day) {
-          List<Widget> tmp = [];
-          for (int i = 0; i < widget.markedDatesMap[key]; i++) {
+      List<Widget> tmp = [];
+      int count = 0;
+      double offset = 0;
+      double padding = widget.markedDateIconMargin;
+      widget.markedDatesMap.forEach((event) {
+        if (event.date.year == now.year &&
+            event.date.month == now.month &&
+            event.date.day == now.day) {
+
+          if(widget.markedDateShowIcon) {
+            if(tmp.length > 0 && tmp.length < widget.markedDateIconMaxShown){
+              offset += widget.markedDateIconOffset;
+            }
+            if(tmp.length < widget.markedDateIconMaxShown) {
+              tmp.add(
+                  Center(
+                      child: new Container(
+                        padding: EdgeInsets.only(
+                          top: padding + offset,
+                          left: padding + offset,
+                          right: padding - offset,
+                          bottom: padding - offset,
+                        ),
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: event.icon,
+                      )
+                  )
+              );
+            }
+            else{
+              count++;
+            }
+            if(count > 0 ){
+              tmp.add(
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(3),
+                    decoration: widget.markedDateMoreCustomDecoration == null
+                        ? new BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(Radius.circular(1000)),
+                        )
+                        : widget.markedDateMoreCustomDecoration
+                    ,
+                    child: Center(
+                      child: Text(
+                        count.toString() + '+',
+                        style: widget.markedDateMoreCustomTextStyle == null
+                            ? TextStyle(
+                                fontSize: 9,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal
+                            )
+                            : widget.markedDateMoreCustomTextStyle
+                        ,
+                      ),
+                    ),
+                  ),
+                )
+              );
+            }
+          }
+          else {
             if (widget.markedDateWidget != null) {
               tmp.add(widget.markedDateWidget);
             } else {
               tmp.add(widget.defaultMarkedDateWidget);
             }
           }
-          return tmp;
         }
-      }
+      });
+      return tmp;
     }
     return [];
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
+import 'package:flutter_calendar_carousel/classes/event.dart';
 
 void main() => runApp(new MyApp());
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Calendar Carousel Exmaple'),
+      home: new MyHomePage(title: 'Flutter Calendar Carousel Example'),
     );
   }
 }
@@ -44,12 +45,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2018, 8, 1);
-  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  Map<DateTime, int> _markedDateMap = {
-    DateTime(2018, 9, 20) : 4,
-    DateTime(2018, 10, 11) : 1,
-  };
+  DateTime _currentDate = DateTime(2018, 12, 13);
+//  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
+  static Widget _eventIcon = new Container(
+    decoration: new BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(1000)),
+      border: Border.all(
+        color: Colors.blue,
+        width: 2.0
+      )
+    ),
+    child: new Icon(Icons.person, color:Colors.amber,),
+  );
+
+  List<Event> _markedDateMap = [
+    new Event(
+      date: new DateTime(2018, 12, 10),
+      title: 'Event 1',
+      icon: _eventIcon,
+    ),
+    new Event(
+      date: new DateTime(2018, 12, 10),
+      title: 'Event 2',
+      icon: _eventIcon,
+    ),
+    new Event(
+      date: new DateTime(2018, 12, 10),
+      title: 'Event 3',
+      icon: _eventIcon,
+    ),
+    new Event(
+      date: new DateTime(2018, 12, 10),
+      title: 'Event 4',
+      icon: _eventIcon,
+    ),
+    new Event(
+        date: new DateTime(2018, 12, 25),
+        title: 'Event 5',
+        icon: _eventIcon,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
           markedDatesMap: _markedDateMap,
           height: 420.0,
           selectedDateTime: _currentDate,
-          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+//          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+          markedDateShowIcon: true,
+          markedDateIconMaxShown: 2,
+//          markedDateIconMargin: 9,
+//          markedDateIconOffset: 3,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
