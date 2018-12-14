@@ -1,12 +1,9 @@
 library flutter_calendar_dooboo;
 
-/// A Calculator.
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
-
-enum WeekDay { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
 class CalendarCarousel extends StatefulWidget {
   final TextStyle defaultHeaderTextStyle = TextStyle(
@@ -48,8 +45,6 @@ class CalendarCarousel extends StatefulWidget {
     width: 4.0,
   );
 
-  final List<String> weekDays;
-  final List<WeekDay> weekends;
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -83,12 +78,12 @@ class CalendarCarousel extends StatefulWidget {
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
+  final bool showWeekDays;
   final bool showHeaderButton;
   final ScrollPhysics customGridViewPhysics;
+  final String locale;
 
   CalendarCarousel({
-    this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
-    this.weekends = const [WeekDay.Saturday, WeekDay.Sunday], // SAT, SUN
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
     this.daysTextStyle,
@@ -121,9 +116,11 @@ class CalendarCarousel extends StatefulWidget {
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
+    this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeaderButton = true,
     this.customGridViewPhysics,
+    this.locale = "en",
   });
 
   @override
@@ -137,6 +134,10 @@ class _CalendarState extends State<CalendarCarousel> {
   DateTime _selectedDate = DateTime.now();
   int _startWeekday = 0;
   int _endWeekday = 0;
+  DateFormat _localeDate;
+  /// When FIRSTDAYOFWEEK is 0 in dart-intl, it represents Monday. However it is the second day in the arrays of Weekdays.
+  /// Therefore we need to add 1 modulo 7 to pick the right weekday from intl. (cf. [GlobalMaterialLocalizations]) 
+  int firstDayOfWeek = 0;
 
   @override
   initState() {
@@ -152,6 +153,8 @@ class _CalendarState extends State<CalendarCarousel> {
       /// width percentage
     );
 
+    _localeDate = DateFormat.yMMM(widget.locale);
+    firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
     _selectedDate = widget.selectedDateTime;
     _setDate();
   }
@@ -189,8 +192,8 @@ class _CalendarState extends State<CalendarCarousel> {
                             ? widget.headerText
                             : Text(
                                 widget.weekFormat
-                                    ? '${DateFormat.yMMM().format(_weeks[1].first)}'
-                                    : '${DateFormat.yMMM().format(this._dates[1])}',
+                                    ? '${_localeDate.format(_weeks[1].first)}'
+                                    : '${_localeDate.format(this._dates[1])}',
                                 style: widget.headerTextStyle,
                               ),
                       ),
@@ -203,12 +206,12 @@ class _CalendarState extends State<CalendarCarousel> {
                     ])),
           ),
           Container(
-            child: widget.weekDays == null
+            child: widget.showWeekDays
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _renderWeekDays(),
-                  ),
+            ),
           ),
           Expanded(
               child: PageView.builder(
@@ -354,8 +357,7 @@ class _CalendarState extends State<CalendarCarousel> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (widget.weekends.contains(
-                                          WeekDay.values[index % 7])) &&
+                              style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                       !isSelectedDay &&
                                       !isToday
                                   ? widget.defaultWeekendTextStyle
@@ -364,7 +366,7 @@ class _CalendarState extends State<CalendarCarousel> {
                                       : defaultTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (widget.weekends.contains(index % 7)) &&
+                                style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                         !isSelectedDay &&
                                         !isToday
                                     ? widget.weekendTextStyle
@@ -601,8 +603,8 @@ class _CalendarState extends State<CalendarCarousel> {
       List<DateTime> week2 = _getDaysInWeek(now.add(new Duration(days: 7)));
 
       setState(() {
-        _startWeekday = date1.weekday;
-        _endWeekday = date2.weekday;
+        _startWeekday = date1.weekday - firstDayOfWeek;
+        _endWeekday = date2.weekday - firstDayOfWeek;
         this._dates = [
           date0,
           date1,
@@ -665,9 +667,9 @@ class _CalendarState extends State<CalendarCarousel> {
           page = page - 1;
         }
 
-        this.setState(() {
-          _startWeekday = dates[page].weekday;
-          _endWeekday = dates[page + 1].weekday;
+        setState(() {
+          _startWeekday = dates[page].weekday - firstDayOfWeek;
+          _endWeekday = dates[page + 1].weekday - firstDayOfWeek;
           this._dates = dates;
         });
 
@@ -685,7 +687,8 @@ class _CalendarState extends State<CalendarCarousel> {
 
   List<Widget> _renderWeekDays() {
     List<Widget> list = [];
-    for (var weekDay in widget.weekDays) {
+    for (var i = firstDayOfWeek; i != (firstDayOfWeek - 1) % 7; i = (i + 1) % 7) {
+      String weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
       list.add(
         Expanded(
             child: Container(
@@ -702,6 +705,7 @@ class _CalendarState extends State<CalendarCarousel> {
         )),
       );
     }
+
     return list;
   }
 
