@@ -11,7 +11,7 @@ abstract class DateMark {
   static line(bool starting, bool ending, { Color color = Colors.blueAccent, double height = 4.00 }) => DatePeriodLine(starting: starting, ending: ending,color: color, height: height);
 }
 
-class DateMarkSquare {
+class DateMarkSquare extends StatelessWidget {
   final Color color;
   final double size;
   final EdgeInsetsGeometry margin;
@@ -33,7 +33,7 @@ class DateMarkSquare {
   }
 }
 
-class DateMarkDot {
+class DateMarkDot extends StatelessWidget {
   final Color color;
   final double size;
   final EdgeInsetsGeometry margin;
@@ -57,7 +57,7 @@ class DateMarkDot {
   }
 }
 
-class DatePeriodLine {
+class DatePeriodLine extends StatelessWidget {
   final Color color;
   final double height;
   /// The line start from the beginning of the day
