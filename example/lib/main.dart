@@ -46,9 +46,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime(2018, 8, 1);
   List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  Map<DateTime, int> _markedDateMap = {
-    DateTime(2018, 9, 20) : 4,
-    DateTime(2018, 10, 11) : 1,
+  Map<DateTime, List<Widget>> _markedDateMap = {
+    DateTime(2018, 9, 20) : [DateMark.square()],
+    DateTime(2018, 10, 11) : [DateMark.dot(color: Colors.red), DateMark.dot(color: Colors.green), DateMark.square(color: Colors.blue)],
   };
 
   @override
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //          ),
 //          markedDates: _markedDate,
           weekFormat: false,
-          markedDatesMap: _markedDateMap,
+          listMarkedDates: _markedDateMap,
           height: 420.0,
           selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
