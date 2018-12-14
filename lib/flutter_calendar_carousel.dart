@@ -85,14 +85,17 @@ class CalendarCarousel extends StatefulWidget {
   final int markedDateIconMaxShown;
   final double markedDateIconMargin;
   final double markedDateIconOffset;
+  final bool markedDateMoreShowTotal; // null - no indicator, true - show the total events, false - show the total of hidden events
   final Decoration markedDateMoreCustomDecoration;
   final TextStyle markedDateMoreCustomTextStyle;
   final EdgeInsets headerMargin;
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
   final bool weekFormat;
+  final bool showHeader;
   final bool showHeaderButton;
   final ScrollPhysics customGridViewPhysics;
+  final Function(DateTime) onCalendarChanged;
 
   CalendarCarousel({
     this.weekDays = const ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -130,6 +133,7 @@ class CalendarCarousel extends StatefulWidget {
     this.markedDateIconMaxShown = 2,
     this.markedDateIconMargin = 5,
     this.markedDateIconOffset = 5,
+    this.markedDateMoreShowTotal,
     this.markedDateMoreCustomDecoration,
     this.markedDateMoreCustomTextStyle,
     this.markedDateWidget,
@@ -137,8 +141,10 @@ class CalendarCarousel extends StatefulWidget {
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
     this.weekFormat = false,
+    this.showHeader = true,
     this.showHeaderButton = true,
     this.customGridViewPhysics,
+    this.onCalendarChanged,
   });
 
   @override
@@ -184,7 +190,8 @@ class _CalendarState extends State<CalendarCarousel> {
       height: widget.height,
       child: Column(
         children: <Widget>[
-          Container(
+          widget.showHeader
+          ? Container(
             margin: widget.headerMargin,
             child: DefaultTextStyle(
                 style: widget.headerTextStyle != null
@@ -216,7 +223,7 @@ class _CalendarState extends State<CalendarCarousel> {
                             Icon(Icons.chevron_right, color: widget.iconColor),
                       ) : Container(),
                     ])),
-          ),
+          ) : Container(),
           Container(
             child: widget.weekDays == null
                 ? Container()
@@ -687,6 +694,12 @@ class _CalendarState extends State<CalendarCarousel> {
 
     print('startWeekDay: $_startWeekday');
     print('endWeekDay: $_endWeekday');
+
+    //call callback
+    if(this._dates.length == 3 && widget.onCalendarChanged != null){
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => widget.onCalendarChanged(this._dates[1]));
+    }
   }
 
   List<Widget> _renderWeekDays() {
@@ -780,7 +793,7 @@ class _CalendarState extends State<CalendarCarousel> {
             else{
               count++;
             }
-            if(count > 0 ){
+            if(count > 0 && widget.markedDateMoreShowTotal != null ){
               tmp.add(
                 Positioned(
                   bottom: 0,
@@ -796,7 +809,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     ,
                     child: Center(
                       child: Text(
-                        count.toString() + '+',
+                        widget.markedDateMoreShowTotal ? (count + widget.markedDateIconMaxShown).toString() : (count.toString() + '+'),
                         style: widget.markedDateMoreCustomTextStyle == null
                             ? TextStyle(
                                 fontSize: 9,
