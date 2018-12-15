@@ -50,6 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
     DateTime(2018, 9, 20) : [DateMark.square()],
     DateTime(2018, 10, 11) : [DateMark.dot(color: Colors.red), DateMark.dot(color: Colors.green), DateMark.square(color: Colors.blue)],
   };
+  Map<DateTime, List<Widget>> _periods = {
+    DateTime(2018, 9, 20) : [DateMark.line(false, true)],
+    DateTime(2018, 9, 21) : [DateMark.line(true, false), DateMark.line(false, false, color: Colors.green)],
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //          markedDates: _markedDate,
           weekFormat: false,
           listMarkedDates: _markedDateMap,
+//          periods: _periods,
+//          childAspectRatio: 0.7,
           height: 420.0,
           selectedDateTime: _currentDate,
           daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
