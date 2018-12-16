@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
+
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -46,8 +47,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2018, 12, 13);
-  DateTime _currentDate2 = DateTime(2018, 12, 13);
+  DateTime _currentDate = DateTime(2018, 12, 3);
+  DateTime _currentDate2 = DateTime(2018, 12, 3);
   String _currentMonth = '';
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
@@ -90,30 +91,61 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-  CalendarCarousel _calendarCarousel;
+  CalendarCarousel _calendarCarousel, _calendarCarouselNoHeader;
 
   @override
   Widget build(BuildContext context) {
     _calendarCarousel = CalendarCarousel(
       onDayPressed: (DateTime date) {
-        this.setState(() => _currentDate2 = date);
+        this.setState(() => _currentDate = date);
+      },
+      weekendTextStyle: TextStyle(
+        color: Colors.red,
+      ),
+      thisMonthDayBorderColor: Colors.grey,
+//          weekDays: null, /// for pass null when you do not want to render weekDays
+//          headerText: Container( /// Example for rendering custom header
+//            child: Text('Custom Header'),
+//          ),
+//          markedDates: _markedDate,
+      weekFormat: false,
+      markedDatesMap: _markedDateMap,
+      height: 420.0,
+      selectedDateTime: _currentDate,
+//          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
+      customGridViewPhysics: NeverScrollableScrollPhysics(),
+      markedDateShowIcon: true,
+      markedDateIconMaxShown: 2,
+      markedDateMoreShowTotal: true, // null for not showing hidden events indicator
+//          markedDateIconMargin: 9,
+//          markedDateIconOffset: 3,
+    );
+
+    /// Example Calendar Carousel without header and custom prev & next button
+    _calendarCarouselNoHeader = CalendarCarousel(
+      onDayPressed: (DateTime date) {
+        setState(() {
+          _currentDate2 = date;
+        });
       },
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),
       thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
-      weekends: [WeekDay.Sunday, WeekDay.Saturday],
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate2,
+      customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
       markedDateMoreShowTotal: false, // null for not showing hidden events indicator
       showHeader: false,
+      minSelectedDate: _currentDate,
+      maxSelectedDate: _currentDate.add(Duration(days: 60)),
+//      inactiveDateColor: Colors.black12,
       onCalendarChanged: (DateTime date){
-        this.setState(() =>
-        _currentMonth = DateFormat.yMMM().format(date));
+        this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
       },
     );
 
@@ -130,31 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //custom icon
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16.0),
-              child: CalendarCarousel(
-                onDayPressed: (DateTime date) {
-                  this.setState(() => _currentDate = date);
-                },
-                weekendTextStyle: TextStyle(
-                  color: Colors.red,
-                ),
-                thisMonthDayBorderColor: Colors.grey,
-//          weekDays: null, /// for pass null when you do not want to render weekDays
-//          headerText: Container( /// Example for rendering custom header
-//            child: Text('Custom Header'),
-//          ),
-//          markedDates: _markedDate,
-                weekFormat: false,
-                weekends: [WeekDay.Sunday, WeekDay.Saturday],
-                markedDatesMap: _markedDateMap,
-                height: 420.0,
-                selectedDateTime: _currentDate,
-//          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-                markedDateShowIcon: true,
-                markedDateIconMaxShown: 2,
-                markedDateMoreShowTotal: true, // null for not showing hidden events indicator
-//          markedDateIconMargin: 9,
-//          markedDateIconOffset: 3,
-              ),
+              child: _calendarCarousel,
             ), // This trailing comma makes auto-formatting nicer for build methods.
 
             //custom icon without header
@@ -179,13 +187,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   FlatButton(
                     child: Text('PREV'),
                     onPressed: (){
-                      this.setState(() => _currentDate2 = DateTime(_currentDate2.year, _currentDate2.month - 1, 1));
+                      setState(() {
+                        _currentDate2 = _currentDate2.subtract(Duration(days: 30));
+                        _currentMonth = DateFormat.yMMM().format(_currentDate2);
+                      });
                     },
                   ),
                   FlatButton(
                     child: Text('NEXT'),
                     onPressed: (){
-                      this.setState(() => _currentDate2 = DateTime(_currentDate2.year, _currentDate2.month - 1, 1));
+                      setState(() {
+                        _currentDate2 = _currentDate2.add(Duration(days: 30));
+                        _currentMonth = DateFormat.yMMM().format(_currentDate2);
+                      });
                     },
                   )
                 ],
@@ -193,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16.0),
-              child: _calendarCarousel,
+              child: _calendarCarouselNoHeader,
             ), //
           ],
         ),
