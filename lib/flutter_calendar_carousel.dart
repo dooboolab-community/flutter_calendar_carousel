@@ -254,7 +254,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     ])),
           ) : Container(),
           Container(
-            child: widget.showWeekDays
+            child: !widget.showWeekDays
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -765,7 +765,8 @@ class _CalendarState extends State<CalendarCarousel> {
 
   List<Widget> _renderWeekDays() {
     List<Widget> list = [];
-    for (var i = firstDayOfWeek; i != (firstDayOfWeek - 1) % 7; i = (i + 1) % 7) {
+    /// because of number of days in a week is 7, so it would be easier to count it til 7.
+    for (var i = firstDayOfWeek, count = 0; count < 7; i = (i + 1) % 7, count++) {
       String weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
       list.add(
         Expanded(
