@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    /// Example with custom icon
     _calendarCarousel = CalendarCarousel(
       onDayPressed: (DateTime date) {
         this.setState(() => _currentDate = date);

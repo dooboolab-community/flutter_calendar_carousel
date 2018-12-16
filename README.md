@@ -12,7 +12,7 @@
 <h5>Marked Dates</h5>
 <br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar4.gif"/>
 <h5>Custom Icon Events</h5>
-<br/><img src="https://raw.githubusercontent.com/icemanbsi/flutter_calendar_carousel/master/doc/calendar5.png"/>
+<br/><img src="https://raw.githubusercontent.com/icemanbsi/flutter_calendar_carousel/master/doc/calendar5.gif"/>
 
 ## Getting Started
 For help getting started with Flutter, view our online
@@ -59,10 +59,18 @@ For help getting started with Flutter, view our online
 | markedDateMoreCustomDecoration | `Decoration`    |                                                                                                                   |
 | markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
+| showHeader              | `bool`          |                                                                                                                   |
+| showHeaderButton        | `bool`          |                                                                                                                   |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
 | weekFormat              | `bool`          | `false`                                                                                                           |
 | weekends                | `List<WeekDay>` | `[WeekDay.Saturday, WeekDay.Sunday]`                                                                              |
+| locale                  | `String`        | `en`                                                                                                              |
+| onCalendarChanged       | `Function(DateTime)` |                                                                                                              |
+| minSelectedDate         | `DateTime`      |                                                                                                                   |
+| maxSelectedDate         | `DateTime`      |                                                                                                                   |
+| inactiveDaysTextStyle   | `TextStyle`     |                                                                                                                   |
+| inactiveWeekendTextStyle | `TextStyle`     |                                                                                                                   |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
