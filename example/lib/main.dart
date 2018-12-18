@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/classes/events.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 void main() => runApp(new MyApp());
@@ -63,33 +64,39 @@ class _MyHomePageState extends State<MyHomePage> {
     child: new Icon(Icons.person, color:Colors.amber,),
   );
 
-  List<Event> _markedDateMap = [
-    new Event(
-      date: new DateTime(2018, 12, 10),
-      title: 'Event 1',
-      icon: _eventIcon,
-    ),
-    new Event(
-      date: new DateTime(2018, 12, 10),
-      title: 'Event 2',
-      icon: _eventIcon,
-    ),
-    new Event(
-      date: new DateTime(2018, 12, 10),
-      title: 'Event 3',
-      icon: _eventIcon,
-    ),
-    new Event(
-      date: new DateTime(2018, 12, 10),
-      title: 'Event 4',
-      icon: _eventIcon,
-    ),
-    new Event(
+  Events _markedDateMap = new Events(
+    events : {
+      new DateTime(2018, 12, 10) : [
+        new Event(
+          date: new DateTime(2018, 12, 10),
+          title: 'Event 1',
+          icon: _eventIcon,
+        ),
+        new Event(
+          date: new DateTime(2018, 12, 10),
+          title: 'Event 2',
+          icon: _eventIcon,
+        ),
+        new Event(
+          date: new DateTime(2018, 12, 10),
+          title: 'Event 3',
+          icon: _eventIcon,
+        ),
+        new Event(
+          date: new DateTime(2018, 12, 10),
+          title: 'Event 4',
+          icon: _eventIcon,
+        ),
+      ],
+      new DateTime(2018, 12, 25) : [
+        new Event(
         date: new DateTime(2018, 12, 25),
         title: 'Event 5',
         icon: _eventIcon,
-    ),
-  ];
+        ),
+      ],
+    },
+  );
 
   CalendarCarousel _calendarCarousel, _calendarCarouselNoHeader;
 
@@ -97,8 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     /// Example with custom icon
     _calendarCarousel = CalendarCarousel(
-      onDayPressed: (DateTime date) {
+      onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate = date);
+        events.forEach((event) => print(event.title));
       },
       weekendTextStyle: TextStyle(
         color: Colors.red,
@@ -124,10 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     /// Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel(
-      onDayPressed: (DateTime date) {
-        setState(() {
-          _currentDate2 = date;
-        });
+      onDayPressed: (DateTime date, List<Event> events) {
+        this.setState(() => _currentDate2 = date);
+        events.forEach((event) => print(event.title));
       },
       weekendTextStyle: TextStyle(
         color: Colors.red,
