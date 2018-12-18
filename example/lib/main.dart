@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/events.dart';
+import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 void main() => runApp(new MyApp());
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     child: new Icon(Icons.person, color:Colors.amber,),
   );
 
-  Events _markedDateMap = new Events(
+  EventList _markedDateMap = new EventList(
     events : {
       new DateTime(2018, 12, 10) : [
         new Event(

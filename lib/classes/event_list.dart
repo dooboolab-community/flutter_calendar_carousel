@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 
-class Events {
+class EventList {
   Map<DateTime, List<Event>> events;
 
-  Events({
+  EventList({
     this.events,
   });
 

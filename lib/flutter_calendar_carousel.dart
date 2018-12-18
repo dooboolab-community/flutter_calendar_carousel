@@ -5,7 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/events.dart';
+import 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 class CalendarCarousel extends StatefulWidget {
   final TextStyle defaultHeaderTextStyle = TextStyle(
@@ -81,7 +81,7 @@ class CalendarCarousel extends StatefulWidget {
   final Widget headerText;
   final TextStyle weekendTextStyle;
   final List<DateTime> markedDates;
-  final Events markedDatesMap;
+  final EventList markedDatesMap;
   final Color markedDateColor;
   final Widget markedDateWidget;
   final bool markedDateShowIcon;

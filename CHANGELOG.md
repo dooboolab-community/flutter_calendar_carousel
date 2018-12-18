@@ -1,3 +1,6 @@
+## [1.3.2]
+* Mapping events for better performance. [#34](https://github.com/dooboolab/flutter_calendar_carousel/pull/34).
+
 ## [1.3.1]
 * weekdays bug fix.
 
