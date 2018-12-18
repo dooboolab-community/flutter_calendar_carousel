@@ -1,5 +1,9 @@
+## [1.3.1]
+* weekdays bug fix.
+
 ## [1.3.0]
 * Better localization support for `weekDays`. Setting manually weekdays isn't required now. Related [#23](https://github.com/dooboolab/flutter_calendar_carousel/pull/23).
+* Add custom icons in event [#28](https://github.com/dooboolab/flutter_calendar_carousel/pull/28).
 
 ## [1.2.3]
 * Add custom physics parameter. Feature in [#21](https://github.com/dooboolab/flutter_calendar_carousel/pull/21).
