@@ -368,7 +368,7 @@ class _CalendarState extends State<CalendarCarousel> {
                   return Container(
                     margin: EdgeInsets.all(widget.dayPadding),
                     child: FlatButton(
-                      color: isSelectedDay && widget.todayButtonColor != null
+                      color: isSelectedDay && widget.selectedDayButtonColor != null
                           ? widget.selectedDayButtonColor
                           : isToday && widget.todayButtonColor != null
                               ? widget.todayButtonColor
@@ -531,7 +531,7 @@ class _CalendarState extends State<CalendarCarousel> {
                     return Container(
                       margin: EdgeInsets.all(widget.dayPadding),
                       child: FlatButton(
-                        color: isSelectedDay && widget.todayButtonColor != null
+                        color: isSelectedDay && widget.selectedDayButtonColor != null
                             ? widget.selectedDayButtonColor
                             : isToday && widget.todayButtonColor != null
                                 ? widget.todayButtonColor
