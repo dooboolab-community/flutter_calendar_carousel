@@ -82,23 +82,46 @@ class _MyHomePageState extends State<MyHomePage> {
           title: 'Event 3',
           icon: _eventIcon,
         ),
-        new Event(
-          date: new DateTime(2018, 12, 10),
-          title: 'Event 4',
-          icon: _eventIcon,
-        ),
-      ],
-      new DateTime(2018, 12, 25) : [
-        new Event(
-        date: new DateTime(2018, 12, 25),
-        title: 'Event 5',
-        icon: _eventIcon,
-        ),
       ],
     },
   );
 
   CalendarCarousel _calendarCarousel, _calendarCarouselNoHeader;
+
+  @override
+  void initState() {
+    /// Add more events to _markedDateMap EventList
+    _markedDateMap.add(new DateTime(2018, 12, 25), new Event(
+      date: new DateTime(2018, 12, 25),
+      title: 'Event 5',
+      icon: _eventIcon,
+    ));
+
+    _markedDateMap.add(new DateTime(2018, 12, 10), new Event(
+      date: new DateTime(2018, 12, 10),
+      title: 'Event 4',
+      icon: _eventIcon,
+    ));
+
+    _markedDateMap.addAll(new DateTime(2018, 12, 11), [
+      new Event(
+        date: new DateTime(2018, 12, 11),
+        title: 'Event 1',
+        icon: _eventIcon,
+      ),
+      new Event(
+        date: new DateTime(2018, 12, 11),
+        title: 'Event 2',
+        icon: _eventIcon,
+      ),
+      new Event(
+        date: new DateTime(2018, 12, 11),
+        title: 'Event 3',
+        icon: _eventIcon,
+      ),
+    ]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -10,21 +10,15 @@ class EventList {
 
 
   void add(DateTime date, Event event){
-    if(events != null && events.containsKey(date)) {
-      events[date].add(event);
-    }
-    else {
-      events = { date: [event] };
-    }
+    if(events == null) events = { date: [event] };
+    else if(!events.containsKey(date)) events[date] = [ event ];
+    else events[date].add(event);
   }
 
   void addAll(DateTime date, List<Event> events){
-    if(this.events != null && this.events.containsKey(date)) {
-      this.events[date].addAll(events);
-    }
-    else {
-      this.events = { date: events };
-    }
+    if(this.events == null) this.events = { date: events };
+    else if(!this.events.containsKey(date)) this.events[date] = events;
+    else this.events[date].addAll(events);
   }
 
   bool remove(DateTime date, Event event){
@@ -36,7 +30,7 @@ class EventList {
   List<Event> removeAll(DateTime date) {
     return events != null && events.containsKey(date)
       ? events.remove(date)
-      : true;
+      : [];
   }
 
   void clear(){

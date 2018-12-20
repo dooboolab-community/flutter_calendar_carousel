@@ -10,4 +10,11 @@ class Event {
     this.title,
     this.icon
   }) : assert(date != null);
+
+  @override
+  bool operator ==(other) {
+    return this.date == other.date
+        && this.title == other.title
+        && this.icon == other.icon;
+  }
 }
