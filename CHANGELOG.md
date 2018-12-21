@@ -1,3 +1,7 @@
+## [1.3.3]
++ Fixed FlatButton fill and border color. [#37](https://github.com/dooboolab/flutter_calendar_carousel/pull/37)
++ EventList bug fixing. [#37](https://github.com/dooboolab/flutter_calendar_carousel/pull/36)
+
 ## [1.3.2]
 * Mapping events for better performance. [#34](https://github.com/dooboolab/flutter_calendar_carousel/pull/34).
 
