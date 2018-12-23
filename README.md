@@ -21,7 +21,6 @@ For help getting started with Flutter, view our online
 ## Props
 | props                   | types           | defaultValues                                                                                                     |
 | :---------------------- | :-------------: | :---------------------------------------------------------------------------------------------------------------: |
-| weekDays                |                 | ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']                                                                |
 | viewPortFraction        | `double`        | 1.0                                                                                                               |
 | prevDaysTextStyle       | `TextStyle`     |                                                                                                                   |
 | daysTextStyle           | `TextStyle`     |                                                                                                                   |
@@ -64,7 +63,6 @@ For help getting started with Flutter, view our online
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
 | weekFormat              | `bool`          | `false`                                                                                                           |
-| weekends                | `List<WeekDay>` | `[WeekDay.Saturday, WeekDay.Sunday]`                                                                              |
 | locale                  | `String`        | `en`                                                                                                              |
 | onCalendarChanged       | `Function(DateTime)` |                                                                                                              |
 | minSelectedDate         | `DateTime`      |                                                                                                                   |
@@ -96,7 +94,6 @@ Widget widget() {
 //      ),
 //      markedDates: _markedDate,
       weekFormat: false,
-      weekends: [WeekDay.Sunday, WeekDay.Saturday],
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate,
