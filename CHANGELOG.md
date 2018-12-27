@@ -1,3 +1,6 @@
+## [1.3.4]
++ Bug fix. PrevDaysTextStyle and PrevDaysTextStyle overwrite weekendTextStyle [#41](https://github.com/dooboolab/flutter_calendar_carousel/issues/41).
+
 ## [1.3.3]
 + Fixed FlatButton fill and border color. [#37](https://github.com/dooboolab/flutter_calendar_carousel/pull/37)
 + EventList bug fixing. [#37](https://github.com/dooboolab/flutter_calendar_carousel/pull/36)
