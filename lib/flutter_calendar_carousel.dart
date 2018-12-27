@@ -320,9 +320,8 @@ class _CalendarState extends State<CalendarCarousel> {
                 childAspectRatio: widget.childAspectRatio,
                 padding: EdgeInsets.zero,
                 children: List.generate(totalItemCount,
-
-                    /// last day of month + weekday
-                    (index) {
+                  /// last day of month + weekday
+                  (index) {
                   bool isToday =
                       DateTime.now().day == index + 1 - _startWeekday &&
                           DateTime.now().month == month &&
@@ -417,7 +416,15 @@ class _CalendarState extends State<CalendarCarousel> {
                               style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                       !isSelectedDay &&
                                       !isToday
-                                  ? (isSelectable ? widget.defaultWeekendTextStyle : widget.defaultInactiveWeekendTextStyle)
+                                  ? (
+                                    isPrevMonthDay ? 
+                                      widget.defaultPrevDaysTextStyle :
+                                      isNextMonthDay ?
+                                        widget.defaultNextDaysTextStyle :
+                                        isSelectable ?
+                                          widget.defaultWeekendTextStyle :
+                                          widget.defaultInactiveWeekendTextStyle
+                                  )
                                   : isToday
                                       ? widget.defaultTodayTextStyle
                                       : isSelectable
@@ -427,13 +434,18 @@ class _CalendarState extends State<CalendarCarousel> {
                                 '${now.day}',
                                 style: (_localeDate.dateSymbols.WEEKENDRANGE.contains((index - 1 + firstDayOfWeek) % 7)) &&
                                         !isSelectedDay &&
+                                        isThisMonthDay &&
                                         !isToday
                                     ? (isSelectable ? widget.weekendTextStyle : widget.inactiveWeekendTextStyle)
-                                    : isToday
-                                        ? widget.todayTextStyle
-                                        : isSelectable
-                                            ? textStyle
-                                            : widget.inactiveDaysTextStyle,
+                                    : isPrevMonthDay ?
+                                      widget.prevDaysTextStyle :
+                                      isNextMonthDay ?
+                                        widget.nextDaysTextStyle :
+                                        isToday
+                                          ? widget.todayTextStyle
+                                          : isSelectable
+                                              ? widget.inactiveWeekendTextStyle
+                                              : widget.inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -579,7 +591,9 @@ class _CalendarState extends State<CalendarCarousel> {
                               child: DefaultTextStyle(
                                 style: (index % 7 == 0 || index % 7 == 6) &&
                                         !isSelectedDay &&
-                                        !isToday
+                                        !isToday &&
+                                        !isPrevMonthDay && 
+                                        !isNextMonthDay
                                     ? (isSelectable ? widget.defaultWeekendTextStyle : widget.defaultInactiveWeekendTextStyle)
                                     : isToday
                                         ? widget.defaultTodayTextStyle
