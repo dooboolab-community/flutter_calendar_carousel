@@ -106,6 +106,8 @@ class CalendarCarousel extends StatefulWidget {
   final DateTime maxSelectedDate;
   final TextStyle inactiveDaysTextStyle;
   final TextStyle inactiveWeekendTextStyle;
+  final bool headerTitleTouchable;
+  final Function onHeaderTitlePressed;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -159,6 +161,8 @@ class CalendarCarousel extends StatefulWidget {
     this.maxSelectedDate,
     this.inactiveDaysTextStyle,
     this.inactiveWeekendTextStyle,
+    this.headerTitleTouchable = false,
+    this.onHeaderTitlePressed
   });
 
   @override
@@ -207,14 +211,27 @@ class _CalendarState extends State<CalendarCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    if(_isReloadSelectedDate) {
-      if(widget.selectedDateTime != null) _selectedDate = widget.selectedDateTime;
+    Widget headerText = DefaultTextStyle(
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.black
+      ),
+      child: widget.headerText != null ? 
+      widget.headerText :
+      Text(
+        widget.weekFormat
+            ? '${_localeDate.format(_weeks[1].first)}'
+            : '${_localeDate.format(this._dates[1])}',
+        style: widget.headerTextStyle, 
+      )
+    );
+    if (_isReloadSelectedDate) {
+      if (widget.selectedDateTime != null) _selectedDate = widget.selectedDateTime;
       _setDatesAndWeeks();
     }
-    else{
+    else {
       _isReloadSelectedDate = true;
     }
-
     return Container(
       width: widget.width,
       height: widget.height,
@@ -235,17 +252,12 @@ class _CalendarState extends State<CalendarCarousel> {
                         onPressed: () => _setDate(0),
                         icon: Icon(Icons.chevron_left, color: widget.iconColor),
                       ) : Container(),
-                      FlatButton(
-                        onPressed: () => _selectDateFromPicker(),
-                        child: widget.headerText != null
-                            ? widget.headerText
-                            : Text(
-                                widget.weekFormat
-                                    ? '${_localeDate.format(_weeks[1].first)}'
-                                    : '${_localeDate.format(this._dates[1])}',
-                                style: widget.headerTextStyle,
-                              ),
-                      ),
+                      widget.headerTitleTouchable ? FlatButton(
+                        onPressed: widget.onHeaderTitlePressed != null ?
+                          widget.onHeaderTitlePressed :
+                          () =>_selectDateFromPicker(),
+                        child: headerText,
+                      ) : headerText,
                       widget.showHeaderButton
                       ? IconButton(
                         onPressed: () => _setDate(2),
