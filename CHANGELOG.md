@@ -1,3 +1,6 @@
+## [1.3.5]
++ headerTitleTouchable and onHeaderTitlePressed props added [#44](https://github.com/dooboolab/flutter_calendar_carousel/pull/44).
+
 ## [1.3.4]
 + Bug fix. PrevDaysTextStyle and PrevDaysTextStyle overwrite weekendTextStyle [#41](https://github.com/dooboolab/flutter_calendar_carousel/issues/41).
 
