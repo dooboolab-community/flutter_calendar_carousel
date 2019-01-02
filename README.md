@@ -58,6 +58,8 @@ For help getting started with Flutter, view our online
 | markedDateMoreCustomDecoration | `Decoration`    |                                                                                                                   |
 | markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
+| headerTitleTouchable            | `bool`   | `false`|
+| onHeaderTitlePressed            | `Function`   | `() => _selectDateFromPicker()`|
 | showHeader              | `bool`          |                                                                                                                   |
 | showHeaderButton        | `bool`          |                                                                                                                   |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
