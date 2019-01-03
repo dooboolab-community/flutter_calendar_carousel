@@ -59,7 +59,7 @@ For help getting started with Flutter, view our online
 | markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
 | headerTitleTouchable            | `bool`   | `false`|
-| onHeaderTitlePressed            | `Function`   | () => [_selectDateFromPicker()](https://github.com/dooboolab/flutter_calendar_carousel/blob/eb6df627dc5eac06676758556c538dba4f91a5ac/lib/flutter_calendar_carousel.dart#L672)|
+| onHeaderTitlePressed            | `Function`   | `() => _selectDateFromPicker()`|
 | showHeader              | `bool`          |                                                                                                                   |
 | showHeaderButton        | `bool`          |                                                                                                                   |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
