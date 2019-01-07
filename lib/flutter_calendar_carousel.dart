@@ -467,7 +467,7 @@ class _CalendarState extends State<CalendarCarousel> {
                                         isToday
                                           ? widget.todayTextStyle
                                           : isSelectable
-                                              ? widget.inactiveWeekendTextStyle
+                                              ? widget.daysTextStyle
                                               : widget.inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
