@@ -71,6 +71,7 @@ For help getting started with Flutter, view our online
 | maxSelectedDate         | `DateTime`      |                                                                                                                   |
 | inactiveDaysTextStyle   | `TextStyle`     |                                                                                                                   |
 | inactiveWeekendTextStyle | `TextStyle`     |                                                                                                                   |
+| weekDayFormat | `WeekdayFormat`     | `short`                                                                                                                   |
 
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
