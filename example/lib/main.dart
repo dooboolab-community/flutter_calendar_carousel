@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     child: new Icon(Icons.person, color:Colors.amber,),
   );
 
-  EventList _markedDateMap = new EventList(
+  EventList<Event> _markedDateMap = new EventList<Event>(
     events : {
       new DateTime(2018, 12, 10) : [
         new Event(
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     /// Example with custom icon
-    _calendarCarousel = CalendarCarousel(
+    _calendarCarousel = CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     /// Example Calendar Carousel without header and custom prev & next button
-    _calendarCarouselNoHeader = CalendarCarousel(
+    _calendarCarouselNoHeader = CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
         events.forEach((event) => print(event.title));
@@ -172,6 +172,9 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDateIconMaxShown: 2,
       markedDateMoreShowTotal: false, // null for not showing hidden events indicator
       showHeader: false,
+      markedDateIconBuilder: (event) {
+        return event.icon;
+      },
       minSelectedDate: _currentDate,
       maxSelectedDate: _currentDate.add(Duration(days: 60)),
 //      inactiveDateColor: Colors.black12,
