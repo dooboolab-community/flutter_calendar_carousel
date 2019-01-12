@@ -111,6 +111,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final TextStyle inactiveWeekendTextStyle;
   final bool headerTitleTouchable;
   final Function onHeaderTitlePressed;
+  final WeekdayFormat weekDayFormat;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -167,13 +168,26 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.inactiveWeekendTextStyle,
     this.headerTitleTouchable = false,
     this.onHeaderTitlePressed,
+    this.weekDayFormat = WeekdayFormat.short
+
   });
 
   @override
   _CalendarState<T> createState() => _CalendarState<T>();
 }
 
+
 class _CalendarState<T> extends State<CalendarCarousel<T>> {
+
+enum WeekdayFormat {
+  weekdays,
+  standalone,
+  short,
+  standaloneShort,
+  narrow,
+  standaloneNarrow,
+}
+  
   PageController _controller;
   List<DateTime> _dates = List(3);
   List<List<DateTime>> _weeks = List(3);
@@ -469,20 +483,16 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                         !isSelectedDay &&
                                         isThisMonthDay &&
                                         !isToday
-                                    ? (isSelectable
-                                        ? widget.weekendTextStyle
-                                        : widget.inactiveWeekendTextStyle)
-                                    : isPrevMonthDay
-                                        ? widget.prevDaysTextStyle
-                                        : isNextMonthDay
-                                            ? widget.nextDaysTextStyle
-                                            : isToday
-                                                ? widget.todayTextStyle
-                                                : isSelectable
-                                                    ? widget
-                                                        .inactiveWeekendTextStyle
-                                                    : widget
-                                                        .inactiveDaysTextStyle,
+                                    ? (isSelectable ? widget.weekendTextStyle : widget.inactiveWeekendTextStyle)
+                                    : isPrevMonthDay ?
+                                      widget.prevDaysTextStyle :
+                                      isNextMonthDay ?
+                                        widget.nextDaysTextStyle :
+                                        isToday
+                                          ? widget.todayTextStyle
+                                          : isSelectable
+                                              ? widget.daysTextStyle
+                                              : widget.inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -851,10 +861,33 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     List<Widget> list = [];
 
     /// because of number of days in a week is 7, so it would be easier to count it til 7.
-    for (var i = firstDayOfWeek, count = 0;
-        count < 7;
-        i = (i + 1) % 7, count++) {
-      String weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
+    for (var i = firstDayOfWeek, count = 0; count < 7; i = (i + 1) % 7, count++) {
+      String weekDay;
+      
+      switch (widget.weekDayFormat) {
+        case WeekdayFormat.weekdays:
+          weekDay = _localeDate.dateSymbols.WEEKDAYS[i];
+          break;
+        case WeekdayFormat.standalone:
+          weekDay = _localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
+          break;
+        case WeekdayFormat.short:
+          weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
+          break;
+        case WeekdayFormat.standaloneShort:
+          weekDay = _localeDate.dateSymbols.STANDALONESHORTWEEKDAYS[i];
+          break;
+        case WeekdayFormat.narrow:
+          weekDay = _localeDate.dateSymbols.NARROWWEEKDAYS[i];
+          break;
+        case WeekdayFormat.standaloneNarrow:
+          weekDay = _localeDate.dateSymbols.STANDALONENARROWWEEKDAYS[i];
+          break;
+        default:
+          weekDay = _localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
+          break;
+      }
+      
       list.add(
         Expanded(
             child: Container(
