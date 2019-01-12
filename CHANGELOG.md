@@ -1,3 +1,6 @@
+## [1.3.6]
++ Ability to choose the weekday format on the constructor [#47](https://github.com/dooboolab/flutter_calendar_carousel/pull/47)
+
 ## [1.3.5]
 + headerTitleTouchable and onHeaderTitlePressed props added [#44](https://github.com/dooboolab/flutter_calendar_carousel/pull/44).
 
