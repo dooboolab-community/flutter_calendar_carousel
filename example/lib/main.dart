@@ -49,8 +49,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2018, 12, 3);
-  DateTime _currentDate2 = DateTime(2018, 12, 3);
+  DateTime _currentDate = DateTime(2019, 1, 3);
+  DateTime _currentDate2 = DateTime(2019, 1, 3);
   String _currentMonth = '';
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //            child: Text('Custom Header'),
 //          ),
 //          markedDates: _markedDate,
-      weekFormat: false,
+      weekFormat: true,
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate,
