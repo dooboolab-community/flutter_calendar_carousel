@@ -5,16 +5,12 @@ class Event {
   final String title;
   final Widget icon;
 
-  Event({
-    this.date,
-    this.title,
-    this.icon
-  }) : assert(date != null);
+  Event({this.date, this.title, this.icon}) : assert(date != null);
 
   @override
   bool operator ==(other) {
-    return this.date == other.date
-        && this.title == other.title
-        && this.icon == other.icon;
+    return this.date == other.date &&
+        this.title == other.title &&
+        this.icon == other.icon;
   }
 }

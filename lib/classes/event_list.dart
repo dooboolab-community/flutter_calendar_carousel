@@ -1,5 +1,3 @@
-
-
 class EventList<T> {
   Map<DateTime, List<T>> events;
 
