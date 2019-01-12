@@ -168,16 +168,12 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.inactiveWeekendTextStyle,
     this.headerTitleTouchable = false,
     this.onHeaderTitlePressed,
-    this.weekDayFormat = WeekdayFormat.short
-
+    this.weekDayFormat = WeekdayFormat.short,
   });
 
   @override
   _CalendarState<T> createState() => _CalendarState<T>();
 }
-
-
-class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
 enum WeekdayFormat {
   weekdays,
@@ -187,7 +183,8 @@ enum WeekdayFormat {
   narrow,
   standaloneNarrow,
 }
-  
+
+class _CalendarState<T> extends State<CalendarCarousel<T>> {
   PageController _controller;
   List<DateTime> _dates = List(3);
   List<List<DateTime>> _weeks = List(3);
@@ -483,16 +480,19 @@ enum WeekdayFormat {
                                         !isSelectedDay &&
                                         isThisMonthDay &&
                                         !isToday
-                                    ? (isSelectable ? widget.weekendTextStyle : widget.inactiveWeekendTextStyle)
-                                    : isPrevMonthDay ?
-                                      widget.prevDaysTextStyle :
-                                      isNextMonthDay ?
-                                        widget.nextDaysTextStyle :
-                                        isToday
-                                          ? widget.todayTextStyle
-                                          : isSelectable
-                                              ? widget.daysTextStyle
-                                              : widget.inactiveDaysTextStyle,
+                                    ? (isSelectable
+                                        ? widget.weekendTextStyle
+                                        : widget.inactiveWeekendTextStyle)
+                                    : isPrevMonthDay
+                                        ? widget.prevDaysTextStyle
+                                        : isNextMonthDay
+                                            ? widget.nextDaysTextStyle
+                                            : isToday
+                                                ? widget.todayTextStyle
+                                                : isSelectable
+                                                    ? widget.daysTextStyle
+                                                    : widget
+                                                        .inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -861,9 +861,11 @@ enum WeekdayFormat {
     List<Widget> list = [];
 
     /// because of number of days in a week is 7, so it would be easier to count it til 7.
-    for (var i = firstDayOfWeek, count = 0; count < 7; i = (i + 1) % 7, count++) {
+    for (var i = firstDayOfWeek, count = 0;
+        count < 7;
+        i = (i + 1) % 7, count++) {
       String weekDay;
-      
+
       switch (widget.weekDayFormat) {
         case WeekdayFormat.weekdays:
           weekDay = _localeDate.dateSymbols.WEEKDAYS[i];
@@ -887,7 +889,7 @@ enum WeekdayFormat {
           weekDay = _localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
           break;
       }
-      
+
       list.add(
         Expanded(
             child: Container(
@@ -970,32 +972,34 @@ enum WeekdayFormat {
             count++;
           }
           if (count > 0 && widget.markedDateMoreShowTotal != null) {
-            tmp.add(Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.all(3),
-                decoration: widget.markedDateMoreCustomDecoration == null
-                    ? new BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(1000)),
-                      )
-                    : widget.markedDateMoreCustomDecoration,
-                child: Center(
-                  child: Text(
-                    widget.markedDateMoreShowTotal
-                        ? (count + widget.markedDateIconMaxShown).toString()
-                        : (count.toString() + '+'),
-                    style: widget.markedDateMoreCustomTextStyle == null
-                        ? TextStyle(
-                            fontSize: 9,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal)
-                        : widget.markedDateMoreCustomTextStyle,
+            tmp.add(
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.all(3),
+                  decoration: widget.markedDateMoreCustomDecoration == null
+                      ? new BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(Radius.circular(1000)),
+                        )
+                      : widget.markedDateMoreCustomDecoration,
+                  child: Center(
+                    child: Text(
+                      widget.markedDateMoreShowTotal
+                          ? (count + widget.markedDateIconMaxShown).toString()
+                          : (count.toString() + '+'),
+                      style: widget.markedDateMoreCustomTextStyle == null
+                          ? TextStyle(
+                              fontSize: 9,
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal)
+                          : widget.markedDateMoreCustomTextStyle,
+                    ),
                   ),
                 ),
               ),
-            ));
+            );
           }
         } else {
           if (widget.markedDateWidget != null) {
