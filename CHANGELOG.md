@@ -1,3 +1,6 @@
+## [1.3.6]
++ custom event type added [#49](https://github.com/dooboolab/flutter_calendar_carousel/pull/49).
+
 ## [1.3.5]
 + headerTitleTouchable and onHeaderTitlePressed props added [#44](https://github.com/dooboolab/flutter_calendar_carousel/pull/44).
 
