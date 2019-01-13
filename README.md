@@ -54,6 +54,7 @@ For help getting started with Flutter, view our online
 | markedDateIconBorderColor | `Color`        |                                                                                                                   |
 | markedDateIconMaxShown  | `int`           | 2                                                                                                                 |
 | markedDateIconMargin    | `double`        | 5.0                                                                                                               |
+| markedDateIconBuilder    | `MarkedDateIconBuilder<T>`        |                                                                                                           |
 | markedDateIconOffset    | `double`        | 5.0                                                                                                               |
 | markedDateMoreCustomDecoration | `Decoration`    |                                                                                                                   |
 | markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
@@ -73,6 +74,8 @@ For help getting started with Flutter, view our online
 | inactiveWeekendTextStyle | `TextStyle`     |                                                                                                                   |
 | weekDayFormat | `WeekdayFormat`     | `short`                                                                                                                   |
 
+With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
+
 ## Install
 Add ```flutter_calendar_carousel``` as a dependency in pubspec.yaml
 For help on adding as a dependency, view the [documentation](https://flutter.io/using-packages/).
@@ -83,7 +86,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show C
 Widget widget() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0),
-    child: CalendarCarousel(
+    child: CalendarCarousel<Event>(
       onDayPressed: (DateTime date) {
         this.setState(() => _currentDate = date);
       },
