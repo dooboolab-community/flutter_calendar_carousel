@@ -1,5 +1,7 @@
 library flutter_calendar_dooboo;
 
+import 'dart:async';
+
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
@@ -145,8 +147,8 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.markedDateShowIcon = false,
     this.markedDateIconBorderColor,
     this.markedDateIconMaxShown = 2,
-    this.markedDateIconMargin = 5,
-    this.markedDateIconOffset = 5,
+    this.markedDateIconMargin = 5.0,
+    this.markedDateIconOffset = 5.0,
     this.markedDateIconBuilder,
     this.markedDateMoreShowTotal,
     this.markedDateMoreCustomDecoration,
@@ -230,7 +232,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   @override
   Widget build(BuildContext context) {
     Widget headerText = DefaultTextStyle(
-        style: TextStyle(fontSize: 16, color: Colors.black),
+        style: TextStyle(fontSize: 16.0, color: Colors.black),
         child: widget.headerText != null
             ? widget.headerText
             : Text(
@@ -947,7 +949,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         widget.markedDatesMap.getEvents(now).length > 0) {
       List<Widget> tmp = [];
       int count = 0;
-      double offset = 0;
+      double offset = 0.0;
       double padding = widget.markedDateIconMargin;
       widget.markedDatesMap.getEvents(now).forEach((event) {
         if (widget.markedDateShowIcon) {
@@ -974,14 +976,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           if (count > 0 && widget.markedDateMoreShowTotal != null) {
             tmp.add(
               Positioned(
-                bottom: 0,
-                right: 0,
+                bottom: 0.0,
+                right: 0.0,
                 child: Container(
-                  padding: EdgeInsets.all(3),
+                  padding: EdgeInsets.all(3.0),
                   decoration: widget.markedDateMoreCustomDecoration == null
                       ? new BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.all(Radius.circular(1000)),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(1000.0)),
                         )
                       : widget.markedDateMoreCustomDecoration,
                   child: Center(
@@ -991,7 +994,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                           : (count.toString() + '+'),
                       style: widget.markedDateMoreCustomTextStyle == null
                           ? TextStyle(
-                              fontSize: 9,
+                              fontSize: 9.0,
                               color: Colors.white,
                               fontWeight: FontWeight.normal)
                           : widget.markedDateMoreCustomTextStyle,
