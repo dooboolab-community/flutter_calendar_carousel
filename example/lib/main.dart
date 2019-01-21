@@ -152,6 +152,10 @@ class _MyHomePageState extends State<MyHomePage> {
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
+      todayTextStyle: TextStyle(
+        color: Colors.blue,
+      ),
+      todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
           true, // null for not showing hidden events indicator
 //          markedDateIconMargin: 9,
@@ -160,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     /// Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
+      todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
         events.forEach((event) => print(event.title));
@@ -181,6 +186,13 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDateIconBuilder: (event) {
         return event.icon;
       },
+      todayTextStyle: TextStyle(
+        color: Colors.blue,
+      ),
+      todayButtonColor: Colors.yellow,
+      selectedDayTextStyle: TextStyle(
+        color: Colors.green,
+      ),
       minSelectedDate: _currentDate,
       maxSelectedDate: _currentDate.add(Duration(days: 60)),
 //      inactiveDateColor: Colors.black12,

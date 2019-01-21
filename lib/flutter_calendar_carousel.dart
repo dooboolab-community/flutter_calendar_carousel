@@ -422,14 +422,13 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   side: BorderSide(
                                     color: isSelectedDay
                                         ? widget.selectedDayBorderColor
-                                        : isPrevMonthDay
-                                            ? widget.prevMonthDayBorderColor
-                                            : isNextMonthDay
-                                                ? widget.nextMonthDayBorderColor
-                                                : isToday &&
-                                                        widget.todayBorderColor !=
-                                                            null
-                                                    ? widget.todayBorderColor
+                                        : isToday && widget.todayBorderColor != null
+                                            ? widget.todayBorderColor
+                                            : isPrevMonthDay
+                                                ? widget.prevMonthDayBorderColor
+                                                : isNextMonthDay
+                                                    ? widget
+                                                        .nextMonthDayBorderColor
                                                     : widget
                                                         .thisMonthDayBorderColor,
                                   ),
@@ -438,14 +437,13 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   side: BorderSide(
                                     color: isSelectedDay
                                         ? widget.selectedDayBorderColor
-                                        : isPrevMonthDay
-                                            ? widget.prevMonthDayBorderColor
-                                            : isNextMonthDay
-                                                ? widget.nextMonthDayBorderColor
-                                                : isToday &&
-                                                        widget.todayBorderColor !=
-                                                            null
-                                                    ? widget.todayBorderColor
+                                        : isToday && widget.todayBorderColor != null
+                                            ? widget.todayBorderColor
+                                            : isPrevMonthDay
+                                                ? widget.prevMonthDayBorderColor
+                                                : isNextMonthDay
+                                                    ? widget
+                                                        .nextMonthDayBorderColor
                                                     : widget
                                                         .thisMonthDayBorderColor,
                                   ),
@@ -611,15 +609,16 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                     side: BorderSide(
                                       color: isSelectedDay
                                           ? widget.selectedDayBorderColor
-                                          : isPrevMonthDay
-                                              ? widget.prevMonthDayBorderColor
-                                              : isNextMonthDay
+                                          : isToday &&
+                                                  widget.todayBorderColor !=
+                                                      null
+                                              ? widget.todayBorderColor
+                                              : isPrevMonthDay
                                                   ? widget
-                                                      .nextMonthDayBorderColor
-                                                  : isToday &&
-                                                          widget.todayBorderColor !=
-                                                              null
-                                                      ? widget.todayBorderColor
+                                                      .prevMonthDayBorderColor
+                                                  : isNextMonthDay
+                                                      ? widget
+                                                          .nextMonthDayBorderColor
                                                       : widget
                                                           .thisMonthDayBorderColor,
                                     ),
@@ -628,15 +627,16 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                     side: BorderSide(
                                       color: isSelectedDay
                                           ? widget.selectedDayBorderColor
-                                          : isPrevMonthDay
-                                              ? widget.prevMonthDayBorderColor
-                                              : isNextMonthDay
+                                          : isToday &&
+                                                  widget.todayBorderColor !=
+                                                      null
+                                              ? widget.todayBorderColor
+                                              : isPrevMonthDay
                                                   ? widget
-                                                      .nextMonthDayBorderColor
-                                                  : isToday &&
-                                                          widget.todayBorderColor !=
-                                                              null
-                                                      ? widget.todayBorderColor
+                                                      .prevMonthDayBorderColor
+                                                  : isNextMonthDay
+                                                      ? widget
+                                                          .nextMonthDayBorderColor
                                                       : widget
                                                           .thisMonthDayBorderColor,
                                     ),

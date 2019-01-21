@@ -1,3 +1,6 @@
+## [1.3.8]
++ Changed priority for `today` higher than `prevMonth` and `nextMonth` and `thisMonth`.
+
 ## [1.3.7]
 + Ability to choose the weekday format on the constructor [#47](https://github.com/dooboolab/flutter_calendar_carousel/pull/47).
 
