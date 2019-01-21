@@ -1,4 +1,7 @@
-## [1.3.8]
+## [1.3.10]
++ Add property for static six week format to keep calendar height consistent between months [#62](https://github.com/dooboolab/flutter_calendar_carousel/pull/62).
+
+## [1.3.9]
 + Changed priority for `today` higher than `prevMonth` and `nextMonth` and `thisMonth`.
 
 ## [1.3.7]
