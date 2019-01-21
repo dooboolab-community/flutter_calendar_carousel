@@ -46,21 +46,21 @@ For help getting started with Flutter, view our online
 | headerTextStyle         | `TextStyle`     | `fontSize: 20.0, color: Colors.blue`                                                                              |
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
-| ~~markedDates~~            | `List<DateTime>` | []                                                                                                               |
-| markedDatesMap          | `Events`        | `null`                                                                                                       |
+| ~~markedDates~~         | `List<DateTime>`| []                                                                                                                |
+| markedDatesMap          | `Events`        | `null`                                                                                                            |
 | markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | markedDateShowIcon      | `bool`          | false                                                                                                             |
-| markedDateIconBorderColor | `Color`        |                                                                                                                   |
+| markedDateIconBorderColor | `Color`       |                                                                                                                   |
 | markedDateIconMaxShown  | `int`           | 2                                                                                                                 |
 | markedDateIconMargin    | `double`        | 5.0                                                                                                               |
-| markedDateIconBuilder    | `MarkedDateIconBuilder<T>`        |                                                                                                           |
+| markedDateIconBuilder   | `MarkedDateIconBuilder<T>` |                                                                                                        |
 | markedDateIconOffset    | `double`        | 5.0                                                                                                               |
-| markedDateMoreCustomDecoration | `Decoration`    |                                                                                                                   |
-| markedDateMoreCustomTextStyle | `TextStyle`     |                                                                                                                   |
+| markedDateMoreCustomDecoration | `Decoration` |                                                                                                               |
+| markedDateMoreCustomTextStyle | `TextStyle` |                                                                                                                 |
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
-| headerTitleTouchable            | `bool`   | `false`|
-| onHeaderTitlePressed            | `Function`   | `() => _selectDateFromPicker()`|
+| headerTitleTouchable    | `bool`          | `false`                                                                                                           |
+| onHeaderTitlePressed    | `Function`      | `() => _selectDateFromPicker()`                                                                                   |
 | showHeader              | `bool`          |                                                                                                                   |
 | showHeaderButton        | `bool`          |                                                                                                                   |
 | childAspectRatio        | `double`        | `1.0`                                                                                                             |
@@ -71,8 +71,9 @@ For help getting started with Flutter, view our online
 | minSelectedDate         | `DateTime`      |                                                                                                                   |
 | maxSelectedDate         | `DateTime`      |                                                                                                                   |
 | inactiveDaysTextStyle   | `TextStyle`     |                                                                                                                   |
-| inactiveWeekendTextStyle | `TextStyle`     |                                                                                                                   |
-| weekDayFormat | `WeekdayFormat`     | `short`                                                                                                                   |
+| inactiveWeekendTextStyle | `TextStyle`    |                                                                                                                   |
+| weekDayFormat           | `WeekdayFormat` | `short`                                                                                                           |
+| staticSixWeekFormat     | `bool`          | `false`                                                                                                           |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 
