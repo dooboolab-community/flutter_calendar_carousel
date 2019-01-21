@@ -114,6 +114,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool headerTitleTouchable;
   final Function onHeaderTitlePressed;
   final WeekdayFormat weekDayFormat;
+  final bool staticSixWeekFormat;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -171,6 +172,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.headerTitleTouchable = false,
     this.onHeaderTitlePressed,
     this.weekDayFormat = WeekdayFormat.short,
+    this.staticSixWeekFormat = false,
   });
 
   @override
@@ -316,13 +318,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
   AnimatedBuilder builder(int slideIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
-    int totalItemCount = DateTime(
-          _dates[slideIndex].year,
-          _dates[slideIndex].month + 1,
-          0,
-        ).day +
-        _startWeekday +
-        (7 - _endWeekday);
+    int totalItemCount = widget.staticSixWeekFormat
+        ? 42
+        : DateTime(
+              _dates[slideIndex].year,
+              _dates[slideIndex].month + 1,
+              0,
+            ).day +
+            _startWeekday +
+            (7 - _endWeekday);
     int year = _dates[slideIndex].year;
     int month = _dates[slideIndex].month;
 
