@@ -1,3 +1,6 @@
+## [1.3.11]
++ Fixed `selectledDayTextStyle` property not being respected [#65](https://github.com/dooboolab/flutter_calendar_carousel/pull/65).
+
 ## [1.3.10]
 + Add property for static six week format to keep calendar height consistent between months [#62](https://github.com/dooboolab/flutter_calendar_carousel/pull/62).
 
