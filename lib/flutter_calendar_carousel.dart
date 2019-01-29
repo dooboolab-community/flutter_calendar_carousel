@@ -491,12 +491,14 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                         ? widget.prevDaysTextStyle
                                         : isNextMonthDay
                                             ? widget.nextDaysTextStyle
-                                            : isToday
-                                                ? widget.todayTextStyle
-                                                : isSelectable
-                                                    ? widget.daysTextStyle
-                                                    : widget
-                                                        .inactiveDaysTextStyle,
+                                            : isSelectedDay
+                                                ? widget.selectedDayTextStyle
+                                                : isToday
+                                                    ? widget.todayTextStyle
+                                                    : isSelectable
+                                                        ? widget.daysTextStyle
+                                                        : widget
+                                                            .inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
