@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 
-final TextStyle defaultHeaderTextStyle = TextStyle(
+const TextStyle defaultHeaderTextStyle = const TextStyle(
 	fontSize: 20.0,
 	color: Colors.blue,
 );
-final TextStyle defaultPrevDaysTextStyle = TextStyle(
+const TextStyle defaultPrevDaysTextStyle = const TextStyle(
 	color: Colors.grey,
 	fontSize: 14.0,
 );
-final TextStyle defaultNextDaysTextStyle = TextStyle(
+const TextStyle defaultNextDaysTextStyle = const TextStyle(
 	color: Colors.grey,
 	fontSize: 14.0,
 );
-final TextStyle defaultDaysTextStyle = TextStyle(
+const TextStyle defaultDaysTextStyle = const TextStyle(
 	color: Colors.black,
 	fontSize: 14.0,
 );
-final TextStyle defaultTodayTextStyle = TextStyle(
+const TextStyle defaultTodayTextStyle = const TextStyle(
 	color: Colors.white,
 	fontSize: 14.0,
 );
-final TextStyle defaultSelectedDayTextStyle = TextStyle(
+const TextStyle defaultSelectedDayTextStyle = const TextStyle(
 	color: Colors.white,
 	fontSize: 14.0,
 );
-final TextStyle defaultWeekdayTextStyle = TextStyle(
+const TextStyle defaultWeekdayTextStyle = const TextStyle(
 	color: Colors.deepOrange,
 	fontSize: 14.0,
 );
-final TextStyle defaultWeekendTextStyle = TextStyle(
+const TextStyle defaultWeekendTextStyle = const TextStyle(
 	color: Colors.pinkAccent,
 	fontSize: 14.0,
 );
-final TextStyle defaultInactiveDaysTextStyle = TextStyle(
+const TextStyle defaultInactiveDaysTextStyle = const TextStyle(
 	color: Colors.black38,
 	fontSize: 14.0,
 );
