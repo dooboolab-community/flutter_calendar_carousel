@@ -5,10 +5,9 @@ import 'dart:async';
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
-
-import 'src/src.dart';
 
 typedef MarkedDateIconBuilder<T> = Widget Function(T event);
 
