@@ -5,58 +5,13 @@ import 'dart:async';
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 typedef MarkedDateIconBuilder<T> = Widget Function(T event);
 
 class CalendarCarousel<T> extends StatefulWidget {
-  final TextStyle defaultHeaderTextStyle = TextStyle(
-    fontSize: 20.0,
-    color: Colors.blue,
-  );
-  final TextStyle defaultPrevDaysTextStyle = TextStyle(
-    color: Colors.grey,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultNextDaysTextStyle = TextStyle(
-    color: Colors.grey,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultDaysTextStyle = TextStyle(
-    color: Colors.black,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultTodayTextStyle = TextStyle(
-    color: Colors.white,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultSelectedDayTextStyle = TextStyle(
-    color: Colors.white,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultWeekdayTextStyle = TextStyle(
-    color: Colors.deepOrange,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultWeekendTextStyle = TextStyle(
-    color: Colors.pinkAccent,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultInactiveDaysTextStyle = TextStyle(
-    color: Colors.black38,
-    fontSize: 14.0,
-  );
-  final TextStyle defaultInactiveWeekendTextStyle = TextStyle(
-    color: Colors.pinkAccent.withOpacity(0.6),
-    fontSize: 14.0,
-  );
-  final Widget defaultMarkedDateWidget = Container(
-    margin: EdgeInsets.symmetric(horizontal: 1.0),
-    color: Colors.blueAccent,
-    height: 4.0,
-    width: 4.0,
-  );
 
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
@@ -261,7 +216,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   child: DefaultTextStyle(
                       style: widget.headerTextStyle != null
                           ? widget.headerTextStyle
-                          : widget.defaultHeaderTextStyle,
+                          : defaultHeaderTextStyle,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -381,7 +336,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   if (isPrevMonthDay) {
                     now = now.subtract(Duration(days: _startWeekday - index));
                     textStyle = widget.prevDaysTextStyle;
-                    defaultTextStyle = widget.defaultPrevDaysTextStyle;
+                    defaultTextStyle = defaultPrevDaysTextStyle;
                   } else if (isThisMonthDay) {
                     now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = isSelectedDay
@@ -390,14 +345,14 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                             ? widget.todayTextStyle
                             : widget.daysTextStyle;
                     defaultTextStyle = isSelectedDay
-                        ? widget.defaultSelectedDayTextStyle
+                        ? defaultSelectedDayTextStyle
                         : isToday
-                            ? widget.defaultTodayTextStyle
-                            : widget.defaultDaysTextStyle;
+                            ? defaultTodayTextStyle
+                            : defaultDaysTextStyle;
                   } else {
                     now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = widget.nextDaysTextStyle;
-                    defaultTextStyle = widget.defaultNextDaysTextStyle;
+                    defaultTextStyle = defaultNextDaysTextStyle;
                   }
                   bool isSelectable = true;
                   if (widget.minSelectedDate != null &&
@@ -463,18 +418,17 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                       !isSelectedDay &&
                                       !isToday
                                   ? (isPrevMonthDay
-                                      ? widget.defaultPrevDaysTextStyle
+                                      ? defaultPrevDaysTextStyle
                                       : isNextMonthDay
-                                          ? widget.defaultNextDaysTextStyle
+                                          ? defaultNextDaysTextStyle
                                           : isSelectable
-                                              ? widget.defaultWeekendTextStyle
-                                              : widget
-                                                  .defaultInactiveWeekendTextStyle)
+                                              ? defaultWeekendTextStyle
+                                              : defaultInactiveWeekendTextStyle)
                                   : isToday
-                                      ? widget.defaultTodayTextStyle
+                                      ? defaultTodayTextStyle
                                       : isSelectable
                                           ? defaultTextStyle
-                                          : widget.defaultInactiveDaysTextStyle,
+                                          : defaultInactiveDaysTextStyle,
                               child: Text(
                                 '${now.day}',
                                 style: (_localeDate.dateSymbols.WEEKENDRANGE
@@ -572,7 +526,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     TextStyle defaultTextStyle;
                     if (isPrevMonthDay) {
                       textStyle = widget.prevDaysTextStyle;
-                      defaultTextStyle = widget.defaultPrevDaysTextStyle;
+                      defaultTextStyle = defaultPrevDaysTextStyle;
                     } else if (isThisMonthDay) {
                       textStyle = isSelectedDay
                           ? widget.selectedDayTextStyle
@@ -580,13 +534,13 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                               ? widget.todayTextStyle
                               : widget.daysTextStyle;
                       defaultTextStyle = isSelectedDay
-                          ? widget.defaultSelectedDayTextStyle
+                          ? defaultSelectedDayTextStyle
                           : isToday
-                              ? widget.defaultTodayTextStyle
-                              : widget.defaultDaysTextStyle;
+                              ? defaultTodayTextStyle
+                              : defaultDaysTextStyle;
                     } else {
                       textStyle = widget.nextDaysTextStyle;
-                      defaultTextStyle = widget.defaultNextDaysTextStyle;
+                      defaultTextStyle = defaultNextDaysTextStyle;
                     }
                     bool isSelectable = true;
                     if (widget.minSelectedDate != null &&
@@ -657,11 +611,10 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                         !isPrevMonthDay &&
                                         !isNextMonthDay
                                     ? (isSelectable
-                                        ? widget.defaultWeekendTextStyle
-                                        : widget
-                                            .defaultInactiveWeekendTextStyle)
+                                        ? defaultWeekendTextStyle
+                                        : defaultInactiveWeekendTextStyle)
                                     : isToday
-                                        ? widget.defaultTodayTextStyle
+                                        ? defaultTodayTextStyle
                                         : defaultTextStyle,
                                 child: Text(
                                   '${now.day}',
@@ -904,7 +857,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           margin: widget.weekDayMargin,
           child: Center(
             child: DefaultTextStyle(
-              style: widget.defaultWeekdayTextStyle,
+              style: defaultWeekdayTextStyle,
               child: Text(
                 weekDay,
                 style: widget.weekdayTextStyle,
@@ -925,7 +878,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       if (markedDates.contains(now)) {
         return widget.markedDateWidget != null
             ? widget.markedDateWidget
-            : widget.defaultMarkedDateWidget;
+            : defaultMarkedDateWidget;
       }
     }
     return Container();
@@ -1014,7 +967,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           if (widget.markedDateWidget != null) {
             tmp.add(widget.markedDateWidget);
           } else {
-            tmp.add(widget.defaultMarkedDateWidget);
+            tmp.add(defaultMarkedDateWidget);
           }
         }
       });
