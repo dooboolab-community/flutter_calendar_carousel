@@ -26,6 +26,8 @@ class CalendarHeader extends StatelessWidget {
 	final bool isTitleTouchable;
 	final VoidCallback onHeaderTitlePressed;
 
+	TextStyle get getTextStyle => headerTextStyle != null ? headerTextStyle : defaultHeaderTextStyle;
+
 	Widget _leftButton() => IconButton(
 		onPressed: onLeftButtonPressed,
 		icon: Icon(Icons.chevron_left,
@@ -42,7 +44,7 @@ class CalendarHeader extends StatelessWidget {
 
 	Widget _headerTouchable() => FlatButton(
 		onPressed: onHeaderTitlePressed,
-		child: Text(headerTitle, style: headerTextStyle),
+		child: Text(headerTitle, style: getTextStyle),
 	);
 
 	@override
@@ -51,9 +53,7 @@ class CalendarHeader extends StatelessWidget {
 			Container(
 				margin: headerMargin,
 				child: DefaultTextStyle(
-						style: headerTextStyle != null
-								? headerTextStyle
-								: defaultHeaderTextStyle,
+						style: getTextStyle,
 						child: Row(
 								mainAxisAlignment: MainAxisAlignment.spaceBetween,
 								children: <Widget>[
@@ -62,7 +62,7 @@ class CalendarHeader extends StatelessWidget {
 											: Container(),
 									isTitleTouchable
 											? _headerTouchable()
-											: Text(headerTitle, style: headerTextStyle),
+											: Text(headerTitle, style: getTextStyle),
 									showHeaderButtons
 											? _rightButton()
 											: Container(),
