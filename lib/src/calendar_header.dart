@@ -3,17 +3,16 @@ import 'default_styles.dart';
 
 class CalendarHeader extends StatelessWidget {
   CalendarHeader(
-      {this.headerTitle,
+      {@required this.headerTitle,
       this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
       this.showHeader = true,
       this.headerTextStyle = defaultHeaderTextStyle,
       this.showHeaderButtons = true,
       this.headerIconColor = Colors.blueAccent,
-      this.onLeftButtonPressed,
-      this.onRightButtonPressed,
+      @required this.onLeftButtonPressed,
+      @required this.onRightButtonPressed,
       this.isTitleTouchable = false,
-      this.onHeaderTitlePressed})
-      : assert(onHeaderTitlePressed != null, headerTitle != null);
+      @required this.onHeaderTitlePressed});
 
   final String headerTitle;
   final EdgeInsetsGeometry headerMargin;
