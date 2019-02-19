@@ -4,14 +4,14 @@ import 'default_styles.dart';
 class CalendarHeader extends StatelessWidget {
 	CalendarHeader({
 		this.headerTitle,
-		this.headerMargin,
-		this.showHeader,
-		this.headerTextStyle,
-		this.showHeaderButtons,
-		this.headerIconColor,
+		this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
+		this.showHeader = true,
+		this.headerTextStyle = defaultHeaderTextStyle,
+		this.showHeaderButtons = true,
+		this.headerIconColor = Colors.blueAccent,
 		this.onLeftButtonPressed,
 		this.onRightButtonPressed,
-		this.isTitleTouchable,
+		this.isTitleTouchable = false,
 		this.onHeaderTitlePressed
 	}) : assert (onHeaderTitlePressed != null, headerTitle != null);
 
@@ -25,8 +25,6 @@ class CalendarHeader extends StatelessWidget {
 	final VoidCallback onRightButtonPressed;
 	final bool isTitleTouchable;
 	final VoidCallback onHeaderTitlePressed;
-
-	TextStyle get getTextStyle => headerTextStyle != null ? headerTextStyle : defaultHeaderTextStyle;
 
 	Widget _leftButton() => IconButton(
 		onPressed: onLeftButtonPressed,
@@ -44,7 +42,7 @@ class CalendarHeader extends StatelessWidget {
 
 	Widget _headerTouchable() => FlatButton(
 		onPressed: onHeaderTitlePressed,
-		child: Text(headerTitle, style: getTextStyle),
+		child: Text(headerTitle, style: headerTextStyle),
 	);
 
 	@override
@@ -53,7 +51,7 @@ class CalendarHeader extends StatelessWidget {
 			Container(
 				margin: headerMargin,
 				child: DefaultTextStyle(
-						style: getTextStyle,
+						style: headerTextStyle,
 						child: Row(
 								mainAxisAlignment: MainAxisAlignment.spaceBetween,
 								children: <Widget>[
@@ -62,7 +60,7 @@ class CalendarHeader extends StatelessWidget {
 											: Container(),
 									isTitleTouchable
 											? _headerTouchable()
-											: Text(headerTitle, style: getTextStyle),
+											: Text(headerTitle, style: headerTextStyle),
 									showHeaderButtons
 											? _rightButton()
 											: Container(),
