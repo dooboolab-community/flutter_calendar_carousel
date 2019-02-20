@@ -13,7 +13,6 @@ import 'package:intl/intl.dart' show DateFormat;
 typedef MarkedDateIconBuilder<T> = Widget Function(T event);
 
 class CalendarCarousel<T> extends StatefulWidget {
-
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -201,18 +200,22 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       height: widget.height,
       child: Column(
         children: <Widget>[
-        	CalendarHeader(
-						showHeader: widget.showHeader,
-						headerMargin: widget.headerMargin,
-						headerTitle: widget.weekFormat ? '${_localeDate.format(_weeks[1].first)}' : '${_localeDate.format(this._dates[1])}',
-						headerTextStyle: widget.headerTextStyle,
-						showHeaderButtons: widget.showHeaderButton,
-						headerIconColor: widget.iconColor,
-						onLeftButtonPressed: () => _setDate(0),
-						onRightButtonPressed: () => _setDate(2),
-						isTitleTouchable: widget.headerTitleTouchable,
-						onHeaderTitlePressed: widget.onHeaderTitlePressed != null ? widget.onHeaderTitlePressed : () => _selectDateFromPicker(),
-					),
+          CalendarHeader(
+            showHeader: widget.showHeader,
+            headerMargin: widget.headerMargin,
+            headerTitle: widget.weekFormat
+                ? '${_localeDate.format(_weeks[1].first)}'
+                : '${_localeDate.format(this._dates[1])}',
+            headerTextStyle: widget.headerTextStyle,
+            showHeaderButtons: widget.showHeaderButton,
+            headerIconColor: widget.iconColor,
+            onLeftButtonPressed: () => _setDate(0),
+            onRightButtonPressed: () => _setDate(2),
+            isTitleTouchable: widget.headerTitleTouchable,
+            onHeaderTitlePressed: widget.onHeaderTitlePressed != null
+                ? widget.onHeaderTitlePressed
+                : () => _selectDateFromPicker(),
+          ),
           Container(
             child: !widget.showWeekDays
                 ? Container()
@@ -932,14 +935,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             );
           }
         } else {
-
-
           //max 5 dots
-          if(event_index < 5) {
+          if (event_index < 5) {
             if (widget.markedDateIconBuilder != null) {
               tmp.add(widget.markedDateIconBuilder(event));
-            }
-            else {
+            } else {
               if (widget.markedDateWidget != null) {
                 tmp.add(widget.markedDateWidget);
               } else {
@@ -947,13 +947,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
               }
             }
           }
-
-
-
         }
 
         event_index++;
-
       });
       return tmp;
     }
