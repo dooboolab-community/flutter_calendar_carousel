@@ -878,6 +878,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         widget.markedDatesMap.getEvents(now).length > 0) {
       List<Widget> tmp = [];
       int count = 0;
+      int event_index = 0;
       double offset = 0.0;
       double padding = widget.markedDateIconMargin;
       widget.markedDatesMap.getEvents(now).forEach((event) {
@@ -934,12 +935,28 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             );
           }
         } else {
-          if (widget.markedDateWidget != null) {
-            tmp.add(widget.markedDateWidget);
-          } else {
-            tmp.add(defaultMarkedDateWidget);
+
+
+          //max 5 dots
+          if(event_index < 5) {
+            if (widget.markedDateIconBuilder != null) {
+              tmp.add(widget.markedDateIconBuilder(event));
+            }
+            else {
+              if (widget.markedDateWidget != null) {
+                tmp.add(widget.markedDateWidget);
+              } else {
+                tmp.add(defaultMarkedDateWidget);
+              }
+            }
           }
+
+
+
         }
+
+        event_index++;
+
       });
       return tmp;
     }

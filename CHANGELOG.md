@@ -1,3 +1,6 @@
+## [1.3.12]
++ Setting dot icon per event [#71](https://github.com/dooboolab/flutter_calendar_carousel/pull/71)
+
 ## [1.3.11]
 + Fixed `selectledDayTextStyle` property not being respected [#65](https://github.com/dooboolab/flutter_calendar_carousel/pull/65).
 
