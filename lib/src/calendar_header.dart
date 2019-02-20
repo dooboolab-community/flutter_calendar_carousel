@@ -25,7 +25,8 @@ class CalendarHeader extends StatelessWidget {
   final bool isTitleTouchable;
   final VoidCallback onHeaderTitlePressed;
 
-  TextStyle get getTextStyle => headerTextStyle != null ? headerTextStyle : defaultHeaderTextStyle;
+  TextStyle get getTextStyle =>
+      headerTextStyle != null ? headerTextStyle : defaultHeaderTextStyle;
 
   Widget _leftButton() => IconButton(
         onPressed: onLeftButtonPressed,
