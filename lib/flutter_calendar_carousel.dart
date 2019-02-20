@@ -204,17 +204,14 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         	CalendarHeader(
 						showHeader: widget.showHeader,
 						headerMargin: widget.headerMargin,
-						headerTitle: widget.weekFormat
-								? '${_localeDate.format(_weeks[1].first)}'
-								: '${_localeDate.format(this._dates[1])}',
+						headerTitle: widget.weekFormat ? '${_localeDate.format(_weeks[1].first)}' : '${_localeDate.format(this._dates[1])}',
 						headerTextStyle: widget.headerTextStyle,
 						showHeaderButtons: widget.showHeaderButton,
 						headerIconColor: widget.iconColor,
 						onLeftButtonPressed: () => _setDate(0),
 						onRightButtonPressed: () => _setDate(2),
 						isTitleTouchable: widget.headerTitleTouchable,
-						onHeaderTitlePressed: widget.onHeaderTitlePressed != null
-							? widget.onHeaderTitlePressed : () => _selectDateFromPicker(),
+						onHeaderTitlePressed: widget.onHeaderTitlePressed != null ? widget.onHeaderTitlePressed : () => _selectDateFromPicker(),
 					),
           Container(
             child: !widget.showWeekDays
