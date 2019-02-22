@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'default_styles.dart';
+import 'default_styles.dart' show defaultHeaderTextStyle;
 
 class CalendarHeader extends StatelessWidget {
   CalendarHeader(
