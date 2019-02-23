@@ -1,3 +1,9 @@
+## [1.3.13]
++ Code refactoring [#71](https://github.com/dooboolab/flutter_calendar_carousel/pull/73)
+  - Seperate header.
+  - Add first basic test code.
+  - Add composable header widget
+
 ## [1.3.12]
 + Setting dot icon per event [#71](https://github.com/dooboolab/flutter_calendar_carousel/pull/71)
 

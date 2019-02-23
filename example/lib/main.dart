@@ -66,19 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {
-      new DateTime(2018, 12, 10): [
+      new DateTime(2019, 2, 10): [
         new Event(
-          date: new DateTime(2018, 12, 10),
+          date: new DateTime(2019, 2, 10),
           title: 'Event 1',
           icon: _eventIcon,
         ),
         new Event(
-          date: new DateTime(2018, 12, 10),
+          date: new DateTime(2019, 2, 10),
           title: 'Event 2',
           icon: _eventIcon,
         ),
         new Event(
-          date: new DateTime(2018, 12, 10),
+          date: new DateTime(2019, 2, 10),
           title: 'Event 3',
           icon: _eventIcon,
         ),
@@ -92,35 +92,50 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     /// Add more events to _markedDateMap EventList
     _markedDateMap.add(
-        new DateTime(2018, 12, 25),
+        new DateTime(2019, 2, 25),
         new Event(
-          date: new DateTime(2018, 12, 25),
+          date: new DateTime(2019, 2, 25),
           title: 'Event 5',
           icon: _eventIcon,
         ));
 
     _markedDateMap.add(
-        new DateTime(2018, 12, 10),
+        new DateTime(2019, 2, 10),
         new Event(
-          date: new DateTime(2018, 12, 10),
+          date: new DateTime(2019, 2, 10),
           title: 'Event 4',
           icon: _eventIcon,
         ));
 
-    _markedDateMap.addAll(new DateTime(2018, 12, 11), [
+    _markedDateMap.addAll(new DateTime(2019, 2, 11), [
       new Event(
-        date: new DateTime(2018, 12, 11),
+        date: new DateTime(2019, 2, 11),
         title: 'Event 1',
         icon: _eventIcon,
       ),
       new Event(
-        date: new DateTime(2018, 12, 11),
+        date: new DateTime(2019, 2, 11),
         title: 'Event 2',
         icon: _eventIcon,
       ),
       new Event(
-        date: new DateTime(2018, 12, 11),
+        date: new DateTime(2019, 2, 11),
         title: 'Event 3',
+        icon: _eventIcon,
+      ),
+      new Event(
+        date: new DateTime(2019, 2, 11),
+        title: 'Event 4',
+        icon: _eventIcon,
+      ),
+      new Event(
+        date: new DateTime(2019, 2, 11),
+        title: 'Event 23',
+        icon: _eventIcon,
+      ),
+      new Event(
+        date: new DateTime(2019, 2, 11),
+        title: 'Event 123',
         icon: _eventIcon,
       ),
     ]);
@@ -191,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       todayButtonColor: Colors.yellow,
       selectedDayTextStyle: TextStyle(
-        color: Colors.green,
+        color: Colors.yellow,
       ),
       minSelectedDate: _currentDate,
       maxSelectedDate: _currentDate.add(Duration(days: 60)),
