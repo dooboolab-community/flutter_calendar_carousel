@@ -6,13 +6,13 @@ import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/src/default_styles.dart';
+import 'package:flutter_calendar_carousel/src/calendar_header.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 typedef MarkedDateIconBuilder<T> = Widget Function(T event);
 
 class CalendarCarousel<T> extends StatefulWidget {
-
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -188,16 +188,6 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
   @override
   Widget build(BuildContext context) {
-    Widget headerText = DefaultTextStyle(
-        style: TextStyle(fontSize: 16.0, color: Colors.black),
-        child: widget.headerText != null
-            ? widget.headerText
-            : Text(
-                widget.weekFormat
-                    ? '${_localeDate.format(_weeks[1].first)}'
-                    : '${_localeDate.format(this._dates[1])}',
-                style: widget.headerTextStyle,
-              ));
     if (_isReloadSelectedDate) {
       if (widget.selectedDateTime != null)
         _selectedDate = widget.selectedDateTime;
@@ -210,42 +200,22 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       height: widget.height,
       child: Column(
         children: <Widget>[
-          widget.showHeader
-              ? Container(
-                  margin: widget.headerMargin,
-                  child: DefaultTextStyle(
-                      style: widget.headerTextStyle != null
-                          ? widget.headerTextStyle
-                          : defaultHeaderTextStyle,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            widget.showHeaderButton
-                                ? IconButton(
-                                    onPressed: () => _setDate(0),
-                                    icon: Icon(Icons.chevron_left,
-                                        color: widget.iconColor),
-                                  )
-                                : Container(),
-                            widget.headerTitleTouchable
-                                ? FlatButton(
-                                    onPressed:
-                                        widget.onHeaderTitlePressed != null
-                                            ? widget.onHeaderTitlePressed
-                                            : () => _selectDateFromPicker(),
-                                    child: headerText,
-                                  )
-                                : headerText,
-                            widget.showHeaderButton
-                                ? IconButton(
-                                    onPressed: () => _setDate(2),
-                                    icon: Icon(Icons.chevron_right,
-                                        color: widget.iconColor),
-                                  )
-                                : Container(),
-                          ])),
-                )
-              : Container(),
+          CalendarHeader(
+            showHeader: widget.showHeader,
+            headerMargin: widget.headerMargin,
+            headerTitle: widget.weekFormat
+                ? '${_localeDate.format(_weeks[1].first)}'
+                : '${_localeDate.format(this._dates[1])}',
+            headerTextStyle: widget.headerTextStyle,
+            showHeaderButtons: widget.showHeaderButton,
+            headerIconColor: widget.iconColor,
+            onLeftButtonPressed: () => _setDate(0),
+            onRightButtonPressed: () => _setDate(2),
+            isTitleTouchable: widget.headerTitleTouchable,
+            onHeaderTitlePressed: widget.onHeaderTitlePressed != null
+                ? widget.onHeaderTitlePressed
+                : () => _selectDateFromPicker(),
+          ),
           Container(
             child: !widget.showWeekDays
                 ? Container()
@@ -965,14 +935,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             );
           }
         } else {
-
-
           //max 5 dots
-          if(event_index < 5) {
+          if (event_index < 5) {
             if (widget.markedDateIconBuilder != null) {
               tmp.add(widget.markedDateIconBuilder(event));
-            }
-            else {
+            } else {
               if (widget.markedDateWidget != null) {
                 tmp.add(widget.markedDateWidget);
               } else {
@@ -980,13 +947,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
               }
             }
           }
-
-
-
         }
 
         event_index++;
-
       });
       return tmp;
     }
