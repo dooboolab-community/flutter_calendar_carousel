@@ -24,6 +24,7 @@ matrix:
         - fonts-droid
     before_script:
     - git clone https://github.com/flutter/flutter.git -b beta
+    - gem install coveralls-lcov
     script:
     - ./flutter/bin/flutter test --coverage
     after_success:
