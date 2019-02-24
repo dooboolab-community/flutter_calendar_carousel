@@ -25,7 +25,9 @@ matrix:
     before_script:
     - git clone https://github.com/flutter/flutter.git -b beta
     script:
-    - ./flutter/bin/flutter test
+    - ./flutter/bin/flutter test --coverage
+    after_success:
+    - coveralls-lcov coverage/lcov.info
 
 #  # Builds an APK.
 #  - env: JOB=APK

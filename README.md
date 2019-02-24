@@ -3,6 +3,10 @@
 <p align="left">
   <a href="https://pub.dartlang.org/packages/flutter_calendar_carousel"><img alt="pub version" src="https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square"></a>
 </p>
+[![Build Status](https://travis-ci.com/dooboolab/flutter_calendar_carousel.svg?branch=master)](https://travis-ci.com/dooboolab/flutter_calendar_carousel)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Coverage Status](https://coveralls.io/repos/github/dooboolab/flutter_calendar_carousel/badge.svg?branch=master)](https://coveralls.io/github/dooboolab/flutter_calendar_carousel?branch=master)
+
 <h5>Rectangular style</h5>
 <br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar1.gif"/>
 <h5>Circular style</h5>
