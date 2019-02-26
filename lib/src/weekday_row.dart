@@ -5,8 +5,8 @@ import 'package:flutter_calendar_carousel/src/default_styles.dart'
 import 'package:intl/intl.dart';
 
 class WeekdayRow extends StatelessWidget {
-  WeekdayRow(this.showWeekdays, this.weekdayFormat,
-      this.weekDayMargin, this.weekdayTextStyle, this.localeDate);
+  WeekdayRow(this.showWeekdays, this.weekdayFormat, this.weekDayMargin,
+      this.weekdayTextStyle, this.localeDate);
 
   final bool showWeekdays;
   final WeekdayFormat weekdayFormat;
@@ -33,37 +33,44 @@ class WeekdayRow extends StatelessWidget {
       case WeekdayFormat.weekdays:
         {
           return localeDate.dateSymbols.WEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       case WeekdayFormat.standalone:
         {
           return localeDate.dateSymbols.STANDALONEWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       case WeekdayFormat.short:
         {
           return localeDate.dateSymbols.SHORTWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       case WeekdayFormat.standaloneShort:
         {
           return localeDate.dateSymbols.STANDALONESHORTWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       case WeekdayFormat.narrow:
         {
           return localeDate.dateSymbols.NARROWWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       case WeekdayFormat.standaloneNarrow:
         {
           return localeDate.dateSymbols.STANDALONENARROWWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
       default:
         {
           return localeDate.dateSymbols.STANDALONEWEEKDAYS
-              .map<Widget>((day) => _weekdayContainer(day)).toList();
+              .map<Widget>(_weekdayContainer)
+              .toList();
         }
     }
   }
