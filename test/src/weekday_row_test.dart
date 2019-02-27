@@ -84,6 +84,16 @@ void main() {
     expect(find.text('Fri'), findsOneWidget);
     expect(find.text('Sat'), findsOneWidget);
   });
+
+  testWidgets('test row does not render', (WidgetTester tester) async {
+    final emptyContainer = WeekdayRow(showWeekdays: false);
+
+    await tester.pumpWidget(emptyContainer);
+
+    expect(find.byType(Container), findsOneWidget);
+
+    expect(find.byType(Row), findsNothing);
+  });
 }
 
 Widget wrapped(Widget widget) => Directionality(
