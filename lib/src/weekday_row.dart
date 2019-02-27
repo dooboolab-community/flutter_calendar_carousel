@@ -31,47 +31,33 @@ class WeekdayRow extends StatelessWidget {
   List<Widget> _generateWeekDays() {
     switch (weekdayFormat) {
       case WeekdayFormat.weekdays:
-        {
-          return localeDate.dateSymbols.WEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.WEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       case WeekdayFormat.standalone:
-        {
-          return localeDate.dateSymbols.STANDALONEWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.STANDALONEWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       case WeekdayFormat.short:
-        {
-          return localeDate.dateSymbols.SHORTWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.SHORTWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       case WeekdayFormat.standaloneShort:
-        {
-          return localeDate.dateSymbols.STANDALONESHORTWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.STANDALONESHORTWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       case WeekdayFormat.narrow:
-        {
-          return localeDate.dateSymbols.NARROWWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.NARROWWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       case WeekdayFormat.standaloneNarrow:
-        {
-          return localeDate.dateSymbols.STANDALONENARROWWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.STANDALONENARROWWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
       default:
-        {
-          return localeDate.dateSymbols.STANDALONEWEEKDAYS
-              .map<Widget>(_weekdayContainer)
-              .toList();
-        }
+        return localeDate.dateSymbols.STANDALONEWEEKDAYS
+            .map<Widget>(_weekdayContainer)
+            .toList();
     }
   }
 
