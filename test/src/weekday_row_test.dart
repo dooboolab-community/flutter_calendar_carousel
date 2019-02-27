@@ -7,12 +7,18 @@ import 'package:flutter_calendar_carousel/src/weekday_row.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  final format = DateFormat.yMMM("en_US");
+  final locale = DateFormat.yMMM("en_US");
   final margin = const EdgeInsets.only(bottom: 4.0);
 
   testWidgets('test short weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(
-      WeekdayRow(true, WeekdayFormat.short, margin, null, format),
+      WeekdayRow(
+        showWeekdays: true,
+        weekdayFormat: WeekdayFormat.short,
+        weekDayMargin: margin,
+        weekdayTextStyle: null,
+        localeDate: locale,
+      ),
     ));
 
     expect(find.text('Sun'), findsOneWidget);
@@ -25,9 +31,13 @@ void main() {
   });
 
   testWidgets('test narrow weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(
-      WeekdayRow(true, WeekdayFormat.standaloneNarrow, margin, null, format),
-    ));
+    await tester.pumpWidget(wrapped(WeekdayRow(
+      showWeekdays: true,
+      weekdayFormat: WeekdayFormat.standaloneNarrow,
+      weekDayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    )));
 
     // sat and sun
     expect(find.text('S'), findsNWidgets(2));
@@ -40,9 +50,13 @@ void main() {
   });
 
   testWidgets('test standalone weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(
-      WeekdayRow(true, WeekdayFormat.standalone, margin, null, format),
-    ));
+    await tester.pumpWidget(wrapped(WeekdayRow(
+      showWeekdays: true,
+      weekdayFormat: WeekdayFormat.standalone,
+      weekDayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    )));
 
     expect(find.text('Sunday'), findsOneWidget);
     expect(find.text('Monday'), findsOneWidget);
@@ -54,9 +68,13 @@ void main() {
   });
 
   testWidgets('test standalone short weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(
-      WeekdayRow(true, WeekdayFormat.standaloneShort, margin, null, format),
-    ));
+    await tester.pumpWidget(wrapped(WeekdayRow(
+      showWeekdays: true,
+      weekdayFormat: WeekdayFormat.standaloneShort,
+      weekDayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    )));
 
     expect(find.text('Sun'), findsOneWidget);
     expect(find.text('Mon'), findsOneWidget);

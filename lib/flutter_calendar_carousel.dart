@@ -217,8 +217,13 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 ? widget.onHeaderTitlePressed
                 : () => _selectDateFromPicker(),
           ),
-          WeekdayRow(widget.showWeekDays, widget.weekDayFormat,
-              widget.weekDayMargin, widget.weekdayTextStyle, _localeDate),
+          WeekdayRow(
+            showWeekdays: widget.showWeekDays,
+            weekdayFormat: widget.weekDayFormat,
+            weekDayMargin: widget.weekDayMargin,
+            weekdayTextStyle: widget.weekdayTextStyle,
+            localeDate: _localeDate,
+          ),
           Expanded(
               child: PageView.builder(
             itemCount: 3,
