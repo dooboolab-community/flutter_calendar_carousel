@@ -220,7 +220,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           WeekdayRow(
             showWeekdays: widget.showWeekDays,
             weekdayFormat: widget.weekDayFormat,
-            weekDayMargin: widget.weekDayMargin,
+            weekdayMargin: widget.weekDayMargin,
             weekdayTextStyle: widget.weekdayTextStyle,
             localeDate: _localeDate,
           ),

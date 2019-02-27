@@ -15,7 +15,7 @@ void main() {
       WeekdayRow(
         showWeekdays: true,
         weekdayFormat: WeekdayFormat.short,
-        weekDayMargin: margin,
+        weekdayMargin: margin,
         weekdayTextStyle: null,
         localeDate: locale,
       ),
@@ -34,7 +34,7 @@ void main() {
     await tester.pumpWidget(wrapped(WeekdayRow(
       showWeekdays: true,
       weekdayFormat: WeekdayFormat.standaloneNarrow,
-      weekDayMargin: margin,
+      weekdayMargin: margin,
       weekdayTextStyle: null,
       localeDate: locale,
     )));
@@ -53,7 +53,7 @@ void main() {
     await tester.pumpWidget(wrapped(WeekdayRow(
       showWeekdays: true,
       weekdayFormat: WeekdayFormat.standalone,
-      weekDayMargin: margin,
+      weekdayMargin: margin,
       weekdayTextStyle: null,
       localeDate: locale,
     )));
@@ -71,7 +71,7 @@ void main() {
     await tester.pumpWidget(wrapped(WeekdayRow(
       showWeekdays: true,
       weekdayFormat: WeekdayFormat.standaloneShort,
-      weekDayMargin: margin,
+      weekdayMargin: margin,
       weekdayTextStyle: null,
       localeDate: locale,
     )));

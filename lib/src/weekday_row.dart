@@ -8,19 +8,19 @@ class WeekdayRow extends StatelessWidget {
   WeekdayRow(
       {@required this.showWeekdays,
       @required this.weekdayFormat,
-      @required this.weekDayMargin,
+      @required this.weekdayMargin,
       @required this.weekdayTextStyle,
       @required this.localeDate});
 
   final bool showWeekdays;
   final WeekdayFormat weekdayFormat;
-  final EdgeInsets weekDayMargin;
+  final EdgeInsets weekdayMargin;
   final TextStyle weekdayTextStyle;
   final DateFormat localeDate;
 
   Widget _weekdayContainer(String weekDay) => Expanded(
           child: Container(
-        margin: weekDayMargin,
+        margin: weekdayMargin,
         child: Center(
           child: DefaultTextStyle(
             style: defaultWeekdayTextStyle,
@@ -32,7 +32,7 @@ class WeekdayRow extends StatelessWidget {
         ),
       ));
 
-  List<Widget> _generateWeekDays() {
+  List<Widget> _generateWeekdays() {
     switch (weekdayFormat) {
       case WeekdayFormat.weekdays:
         return localeDate.dateSymbols.WEEKDAYS
@@ -69,7 +69,7 @@ class WeekdayRow extends StatelessWidget {
   Widget build(BuildContext context) => showWeekdays
       ? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _generateWeekDays(),
+          children: _generateWeekdays(),
         )
       : Container();
 }
