@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:flutter_calendar_carousel/src/calendar_header.dart';
+import 'package:flutter_calendar_carousel/src/weekday_row.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -216,13 +217,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 ? widget.onHeaderTitlePressed
                 : () => _selectDateFromPicker(),
           ),
-          Container(
-            child: !widget.showWeekDays
-                ? Container()
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: _renderWeekDays(),
-                  ),
+          WeekdayRow(
+            showWeekdays: widget.showWeekDays,
+            weekdayFormat: widget.weekDayFormat,
+            weekdayMargin: widget.weekDayMargin,
+            weekdayTextStyle: widget.weekdayTextStyle,
+            localeDate: _localeDate,
           ),
           Expanded(
               child: PageView.builder(
@@ -786,58 +786,6 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         widget.onCalendarChanged(this._dates[1]);
       });
     }
-  }
-
-  List<Widget> _renderWeekDays() {
-    List<Widget> list = [];
-
-    /// because of number of days in a week is 7, so it would be easier to count it til 7.
-    for (var i = firstDayOfWeek, count = 0;
-        count < 7;
-        i = (i + 1) % 7, count++) {
-      String weekDay;
-
-      switch (widget.weekDayFormat) {
-        case WeekdayFormat.weekdays:
-          weekDay = _localeDate.dateSymbols.WEEKDAYS[i];
-          break;
-        case WeekdayFormat.standalone:
-          weekDay = _localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
-          break;
-        case WeekdayFormat.short:
-          weekDay = _localeDate.dateSymbols.SHORTWEEKDAYS[i];
-          break;
-        case WeekdayFormat.standaloneShort:
-          weekDay = _localeDate.dateSymbols.STANDALONESHORTWEEKDAYS[i];
-          break;
-        case WeekdayFormat.narrow:
-          weekDay = _localeDate.dateSymbols.NARROWWEEKDAYS[i];
-          break;
-        case WeekdayFormat.standaloneNarrow:
-          weekDay = _localeDate.dateSymbols.STANDALONENARROWWEEKDAYS[i];
-          break;
-        default:
-          weekDay = _localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
-          break;
-      }
-
-      list.add(
-        Expanded(
-            child: Container(
-          margin: widget.weekDayMargin,
-          child: Center(
-            child: DefaultTextStyle(
-              style: defaultWeekdayTextStyle,
-              child: Text(
-                weekDay,
-                style: widget.weekdayTextStyle,
-              ),
-            ),
-          ),
-        )),
-      );
-    }
-    return list;
   }
 
   Widget _renderMarked(DateTime now) {
