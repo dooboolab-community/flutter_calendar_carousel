@@ -49,8 +49,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2019, 1, 3);
-  DateTime _currentDate2 = DateTime(2019, 1, 3);
+  DateTime _currentDate = DateTime(2019, 2, 3);
+  DateTime _currentDate2 = DateTime(2019, 2, 3);
   String _currentMonth = '';
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
@@ -161,8 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //          markedDates: _markedDate,
       weekFormat: true,
       markedDatesMap: _markedDateMap,
-      height: 420.0,
-      selectedDateTime: _currentDate,
+      height: 200.0,
+      selectedDateTime: _currentDate2,
 //          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateShowIcon: true,
@@ -170,9 +170,12 @@ class _MyHomePageState extends State<MyHomePage> {
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
+      markedDateIconBuilder: (event) {
+        return event.icon;
+      },
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
-          true, // null for not showing hidden events indicator
+          false, // null for not showing hidden events indicator
 //          markedDateIconMargin: 9,
 //          markedDateIconOffset: 3,
     );
@@ -230,7 +233,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: _calendarCarousel,
               ), // This trailing comma makes auto-formatting nicer for build methods.
-
               //custom icon without header
               Container(
                 margin: EdgeInsets.only(

@@ -1,3 +1,6 @@
+## [1.3.15]
++ Ability to disable horizontal scroll to change month with `isScrollable` param.
+
 ## [1.3.14]
 + Code refactoring [#77](https://github.com/dooboolab/flutter_calendar_carousel/pull/77)
   - Seperate weekday widget
