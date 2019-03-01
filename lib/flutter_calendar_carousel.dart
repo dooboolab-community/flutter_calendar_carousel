@@ -71,6 +71,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final Function onHeaderTitlePressed;
   final WeekdayFormat weekDayFormat;
   final bool staticSixWeekFormat;
+  final bool isScrollable;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -129,6 +130,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.onHeaderTitlePressed,
     this.weekDayFormat = WeekdayFormat.short,
     this.staticSixWeekFormat = false,
+    this.isScrollable = true,
   });
 
   @override
@@ -227,6 +229,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           Expanded(
               child: PageView.builder(
             itemCount: 3,
+            physics: widget.isScrollable ? ScrollPhysics() : NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               this._setDate(index);
             },
@@ -234,7 +237,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             itemBuilder: (context, index) {
               return widget.weekFormat ? weekBuilder(index) : builder(index);
             },
-            pageSnapping: true,
+            pageSnapping: false,
           )),
         ],
       ),
