@@ -3,19 +3,23 @@
 [![Build Status](https://travis-ci.com/dooboolab/flutter_calendar_carousel.svg?branch=master)](https://travis-ci.com/dooboolab/flutter_calendar_carousel)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 [![Coverage Status](https://coveralls.io/repos/github/dooboolab/flutter_calendar_carousel/badge.svg?branch=master)](https://coveralls.io/github/dooboolab/flutter_calendar_carousel?branch=master)
-<br/>
+
 Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable. Now you can even add your icon for each event.
 
-<h5>Rectangular style</h5>
-<br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar1.gif"/>
-<h5>Circular style</h5>
-<br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar2.gif"/>
-<h5>No border</h5>
-<br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar3.gif"/>
-<h5>Marked Dates</h5>
-<br/><img src="https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar4.gif"/>
-<h5>Custom Icon Events</h5>
-<br/><img src="https://raw.githubusercontent.com/icemanbsi/flutter_calendar_carousel/master/doc/calendar5.gif"/>
+#### Rectangular style
+![image](https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar1.gif)
+
+#### Circular style
+![image](https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar2.gif)
+
+#### No border
+![image](https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar3.gif)
+
+#### Marked Dates
+![image](https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar4.gif)
+
+#### Custom Icon Events
+![image](https://raw.githubusercontent.com/icemanbsi/flutter_calendar_carousel/master/doc/calendar5.gif)
 
 ## Getting Started
 For help getting started with Flutter, view our online
