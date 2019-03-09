@@ -220,6 +220,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 : () => _selectDateFromPicker(),
           ),
           WeekdayRow(
+            firstDayOfWeek,
             showWeekdays: widget.showWeekDays,
             weekdayFormat: widget.weekDayFormat,
             weekdayMargin: widget.weekDayMargin,
