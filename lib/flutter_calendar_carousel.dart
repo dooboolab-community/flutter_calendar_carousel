@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
+export 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:flutter_calendar_carousel/src/calendar_header.dart';
 import 'package:flutter_calendar_carousel/src/weekday_row.dart';
