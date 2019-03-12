@@ -4,6 +4,7 @@
 + Show events in `week` calendar.
   - Resolve [#66](https://github.com/dooboolab/flutter_calendar_carousel/issues/66)
 + Update breaking docs in pub.
++ Expose event list to user.
 
 ## [1.3.14]
 + Code refactoring [#77](https://github.com/dooboolab/flutter_calendar_carousel/pull/77)
