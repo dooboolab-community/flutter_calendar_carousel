@@ -777,7 +777,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     if (this._dates.length == 3 && widget.onCalendarChanged != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _isReloadSelectedDate = false;
-        widget.onCalendarChanged(this._dates[1]);
+        widget.onCalendarChanged(!widget.weekFormat ? this._dates[1] : this._weeks[1][firstDayOfWeek]);
       });
     }
   }
