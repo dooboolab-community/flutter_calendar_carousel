@@ -768,9 +768,6 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           this._dates = dates;
         });
 
-        print('dates');
-        print(this._dates);
-
         _controller.animateToPage(page,
             duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       }
@@ -827,7 +824,6 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       double offset = 0.0;
       double padding = widget.markedDateIconMargin;
       widget.markedDatesMap.getEvents(now).forEach((event) {
-        print('event $event');
         if (widget.markedDateShowIcon) {
           if (tmp.length > 0 && tmp.length < widget.markedDateIconMaxShown) {
             offset += widget.markedDateIconOffset;
