@@ -6,6 +6,7 @@
 + Update breaking docs in pub.
 + Expose event list to user.
 + Remove print.
++ Pass first date of week to onCalendarChanged in week view [#88](https://github.com/dooboolab/flutter_calendar_carousel/pull/88)
 
 ## [1.3.14]
 + Code refactoring [#77](https://github.com/dooboolab/flutter_calendar_carousel/pull/77)
