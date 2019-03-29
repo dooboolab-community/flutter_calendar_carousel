@@ -7,6 +7,7 @@
 + Expose event list to user.
 + Remove print.
 + Pass first date of week to onCalendarChanged in week view [#88](https://github.com/dooboolab/flutter_calendar_carousel/pull/88)
++ Support for passing in custom widgets for next and previous month arrow icons [#95](https://github.com/dooboolab/flutter_calendar_carousel/pull/95)
 
 ## [1.3.14]
 + Code refactoring [#77](https://github.com/dooboolab/flutter_calendar_carousel/pull/77)
