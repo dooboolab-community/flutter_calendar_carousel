@@ -61,8 +61,8 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool showWeekDays;
   final bool showHeader;
   final bool showHeaderButton;
-  final Widget prevIcon;
-  final Widget nexticon;
+  final Widget leftButtonIcon;
+  final Widget rightButtonIcon;
   final ScrollPhysics customGridViewPhysics;
   final Function(DateTime) onCalendarChanged;
   final String locale;
@@ -122,8 +122,8 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.weekFormat = false,
     this.showHeader = true,
     this.showHeaderButton = true,
-    this.prevIcon,
-    this.nexticon,
+    this.leftButtonIcon,
+    this.rightButtonIcon,
     this.customGridViewPhysics,
     this.onCalendarChanged,
     this.locale = "en",
@@ -217,8 +217,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             headerTextStyle: widget.headerTextStyle,
             showHeaderButtons: widget.showHeaderButton,
             headerIconColor: widget.iconColor,
-            prevIcon: widget.prevIcon,
-            nexticon: widget.nexticon,
+            leftButtonIcon: widget.leftButtonIcon,
+            rightButtonIcon: widget.rightButtonIcon,
             onLeftButtonPressed: () => _setDate(0),
             onRightButtonPressed: () => _setDate(2),
             isTitleTouchable: widget.headerTitleTouchable,
