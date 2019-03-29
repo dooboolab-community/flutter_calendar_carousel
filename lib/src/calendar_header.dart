@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'default_styles.dart' show defaultHeaderTextStyle;
 
 class CalendarHeader extends StatelessWidget {
-  /// Passing in values for [prevIcon] or [nexticon] will override [headerIconColor]
+  /// Passing in values for [leftButtonIcon] or [rightButtonIcon] will override [headerIconColor]
   CalendarHeader(
       {@required this.headerTitle,
       this.headerMargin,
@@ -10,8 +10,8 @@ class CalendarHeader extends StatelessWidget {
       this.headerTextStyle,
       this.showHeaderButtons,
       this.headerIconColor,
-      this.prevIcon,
-      this.nexticon,
+      this.leftButtonIcon,
+      this.rightButtonIcon,
       @required this.onLeftButtonPressed,
       @required this.onRightButtonPressed,
       this.isTitleTouchable,
@@ -23,8 +23,8 @@ class CalendarHeader extends StatelessWidget {
   final TextStyle headerTextStyle;
   final bool showHeaderButtons;
   final Color headerIconColor;
-  final Widget prevIcon;
-  final Widget nexticon;
+  final Widget leftButtonIcon;
+  final Widget rightButtonIcon;
   final VoidCallback onLeftButtonPressed;
   final VoidCallback onRightButtonPressed;
   final bool isTitleTouchable;
@@ -35,12 +35,12 @@ class CalendarHeader extends StatelessWidget {
 
   Widget _leftButton() => IconButton(
         onPressed: onLeftButtonPressed,
-        icon: prevIcon ?? Icon(Icons.chevron_left, color: headerIconColor),
+        icon: leftButtonIcon ?? Icon(Icons.chevron_left, color: headerIconColor),
       );
 
   Widget _rightButton() => IconButton(
         onPressed: onRightButtonPressed,
-        icon: nexticon ?? Icon(Icons.chevron_right, color: headerIconColor),
+        icon: rightButtonIcon ?? Icon(Icons.chevron_right, color: headerIconColor),
       );
 
   Widget _headerTouchable() => FlatButton(
