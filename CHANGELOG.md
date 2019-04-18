@@ -1,3 +1,5 @@
+## [1.3.16]
++ Added feature for change first day of the week.
 ## [1.3.15+]
 + Ability to disable horizontal scroll to change month with `isScrollable` param.
   - Resolve [#74](https://github.com/dooboolab/flutter_calendar_carousel/issues/74)
