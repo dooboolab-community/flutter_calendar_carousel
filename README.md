@@ -74,6 +74,7 @@ For help getting started with Flutter, view our online
 | weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
 | weekFormat              | `bool`          | `false`                                                                                                           |
 | locale                  | `String`        | `en`                                                                                                              |
+| firstDayOfWeek          | `int`           | `null`                                                                                                            |
 | onCalendarChanged       | `Function(DateTime)` |                                                                                                              |
 | minSelectedDate         | `DateTime`      |                                                                                                                   |
 | maxSelectedDate         | `DateTime`      |                                                                                                                   |

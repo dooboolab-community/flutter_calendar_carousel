@@ -66,6 +66,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final ScrollPhysics customGridViewPhysics;
   final Function(DateTime) onCalendarChanged;
   final String locale;
+  final int firstDayOfWeek;
   final DateTime minSelectedDate;
   final DateTime maxSelectedDate;
   final TextStyle inactiveDaysTextStyle;
@@ -127,6 +128,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.customGridViewPhysics,
     this.onCalendarChanged,
     this.locale = "en",
+    this.firstDayOfWeek,
     this.minSelectedDate,
     this.maxSelectedDate,
     this.inactiveDaysTextStyle,
@@ -162,7 +164,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
   /// When FIRSTDAYOFWEEK is 0 in dart-intl, it represents Monday. However it is the second day in the arrays of Weekdays.
   /// Therefore we need to add 1 modulo 7 to pick the right weekday from intl. (cf. [GlobalMaterialLocalizations])
-  int firstDayOfWeek = 0;
+  int firstDayOfWeek;
 
   /// If the setState called from this class, don't reload the selectedDate, but it should reload selected date if called from external class
   bool _isReloadSelectedDate = true;
@@ -182,7 +184,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     );
 
     _localeDate = DateFormat.yMMM(widget.locale);
-    firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
+
+    if(widget.firstDayOfWeek == null)
+      firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
+    else
+      firstDayOfWeek = widget.firstDayOfWeek;
+
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
     _setDate();
