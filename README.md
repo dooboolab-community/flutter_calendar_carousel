@@ -82,6 +82,7 @@ For help getting started with Flutter, view our online
 | inactiveWeekendTextStyle | `TextStyle`    |                                                                                                                   |
 | weekDayFormat           | `WeekdayFormat` | `short`                                                                                                           |
 | staticSixWeekFormat     | `bool`          | `false`                                                                                                           |
+| showOnlyCurrentMonthDate | `bool`          | `false`                                                                                                           |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 

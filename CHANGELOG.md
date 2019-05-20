@@ -1,3 +1,5 @@
+## [1.3.17]
++ Added feature to only show dates from today adding `showOnlyCurrentMonthDate` parameter.
 ## [1.3.16]
 + Added feature for change first day of the week.
 ## [1.3.15+]
