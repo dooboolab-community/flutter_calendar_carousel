@@ -76,6 +76,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final WeekdayFormat weekDayFormat;
   final bool staticSixWeekFormat;
   final bool isScrollable;
+  final bool showOnlyCurrentMonthDate;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -138,6 +139,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.weekDayFormat = WeekdayFormat.short,
     this.staticSixWeekFormat = false,
     this.isScrollable = true,
+    this.showOnlyCurrentMonthDate = false,
   });
 
   @override
@@ -320,7 +322,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   DateTime now = DateTime(year, month, 1);
                   TextStyle textStyle;
                   TextStyle defaultTextStyle;
-                  if (isPrevMonthDay) {
+                  if (isPrevMonthDay && !widget.showOnlyCurrentMonthDate) {
                     now = now.subtract(Duration(days: _startWeekday - index));
                     textStyle = widget.prevDaysTextStyle;
                     defaultTextStyle = defaultPrevDaysTextStyle;
@@ -336,10 +338,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                         : isToday
                             ? defaultTodayTextStyle
                             : defaultDaysTextStyle;
-                  } else {
+                  } else if (!widget.showOnlyCurrentMonthDate) {
                     now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = widget.nextDaysTextStyle;
                     defaultTextStyle = defaultNextDaysTextStyle;
+                  } else {
+                    return Container();
                   }
                   bool isSelectable = true;
                   if (widget.minSelectedDate != null &&
@@ -510,7 +514,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     DateTime now = DateTime(weekDays[index].year, weekDays[index].month, weekDays[index].day);
                     TextStyle textStyle;
                     TextStyle defaultTextStyle;
-                    if (isPrevMonthDay) {
+                    if (isPrevMonthDay && !widget.showOnlyCurrentMonthDate) {
                       textStyle = widget.prevDaysTextStyle;
                       defaultTextStyle = defaultPrevDaysTextStyle;
                     } else if (isThisMonthDay) {
@@ -524,9 +528,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                           : isToday
                               ? defaultTodayTextStyle
                               : defaultDaysTextStyle;
-                    } else {
+                    } else if (!widget.showOnlyCurrentMonthDate){
                       textStyle = widget.nextDaysTextStyle;
                       defaultTextStyle = defaultNextDaysTextStyle;
+                    } else {
+                      return Container();
                     }
                     bool isSelectable = true;
                     if (widget.minSelectedDate != null &&
