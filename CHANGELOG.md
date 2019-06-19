@@ -1,3 +1,6 @@
+## [1.3.18]
++ Fix vertical scroll behavior for weekFormat calendar view. 
++ Reformat code with dartfmt
 ## [1.3.17]
 + Added feature to only show dates from today adding `showOnlyCurrentMonthDate` parameter.
 ## [1.3.16]
