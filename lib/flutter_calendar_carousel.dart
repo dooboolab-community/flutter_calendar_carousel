@@ -187,7 +187,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
     _localeDate = DateFormat.yMMM(widget.locale);
 
-    if(widget.firstDayOfWeek == null)
+    if (widget.firstDayOfWeek == null)
       firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
     else
       firstDayOfWeek = widget.firstDayOfWeek;
@@ -246,7 +246,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           Expanded(
               child: PageView.builder(
             itemCount: 3,
-            physics: widget.isScrollable ? ScrollPhysics() : NeverScrollableScrollPhysics(),
+            physics: widget.isScrollable
+                ? ScrollPhysics()
+                : NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               this._setDate(index);
             },
@@ -304,6 +306,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 childAspectRatio: widget.childAspectRatio,
                 padding: EdgeInsets.zero,
                 children: List.generate(totalItemCount,
+
                     /// last day of month + weekday
                     (index) {
                   bool isToday =
@@ -492,10 +495,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 width: double.infinity,
                 height: double.infinity,
                 child: GridView.count(
+                  physics: widget.customGridViewPhysics,
                   crossAxisCount: 7,
                   childAspectRatio: widget.childAspectRatio,
                   padding: EdgeInsets.zero,
                   children: List.generate(weekDays.length,
+
                       /// last day of month + weekday
                       (index) {
                     bool isToday = weekDays[index].day == DateTime.now().day &&
@@ -511,7 +516,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                         weekDays[index].month > this._selectedDate.month;
                     bool isThisMonthDay = !isPrevMonthDay && !isNextMonthDay;
 
-                    DateTime now = DateTime(weekDays[index].year, weekDays[index].month, weekDays[index].day);
+                    DateTime now = DateTime(weekDays[index].year,
+                        weekDays[index].month, weekDays[index].day);
                     TextStyle textStyle;
                     TextStyle defaultTextStyle;
                     if (isPrevMonthDay && !widget.showOnlyCurrentMonthDate) {
@@ -528,7 +534,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                           : isToday
                               ? defaultTodayTextStyle
                               : defaultDaysTextStyle;
-                    } else if (!widget.showOnlyCurrentMonthDate){
+                    } else if (!widget.showOnlyCurrentMonthDate) {
                       textStyle = widget.nextDaysTextStyle;
                       defaultTextStyle = defaultNextDaysTextStyle;
                     } else {
@@ -796,7 +802,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     if (this._dates.length == 3 && widget.onCalendarChanged != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _isReloadSelectedDate = false;
-        widget.onCalendarChanged(!widget.weekFormat ? this._dates[1] : this._weeks[1][firstDayOfWeek]);
+        widget.onCalendarChanged(!widget.weekFormat
+            ? this._dates[1]
+            : this._weeks[1][firstDayOfWeek]);
       });
     }
   }
