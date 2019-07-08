@@ -77,6 +77,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool staticSixWeekFormat;
   final bool isScrollable;
   final bool showOnlyCurrentMonthDate;
+  final bool pageSnapping;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -140,6 +141,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.staticSixWeekFormat = false,
     this.isScrollable = true,
     this.showOnlyCurrentMonthDate = false,
+    this.pageSnapping = false,
   });
 
   @override
@@ -256,7 +258,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             itemBuilder: (context, index) {
               return widget.weekFormat ? weekBuilder(index) : builder(index);
             },
-            pageSnapping: false,
+            pageSnapping: widget.pageSnapping,
           )),
         ],
       ),
