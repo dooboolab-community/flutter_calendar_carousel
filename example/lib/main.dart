@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime(2019, 2, 3);
-  DateTime _currentDate2 = DateTime(2019, 2, 3);
+  DateTime _currentDate2 = DateTime.now();
   String _currentMonth = '';
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
