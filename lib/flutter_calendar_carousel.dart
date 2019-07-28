@@ -701,7 +701,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       }
       _countPicker++;
     });
-    if (widget.onDayPressed != null)
+    if (widget.onDayPressed != null && _countPicker == 2)
       widget.onDayPressed(
           _firstSelectedDate,
           _secondSelectedDate,
