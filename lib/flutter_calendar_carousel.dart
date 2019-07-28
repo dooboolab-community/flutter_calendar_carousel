@@ -79,6 +79,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool isScrollable;
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
+  final bool isEnabled;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -144,6 +145,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.isScrollable = true,
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
+    this.isEnabled = true,
   });
 
   @override
@@ -677,6 +679,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   }
 
   void _onDayPressed(DateTime picked) {
+    if (!widget.isEnabled) return;
     if (picked == null) return;
     if (widget.minSelectedDate != null &&
         picked.millisecondsSinceEpoch <
