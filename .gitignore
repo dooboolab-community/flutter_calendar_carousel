@@ -11,3 +11,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 
 .idea/
 flutter_calendar_carousel.iml
+pubspec.lock
