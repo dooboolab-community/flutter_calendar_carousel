@@ -35,7 +35,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
-  final Function(DateTime, DateTime, List<T>) onMultiPicked;
+  final Function(DateTime, DateTime, List<T>) onSelected;
   final TextStyle weekdayTextStyle;
   final Color iconColor;
   final TextStyle headerTextStyle;
@@ -103,7 +103,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
-    this.onMultiPicked,
+    this.onSelected,
     this.weekdayTextStyle,
     this.iconColor = Colors.blueAccent,
     this.headerTextStyle,
@@ -713,8 +713,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           ? widget.markedDatesMap.getEvents(picked)
           : []);
     }
-    if (widget.onMultiPicked != null && _countPicker == 2)
-      widget.onMultiPicked(
+    if (widget.onSelected != null && _countPicker == 2)
+      widget.onSelected(
           _firstSelectedDate,
           _secondSelectedDate,
           widget.markedDatesMap != null
@@ -757,8 +757,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         }
         _countPicker++;
       });
-      if (widget.onMultiPicked != null)
-        widget.onMultiPicked(
+      if (widget.onSelected != null)
+        widget.onSelected(
             _firstSelectedDate,
             _secondSelectedDate,
             widget.markedDatesMap != null
