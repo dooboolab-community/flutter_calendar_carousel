@@ -35,7 +35,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
-  final Function(DateTime, DateTime, List<T>) onDayPressed;
+  final Function(DateTime, DateTime, List<T>) onMultiPicked;
   final TextStyle weekdayTextStyle;
   final Color iconColor;
   final TextStyle headerTextStyle;
@@ -80,6 +80,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
   final bool isEnabled;
+  final Function(DateTime, List<T>) onPicked;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -102,7 +103,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
-    this.onDayPressed,
+    this.onMultiPicked,
     this.weekdayTextStyle,
     this.iconColor = Colors.blueAccent,
     this.headerTextStyle,
@@ -146,6 +147,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
     this.isEnabled = true,
+    this.onPicked,
   });
 
   @override
@@ -704,8 +706,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       }
       _countPicker++;
     });
-    if (widget.onDayPressed != null && _countPicker == 2)
-      widget.onDayPressed(
+    if (widget.onPicked != null) {
+      widget.onPicked(
+        picked,
+        widget.markedDatesMap != null
+          ? widget.markedDatesMap.getEvents(picked)
+          : []);
+    }
+    if (widget.onMultiPicked != null && _countPicker == 2)
+      widget.onMultiPicked(
           _firstSelectedDate,
           _secondSelectedDate,
           widget.markedDatesMap != null
