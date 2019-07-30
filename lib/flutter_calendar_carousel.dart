@@ -700,19 +700,25 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       if (_countPicker == 0) {
         _firstSelectedDate = picked;
         _secondSelectedDate = picked;
+        if (widget.onPicked != null) {
+          widget.onPicked(
+            picked,
+            widget.markedDatesMap != null
+              ? widget.markedDatesMap.getEvents(picked)
+              : []);
+        }
       }
       if (_countPicker == 1) {
-        _secondSelectedDate = picked;
+        if (_firstSelectedDate.compareTo(picked) > 0) {
+          _countPicker = 0;
+          _firstSelectedDate = null;
+          _secondSelectedDate = null;
+        } else {
+          _secondSelectedDate = picked;
+        }
       }
       _countPicker++;
     });
-    if (widget.onPicked != null) {
-      widget.onPicked(
-        picked,
-        widget.markedDatesMap != null
-          ? widget.markedDatesMap.getEvents(picked)
-          : []);
-    }
     if (widget.onSelected != null && _countPicker == 2)
       widget.onSelected(
           _firstSelectedDate,
