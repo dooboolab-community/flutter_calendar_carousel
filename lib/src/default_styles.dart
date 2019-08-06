@@ -24,6 +24,10 @@ const TextStyle defaultSelectedDayTextStyle = const TextStyle(
 	color: Colors.white,
 	fontSize: 14.0,
 );
+const TextStyle defaultBlockoutDayTextStyle = const TextStyle(
+	color: Colors.white,
+	fontSize: 14.0,
+);
 const TextStyle defaultWeekdayTextStyle = const TextStyle(
 	color: Colors.deepOrange,
 	fontSize: 14.0,

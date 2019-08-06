@@ -32,8 +32,10 @@ class CalendarCarousel<T> extends StatefulWidget {
   // final DateTime firstSelectedDate;
   // final DateTime secondSelectedDate;
   final TextStyle selectedDayTextStyle;
+  final TextStyle blockoutDayTextStyle;
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
+  final Color blockoutDayButtonColor;
   final bool daysHaveCircularBorder;
   final Function(DateTime, DateTime, List<T>) onSelected;
   final TextStyle weekdayTextStyle;
@@ -80,6 +82,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
   final bool isEnabled;
+  final List<DateTime> blockouts;
   final Function(DateTime, List<T>) onPicked;
 
   CalendarCarousel({
@@ -100,8 +103,10 @@ class CalendarCarousel<T> extends StatefulWidget {
     // this.firstSelectedDate,
     // this.secondSelectedDate,
     this.selectedDayTextStyle,
+    this.blockoutDayTextStyle,
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
+    this.blockoutDayButtonColor = Colors.grey,
     this.daysHaveCircularBorder,
     this.onSelected,
     this.weekdayTextStyle,
@@ -147,6 +152,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
     this.isEnabled = true,
+    this.blockouts,
     this.onPicked,
   });
 
@@ -327,7 +333,17 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                       DateTime.now().day == index + 1 - _startWeekday &&
                           DateTime.now().month == month &&
                           DateTime.now().year == year;
-                  DateTime dayIn = DateTime(year, month, index + 1 - _startWeekday);
+                  DateTime dayIn = DateTime(year, month, index + 1 - _startWeekday, 0, 0, 0, 0, 0);
+                  bool isBlockoutDay = false;
+                  if (widget.blockouts != null && widget.blockouts.length != 0) {
+                    for (int i = 0; i < widget.blockouts.length; i++) {
+                      DateTime blockout = widget.blockouts.elementAt(i);
+                      if (dayIn.compareTo(blockout) == 0) {
+                        isBlockoutDay = true;
+                        break;
+                      }
+                    }
+                  }
                   bool isSelectedDay = _firstSelectedDate != null &&
                       _secondSelectedDate != null &&
                       _firstSelectedDate.compareTo(dayIn) <= 0 &&
@@ -341,7 +357,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   DateTime now = DateTime(year, month, 1);
                   TextStyle textStyle;
                   TextStyle defaultTextStyle;
-                  if (isSelectedDay) {
+                  if (isBlockoutDay) {
+                    now = DateTime(year, month, index + 1 - _startWeekday);
+                    textStyle = widget.blockoutDayTextStyle;
+                    defaultTextStyle = defaultBlockoutDayTextStyle;
+                  } else if (isSelectedDay) {
                     now = DateTime(year, month, index + 1 - _startWeekday);
                     textStyle = widget.selectedDayTextStyle;
                     defaultTextStyle = defaultSelectedDayTextStyle;
@@ -377,11 +397,13 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     margin: EdgeInsets.all(widget.dayPadding),
                     child: FlatButton(
                       color:
-                          isSelectedDay && widget.selectedDayButtonColor != null
-                              ? widget.selectedDayButtonColor
-                              : isToday && widget.todayButtonColor != null
-                                  ? widget.todayButtonColor
-                                  : widget.dayButtonColor,
+                          isBlockoutDay && widget.blockoutDayButtonColor != null
+                              ? widget.blockoutDayButtonColor
+                              : isSelectedDay && widget.selectedDayButtonColor != null
+                                  ? widget.selectedDayButtonColor
+                                  : isToday && widget.todayButtonColor != null
+                                      ? widget.todayButtonColor
+                                      : widget.dayButtonColor,
                       onPressed: () => isSelectable ? _onDayPressed(now) : null,
                       highlightColor: isSelectable ? null : Colors.white,
                       // focusColor: isSelectable ? null : Colors.white,
@@ -426,48 +448,52 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (_localeDate.dateSymbols.WEEKENDRANGE
-                                          .contains(
-                                              (index - 1 + firstDayOfWeek) %
-                                                  7)) &&
-                                      !isSelectedDay &&
-                                      !isToday
-                                  ? (isPrevMonthDay
-                                      ? defaultPrevDaysTextStyle
-                                      : isNextMonthDay
-                                          ? defaultNextDaysTextStyle
+                              style: isBlockoutDay && widget.blockoutDayTextStyle != null
+                                  ? widget.blockoutDayTextStyle
+                                  : (_localeDate.dateSymbols.WEEKENDRANGE
+                                              .contains(
+                                                  (index - 1 + firstDayOfWeek) %
+                                                      7)) &&
+                                          !isSelectedDay &&
+                                          !isToday
+                                      ? (isPrevMonthDay
+                                          ? defaultPrevDaysTextStyle
+                                          : isNextMonthDay
+                                              ? defaultNextDaysTextStyle
+                                              : isSelectable
+                                                  ? defaultWeekendTextStyle
+                                                  : defaultInactiveWeekendTextStyle)
+                                      : isToday
+                                          ? defaultTodayTextStyle
                                           : isSelectable
-                                              ? defaultWeekendTextStyle
-                                              : defaultInactiveWeekendTextStyle)
-                                  : isToday
-                                      ? defaultTodayTextStyle
-                                      : isSelectable
-                                          ? defaultTextStyle
-                                          : defaultInactiveDaysTextStyle,
+                                              ? defaultTextStyle
+                                              : defaultInactiveDaysTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (_localeDate.dateSymbols.WEEKENDRANGE
-                                            .contains(
-                                                (index - 1 + firstDayOfWeek) %
-                                                    7)) &&
-                                        !isSelectedDay &&
-                                        isThisMonthDay &&
-                                        !isToday
-                                    ? (isSelectable
-                                        ? widget.weekendTextStyle
-                                        : widget.inactiveWeekendTextStyle)
-                                    : isSelectedDay
-                                        ? widget.selectedDayTextStyle
-                                        : isPrevMonthDay
-                                            ? widget.prevDaysTextStyle
-                                            : isNextMonthDay
-                                                ? widget.nextDaysTextStyle
-                                                : isToday
-                                                    ? widget.todayTextStyle
-                                                    : isSelectable
-                                                        ? textStyle
-                                                        : widget
-                                                            .inactiveDaysTextStyle,
+                                style: isBlockoutDay && widget.blockoutDayTextStyle != null
+                                    ? widget.blockoutDayTextStyle 
+                                    : (_localeDate.dateSymbols.WEEKENDRANGE
+                                                .contains(
+                                                    (index - 1 + firstDayOfWeek) %
+                                                        7)) &&
+                                            !isSelectedDay &&
+                                            isThisMonthDay &&
+                                            !isToday
+                                        ? (isSelectable
+                                            ? widget.weekendTextStyle
+                                            : widget.inactiveWeekendTextStyle)
+                                        : isSelectedDay
+                                            ? widget.selectedDayTextStyle
+                                            : isPrevMonthDay
+                                                ? widget.prevDaysTextStyle
+                                                : isNextMonthDay
+                                                    ? widget.nextDaysTextStyle
+                                                    : isToday
+                                                        ? widget.todayTextStyle
+                                                        : isSelectable
+                                                            ? textStyle
+                                                            : widget
+                                                                .inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -528,6 +554,16 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                         weekDays[index].month == DateTime.now().month &&
                         weekDays[index].year == DateTime.now().year;
                     DateTime dayIn = DateTime(weekDays[index].year, weekDays[index].month, weekDays[index].day);
+                    bool isBlockoutDay = false;
+                    if (widget.blockouts != null && widget.blockouts.length != 0) {
+                      for (int i = 0; i < widget.blockouts.length; i++) {
+                        DateTime blockout = widget.blockouts.elementAt(i);
+                        if (dayIn.compareTo(blockout) == 0) {
+                          isBlockoutDay = true;
+                          break;
+                        }
+                      }
+                    }
                     bool isSelectedDay = this._firstSelectedDate != null &&
                         this._secondSelectedDate != null &&
                         this._firstSelectedDate.compareTo(dayIn) <= 0 &&
@@ -574,12 +610,14 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     return Container(
                       margin: EdgeInsets.all(widget.dayPadding),
                       child: FlatButton(
-                        color: isSelectedDay &&
-                                widget.selectedDayButtonColor != null
-                            ? widget.selectedDayButtonColor
-                            : isToday && widget.todayButtonColor != null
-                                ? widget.todayButtonColor
-                                : widget.dayButtonColor,
+                        color:
+                            isBlockoutDay && widget.blockoutDayButtonColor != null
+                                ? widget.blockoutDayButtonColor
+                                : isSelectedDay && widget.selectedDayButtonColor != null
+                                    ? widget.selectedDayButtonColor
+                                    : isToday && widget.todayButtonColor != null
+                                        ? widget.todayButtonColor
+                                        : widget.dayButtonColor,
                         onPressed: () => isSelectable ? _onDayPressed(now) : null,
                         highlightColor: isSelectable ? null : Colors.white,
                         // focusColor: isSelectable ? null : Colors.white,
