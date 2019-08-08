@@ -254,11 +254,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             rightButtonIcon: widget.rightButtonIcon,
             onLeftButtonPressed: () {
               this._setDate(0);
-              widget.onPrev();
+              if (widget.onPrev != null) {
+                widget.onPrev();
+              }
             },
             onRightButtonPressed: () {
               this._setDate(2);
-              widget.onNext();
+              if (widget.onNext != null) {
+                widget.onNext();
+              }
             },
             isTitleTouchable: widget.headerTitleTouchable,
             onHeaderTitlePressed: widget.onHeaderTitlePressed != null
