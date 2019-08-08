@@ -84,6 +84,8 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool isEnabled;
   final List<DateTime> blockouts;
   final Function(DateTime, List<T>) onPicked;
+  final Function onPrev;
+  final Function onNext;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -154,6 +156,8 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.isEnabled = true,
     this.blockouts,
     this.onPicked,
+    this.onPrev,
+    this.onNext,
   });
 
   @override
@@ -248,8 +252,14 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             headerIconColor: widget.iconColor,
             leftButtonIcon: widget.leftButtonIcon,
             rightButtonIcon: widget.rightButtonIcon,
-            onLeftButtonPressed: () => _setDate(0),
-            onRightButtonPressed: () => _setDate(2),
+            onLeftButtonPressed: () {
+              this._setDate(0);
+              widget.onPrev();
+            },
+            onRightButtonPressed: () {
+              this._setDate(2);
+              widget.onNext();
+            },
             isTitleTouchable: widget.headerTitleTouchable,
             onHeaderTitlePressed: widget.onHeaderTitlePressed != null
                 ? widget.onHeaderTitlePressed
