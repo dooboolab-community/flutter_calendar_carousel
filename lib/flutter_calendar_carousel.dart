@@ -827,12 +827,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   }
 
   void _setDatesAndWeeks() {
-    /// Setup default calendar format
-    DateTime date0 = DateTime.now();
-    DateTime date1 = DateTime.now();
-    DateTime date2 = DateTime.now();
     /// Setup week-only format
     DateTime now = DateTime.now();
+    /// Setup default calendar format
+    DateTime date0 = DateTime(now.year, now.month - 1, 1);
+    DateTime date1 = DateTime(now.year, now.month, 1);
+    DateTime date2 = DateTime(now.year, now.month + 1, 1);
     if (_countPicker == 1) {
       date0 = DateTime(this._firstSelectedDate.year, this._firstSelectedDate.month - 1, 1);
       date1 = DateTime(this._firstSelectedDate.year, this._firstSelectedDate.month, 1);
