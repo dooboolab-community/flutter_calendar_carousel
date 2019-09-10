@@ -4,35 +4,52 @@ import 'package:flutter_calendar_carousel/src/default_styles.dart'
     show defaultWeekdayTextStyle;
 import 'package:intl/intl.dart';
 
+typedef Widget WeekdayBuilder(String weekday);
+
 class WeekdayRow extends StatelessWidget {
   WeekdayRow(
       this.firstDayOfWeek,
+      this.customWeekdayBuilder,
       {@required this.showWeekdays,
       @required this.weekdayFormat,
       @required this.weekdayMargin,
+      @required this.weekdayPadding,
+      @required this.weekdayBackgroundColor,
       @required this.weekdayTextStyle,
       @required this.localeDate});
 
+  final WeekdayBuilder customWeekdayBuilder;
   final bool showWeekdays;
   final WeekdayFormat weekdayFormat;
   final EdgeInsets weekdayMargin;
+  final EdgeInsets weekdayPadding;
+  final Color weekdayBackgroundColor;
   final TextStyle weekdayTextStyle;
   final DateFormat localeDate;
   final int firstDayOfWeek;
 
-  Widget _weekdayContainer(String weekDay) => Expanded(
-          child: Container(
-        margin: weekdayMargin,
-        child: Center(
-          child: DefaultTextStyle(
-            style: defaultWeekdayTextStyle,
-            child: Text(
-              weekDay,
-              style: weekdayTextStyle,
+  Widget _weekdayContainer(String weekDay) {
+    return customWeekdayBuilder != null ? customWeekdayBuilder(weekDay) :
+    Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: weekdayBackgroundColor),
+            color: weekdayBackgroundColor,
+          ),
+          margin: weekdayMargin,
+          padding: weekdayPadding,
+          child: Center(
+            child: DefaultTextStyle(
+              style: defaultWeekdayTextStyle,
+              child: Text(
+                weekDay,
+                style: weekdayTextStyle,
+              ),
             ),
           ),
-        ),
-      ));
+        )
+    );
+  }
 
 //  List<Widget> _generateWeekdays() {
 //    switch (weekdayFormat) {
