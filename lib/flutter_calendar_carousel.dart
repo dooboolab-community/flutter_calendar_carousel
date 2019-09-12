@@ -57,6 +57,9 @@ class CalendarCarousel<T> extends StatefulWidget {
   final EdgeInsets headerMargin;
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
+  final EdgeInsets weekDayPadding;
+  final WeekdayBuilder customWeekDayBuilder;
+  final Color weekDayBackgroundColor;
   final bool weekFormat;
   final bool showWeekDays;
   final bool showHeader;
@@ -121,6 +124,9 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
+    this.weekDayPadding = const EdgeInsets.all(0.0),
+    this.weekDayBackgroundColor = Colors.transparent,
+    this.customWeekDayBuilder,
     this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeader = true,
@@ -239,9 +245,12 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           ),
           WeekdayRow(
             firstDayOfWeek,
+            widget.customWeekDayBuilder,
             showWeekdays: widget.showWeekDays,
             weekdayFormat: widget.weekDayFormat,
             weekdayMargin: widget.weekDayMargin,
+            weekdayPadding: widget.weekDayPadding,
+            weekdayBackgroundColor: widget.weekDayBackgroundColor,
             weekdayTextStyle: widget.weekdayTextStyle,
             localeDate: _localeDate,
           ),
