@@ -431,9 +431,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                               : defaultInactiveWeekendTextStyle)
                                   : isToday
                                       ? defaultTodayTextStyle
-                                      : isSelectable
-                                          ? defaultTextStyle
-                                          : defaultInactiveDaysTextStyle,
+                                      : isSelectable && textStyle != null
+                                          ? textStyle
+                                          : defaultTextStyle != null
+                                            ? defaultTextStyle
+                                            : defaultInactiveDaysTextStyle,
                               child: Text(
                                 '${now.day}',
                                 style: (_localeDate.dateSymbols.WEEKENDRANGE
@@ -624,7 +626,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                         : defaultInactiveWeekendTextStyle)
                                     : isToday
                                         ? defaultTodayTextStyle
-                                        : defaultTextStyle,
+                                        : textStyle != null
+                                          ? textStyle
+                                          : defaultTextStyle,
                                 child: Text(
                                   '${now.day}',
                                   style: (index % 7 == 0 || index % 7 == 6) &&
