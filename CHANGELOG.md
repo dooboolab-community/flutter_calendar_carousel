@@ -1,3 +1,5 @@
+## [1.3.20]
++ Support intl >= 0.15.7
 ## [1.3.19]
 + Improved customizability for weekday containers [#141](https://github.com/dooboolab/flutter_calendar_carousel/pull/141)
 ## [1.3.18]
