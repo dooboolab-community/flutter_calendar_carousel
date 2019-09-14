@@ -83,6 +83,8 @@ For help getting started with Flutter, view our online
 | weekDayFormat           | `WeekdayFormat` | `short` |
 | staticSixWeekFormat     | `bool`          | `false` |
 | showOnlyCurrentMonthDate | `bool`          | `false` |
+| dayCrossAxisAlignment | `CrossAxisAlignment` | `CrossAxisAlignment.center` |
+| dayMainAxisAlignment | `MainAxisAlignment` | `CrossAlignment.center` |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 

@@ -90,6 +90,8 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
   final OnDayLongPressed onDayLongPressed;
+  final CrossAxisAlignment dayCrossAxisAlignment;
+  final MainAxisAlignment dayMainAxisAlignment;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -158,6 +160,8 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
     this.onDayLongPressed,
+    this.dayCrossAxisAlignment = CrossAxisAlignment.center,
+    this.dayMainAxisAlignment = MainAxisAlignment.center,
   });
 
   @override
@@ -284,7 +288,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     );
   }
 
-  DefaultTextStyle getDefaultTextStyle(
+  Widget getDayContainer(
     bool isSelectable,
     int index,
     bool isSelectedDay,
@@ -296,48 +300,58 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     bool isThisMonthDay,
     DateTime now,
   ) {
-    return DefaultTextStyle(
-      style: !isSelectable
-      ?  defaultInactiveDaysTextStyle
-      : (_localeDate.dateSymbols.WEEKENDRANGE.contains(
-          (index - 1 + firstDayOfWeek) % 7)) && !isSelectedDay && !isToday
-        ? (isPrevMonthDay
-          ? defaultPrevDaysTextStyle
-          : isNextMonthDay
-            ? defaultNextDaysTextStyle
-            : isSelectable
-              ? defaultWeekendTextStyle
-              : defaultInactiveWeekendTextStyle)
-        : isToday
-          ? defaultTodayTextStyle
-          : isSelectable && textStyle != null
-              ? textStyle
-              : defaultTextStyle,
-        child: Text(
-          '${now.day}',
-          semanticsLabel: now.day.toString(),
-          style:
-            isSelectedDay && widget.selectedDayTextStyle != null
-            ? widget.selectedDayTextStyle
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Row(
+        crossAxisAlignment: widget.dayCrossAxisAlignment,
+        mainAxisAlignment: widget.dayMainAxisAlignment,
+        children: <Widget>[
+          DefaultTextStyle(
+            style: !isSelectable
+            ?  defaultInactiveDaysTextStyle
             : (_localeDate.dateSymbols.WEEKENDRANGE.contains(
-            (index - 1 + firstDayOfWeek) % 7))
-            && !isSelectedDay
-            && isThisMonthDay
-            && !isToday
-            ? (isSelectable
-                ? widget.weekendTextStyle
-                : widget.inactiveWeekendTextStyle)
-            : !isSelectable
-            ? widget.inactiveDaysTextStyle
-            : isPrevMonthDay
-                ? widget.prevDaysTextStyle
+                (index - 1 + firstDayOfWeek) % 7)) && !isSelectedDay && !isToday
+              ? (isPrevMonthDay
+                ? defaultPrevDaysTextStyle
                 : isNextMonthDay
-                  ? widget.nextDaysTextStyle
-                  : isToday
-                      ? widget.todayTextStyle
-                      : widget.daysTextStyle,
-          maxLines: 1,
-        ),
+                  ? defaultNextDaysTextStyle
+                  : isSelectable
+                    ? defaultWeekendTextStyle
+                    : defaultInactiveWeekendTextStyle)
+              : isToday
+                ? defaultTodayTextStyle
+                : isSelectable && textStyle != null
+                    ? textStyle
+                    : defaultTextStyle,
+              child: Text(
+                '${now.day}',
+                semanticsLabel: now.day.toString(),
+                style:
+                  isSelectedDay && widget.selectedDayTextStyle != null
+                  ? widget.selectedDayTextStyle
+                  : (_localeDate.dateSymbols.WEEKENDRANGE.contains(
+                  (index - 1 + firstDayOfWeek) % 7))
+                  && !isSelectedDay
+                  && isThisMonthDay
+                  && !isToday
+                  ? (isSelectable
+                      ? widget.weekendTextStyle
+                      : widget.inactiveWeekendTextStyle)
+                  : !isSelectable
+                  ? widget.inactiveDaysTextStyle
+                  : isPrevMonthDay
+                      ? widget.prevDaysTextStyle
+                      : isNextMonthDay
+                        ? widget.nextDaysTextStyle
+                        : isToday
+                            ? widget.todayTextStyle
+                            : widget.daysTextStyle,
+                maxLines: 1,
+              ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -401,9 +415,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   ),
           child: Stack(
             children: <Widget>[
-              Center(
-                child: getDefaultTextStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
-              ),
+              getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
               widget.markedDatesMap != null
                   ? _renderMarkedMapContainer(now)
                   : Container(),
