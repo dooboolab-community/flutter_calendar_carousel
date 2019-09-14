@@ -40,7 +40,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final TextStyle weekdayTextStyle;
   final Color iconColor;
   final TextStyle headerTextStyle;
-  final Widget headerText;
+  final String headerText;
   final TextStyle weekendTextStyle;
   final EventList<Event> markedDatesMap;
   /// Change `makredDateWidget` when `markedDateShowIcon` is set to false.
@@ -244,9 +244,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
           CalendarHeader(
             showHeader: widget.showHeader,
             headerMargin: widget.headerMargin,
-            headerTitle: widget.weekFormat
-                ? '${_localeDate.format(_weeks[1].first)}'
-                : '${_localeDate.format(this._dates[1])}',
+            headerTitle: widget.headerText != null
+                ? widget.headerText
+                : widget.weekFormat
+                  ? '${_localeDate.format(_weeks[1].first)}'
+                  : '${_localeDate.format(this._dates[1])}',
             headerTextStyle: widget.headerTextStyle,
             showHeaderButtons: widget.showHeaderButton,
             headerIconColor: widget.iconColor,
