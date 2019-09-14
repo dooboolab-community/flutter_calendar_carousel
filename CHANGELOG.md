@@ -9,6 +9,7 @@
 + Support semantic label as a feature request [#139](https://github.com/dooboolab/flutter_calendar_carousel/issues/139)
 + Expose `dayCrossAxisAlignment` and `dayMainAxisAlignment` to resolve [#122](https://github.com/dooboolab/flutter_calendar_carousel/issues/122)
 + Expose `showIconBehindDayText` to resolve [#131](https://github.com/dooboolab/flutter_calendar_carousel/issues/131)
++ Fixes [#94](https://github.com/dooboolab/flutter_calendar_carousel/issues/94)
 ## [1.3.20]
 + Support intl >= 0.15.7
 ## [1.3.19]
