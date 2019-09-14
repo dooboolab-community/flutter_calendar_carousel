@@ -85,6 +85,7 @@ For help getting started with Flutter, view our online
 | showOnlyCurrentMonthDate | `bool`          | `false` |
 | dayCrossAxisAlignment | `CrossAxisAlignment` | `CrossAxisAlignment.center` |
 | dayMainAxisAlignment | `MainAxisAlignment` | `CrossAlignment.center` |
+| showIconBehindDayText | `bool` | `false` |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 

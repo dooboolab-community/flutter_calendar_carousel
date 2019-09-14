@@ -92,6 +92,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final OnDayLongPressed onDayLongPressed;
   final CrossAxisAlignment dayCrossAxisAlignment;
   final MainAxisAlignment dayMainAxisAlignment;
+  final bool showIconBehindDayText;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -162,6 +163,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.onDayLongPressed,
     this.dayCrossAxisAlignment = CrossAxisAlignment.center,
     this.dayMainAxisAlignment = MainAxisAlignment.center,
+    this.showIconBehindDayText = false,
   });
 
   @override
@@ -414,12 +416,19 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     ),
                   ),
           child: Stack(
-            children: <Widget>[
-              getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
-              widget.markedDatesMap != null
-                  ? _renderMarkedMapContainer(now)
-                  : Container(),
-            ],
+            children: widget.showIconBehindDayText
+              ? <Widget>[
+                widget.markedDatesMap != null
+                    ? _renderMarkedMapContainer(now)
+                    : Container(),
+                getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
+              ]
+              : <Widget>[
+                getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
+                widget.markedDatesMap != null
+                    ? _renderMarkedMapContainer(now)
+                    : Container(),
+              ],
           ),
         ),
       ),
