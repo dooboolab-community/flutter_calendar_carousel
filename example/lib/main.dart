@@ -179,6 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDateIconBuilder: (event) {
         return event.icon;
       },
+      minSelectedDate: _currentDate.subtract(Duration(days: 180)),
+      maxSelectedDate: _currentDate.add(Duration(days: 180)),
       todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
@@ -224,9 +226,16 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDayTextStyle: TextStyle(
         color: Colors.yellow,
       ),
-      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
-      maxSelectedDate: _currentDate.add(Duration(days: 360)),
-//      inactiveDateColor: Colors.black12,
+      minSelectedDate: _currentDate.subtract(Duration(days: 180)),
+      maxSelectedDate: _currentDate.add(Duration(days: 180)),
+      prevDaysTextStyle: TextStyle(
+        fontSize: 16,
+        color: Colors.pinkAccent,
+      ),
+      inactiveDaysTextStyle: TextStyle(
+        color: Colors.tealAccent,
+        fontSize: 16,
+      ),
       onCalendarChanged: (DateTime date) {
         this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
       },

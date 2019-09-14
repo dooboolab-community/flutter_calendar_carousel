@@ -428,7 +428,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(
+                              style: !isSelectable
+                              ?  defaultInactiveDaysTextStyle
+                              : (_localeDate.dateSymbols.WEEKENDRANGE.contains(
                                   (index - 1 + firstDayOfWeek) % 7)) && !isSelectedDay && !isToday
                                 ? (isPrevMonthDay
                                   ? defaultPrevDaysTextStyle
@@ -441,32 +443,30 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   ? defaultTodayTextStyle
                                   : isSelectable && textStyle != null
                                       ? textStyle
-                                      : defaultTextStyle != null
-                                        ? defaultTextStyle
-                                        : defaultInactiveDaysTextStyle,
-                              child: Text(
-                                '${now.day}',
-                                style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(
-                                  (index - 1 + firstDayOfWeek) % 7))
-                                  && !isSelectedDay
-                                  && isThisMonthDay
-                                  && !isToday
-                                  ? (isSelectable
-                                      ? widget.weekendTextStyle
-                                      : widget.inactiveWeekendTextStyle)
-                                  : isPrevMonthDay
-                                      ? widget.prevDaysTextStyle
-                                      : isNextMonthDay
-                                        ? widget.nextDaysTextStyle
-                                        : isSelectedDay
-                                            ? widget.selectedDayTextStyle
-                                            : isToday
-                                                ? widget.todayTextStyle
-                                                : isSelectable
-                                                  ? widget.daysTextStyle
-                                                  : widget.inactiveDaysTextStyle,
-                                maxLines: 1,
-                              ),
+                                      : defaultTextStyle,
+                                child: Text(
+                                  '${now.day}',
+                                  style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(
+                                    (index - 1 + firstDayOfWeek) % 7))
+                                    && !isSelectedDay
+                                    && isThisMonthDay
+                                    && !isToday
+                                    ? (isSelectable
+                                        ? widget.weekendTextStyle
+                                        : widget.inactiveWeekendTextStyle)
+                                    : !isSelectable
+                                    ? widget.inactiveDaysTextStyle
+                                    : isPrevMonthDay
+                                        ? widget.prevDaysTextStyle
+                                        : isNextMonthDay
+                                          ? widget.nextDaysTextStyle
+                                          : isSelectedDay
+                                              ? widget.selectedDayTextStyle
+                                              : isToday
+                                                  ? widget.todayTextStyle
+                                                  : widget.daysTextStyle,
+                                  maxLines: 1,
+                                ),
                             ),
                           ),
                           widget.markedDatesMap != null
@@ -626,15 +626,17 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                         : defaultTextStyle,
                                 child: Text(
                                   '${now.day}',
-                                  style: (index % 7 == 0 || index % 7 == 6) &&
-                                    !isSelectedDay &&
-                                    !isToday
-                                    ? widget.weekendTextStyle
-                                    : isToday
-                                      ? widget.todayTextStyle
-                                      : isSelectable
-                                        ? textStyle
-                                        : widget.inactiveDaysTextStyle,
+                                  style: !isSelectable && widget.inactiveDaysTextStyle != null
+                                    ? widget.inactiveDaysTextStyle
+                                    : !isSelectable
+                                      ? defaultInactiveDaysTextStyle
+                                      : (index % 7 == 0 || index % 7 == 6) &&
+                                      !isSelectedDay &&
+                                      !isToday
+                                        ? widget.weekendTextStyle
+                                        : isToday
+                                          ? widget.todayTextStyle
+                                          : textStyle,
                                   maxLines: 1,
                                 ),
                               ),
