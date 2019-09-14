@@ -173,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDateIconBuilder: (event) {
         return event.icon;
       },
+      todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
           false, // null for not showing hidden events indicator
@@ -187,6 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
         this.setState(() => _currentDate2 = date);
         events.forEach((event) => print(event.title));
       },
+      daysHaveCircularBorder: true,
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),
@@ -196,14 +198,19 @@ class _MyHomePageState extends State<MyHomePage> {
       height: 420.0,
       selectedDateTime: _currentDate2,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 2,
-      markedDateMoreShowTotal:
-          false, // null for not showing hidden events indicator
+      markedDateCustomShapeBorder: CircleBorder(
+        side: BorderSide(color: Colors.yellow)
+      ),
+      markedDateCustomTextStyle: TextStyle(
+        fontSize: 18,
+        color: Colors.blue,
+      ),
       showHeader: false,
-      markedDateIconBuilder: (event) {
-        return event.icon;
-      },
+      // markedDateIconBuilder: (event) {
+      //   return Container(
+      //     color: Colors.blue,
+      //   );
+      // },
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
@@ -211,8 +218,8 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDayTextStyle: TextStyle(
         color: Colors.yellow,
       ),
-      minSelectedDate: _currentDate,
-      maxSelectedDate: _currentDate.add(Duration(days: 60)),
+      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate.add(Duration(days: 360)),
 //      inactiveDateColor: Colors.black12,
       onCalendarChanged: (DateTime date) {
         this.setState(() => _currentMonth = DateFormat.yMMM().format(date));

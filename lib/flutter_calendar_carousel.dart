@@ -51,6 +51,8 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool
       markedDateMoreShowTotal; // null - no indicator, true - show the total events, false - show the total of hidden events
   final Decoration markedDateMoreCustomDecoration;
+  final ShapeBorder markedDateCustomShapeBorder;
+  final TextStyle markedDateCustomTextStyle;
   final TextStyle markedDateMoreCustomTextStyle;
   final EdgeInsets headerMargin;
   final double childAspectRatio;
@@ -115,6 +117,8 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.markedDateIconBuilder,
     this.markedDateMoreShowTotal,
     this.markedDateMoreCustomDecoration,
+    this.markedDateCustomShapeBorder,
+    this.markedDateCustomTextStyle,
     this.markedDateMoreCustomTextStyle,
     this.markedDateWidget,
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
@@ -355,6 +359,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   } else {
                     return Container();
                   }
+                  if (widget.markedDateCustomTextStyle != null
+                    && widget.markedDatesMap != null
+                    && widget.markedDatesMap.getEvents(now).length > 0) {
+                    textStyle = widget.markedDateCustomTextStyle;
+                  }
                   bool isSelectable = true;
                   if (widget.minSelectedDate != null &&
                       now.millisecondsSinceEpoch <
@@ -375,87 +384,80 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   : widget.dayButtonColor,
                       onPressed: () => _onDayPressed(now),
                       padding: EdgeInsets.all(widget.dayPadding),
-                      shape: widget.daysHaveCircularBorder == null
+                      shape: widget.markedDateCustomShapeBorder != null
+                        && widget.markedDatesMap != null
+                        && widget.markedDatesMap.getEvents(now).length > 0
+                        ? widget.markedDateCustomShapeBorder
+                        : widget.daysHaveCircularBorder == null
                           ? CircleBorder()
-                          : widget.daysHaveCircularBorder
-                              ? CircleBorder(
-                                  side: BorderSide(
-                                    color: isSelectedDay
-                                        ? widget.selectedDayBorderColor
-                                        : isToday && widget.todayBorderColor != null
-                                            ? widget.todayBorderColor
-                                            : isPrevMonthDay
-                                                ? widget.prevMonthDayBorderColor
-                                                : isNextMonthDay
-                                                    ? widget
-                                                        .nextMonthDayBorderColor
-                                                    : widget
-                                                        .thisMonthDayBorderColor,
-                                  ),
-                                )
-                              : RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: isSelectedDay
-                                        ? widget.selectedDayBorderColor
-                                        : isToday && widget.todayBorderColor != null
-                                            ? widget.todayBorderColor
-                                            : isPrevMonthDay
-                                                ? widget.prevMonthDayBorderColor
-                                                : isNextMonthDay
-                                                    ? widget
-                                                        .nextMonthDayBorderColor
-                                                    : widget
-                                                        .thisMonthDayBorderColor,
-                                  ),
+                          : widget.daysHaveCircularBorder ?? false
+                            ? CircleBorder(
+                                side: BorderSide(
+                                  color: isSelectedDay
+                                    ? widget.selectedDayBorderColor
+                                    : isToday && widget.todayBorderColor != null
+                                      ? widget.todayBorderColor
+                                      : isPrevMonthDay
+                                        ? widget.prevMonthDayBorderColor
+                                        : isNextMonthDay
+                                          ? widget.nextMonthDayBorderColor
+                                          : widget.thisMonthDayBorderColor,
                                 ),
+                              )
+                            : RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: isSelectedDay
+                                      ? widget.selectedDayBorderColor
+                                      : isToday && widget.todayBorderColor != null
+                                          ? widget.todayBorderColor
+                                          : isPrevMonthDay
+                                              ? widget.prevMonthDayBorderColor
+                                              : isNextMonthDay
+                                                  ? widget.nextMonthDayBorderColor
+                                                  : widget.thisMonthDayBorderColor,
+                                ),
+                              ),
                       child: Stack(
                         children: <Widget>[
                           Center(
                             child: DefaultTextStyle(
-                              style: (_localeDate.dateSymbols.WEEKENDRANGE
-                                          .contains(
-                                              (index - 1 + firstDayOfWeek) %
-                                                  7)) &&
-                                      !isSelectedDay &&
-                                      !isToday
-                                  ? (isPrevMonthDay
-                                      ? defaultPrevDaysTextStyle
-                                      : isNextMonthDay
-                                          ? defaultNextDaysTextStyle
-                                          : isSelectable
-                                              ? defaultWeekendTextStyle
-                                              : defaultInactiveWeekendTextStyle)
-                                  : isToday
-                                      ? defaultTodayTextStyle
-                                      : isSelectable && textStyle != null
-                                          ? textStyle
-                                          : defaultTextStyle != null
-                                            ? defaultTextStyle
-                                            : defaultInactiveDaysTextStyle,
+                              style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(
+                                  (index - 1 + firstDayOfWeek) % 7)) && !isSelectedDay && !isToday
+                                ? (isPrevMonthDay
+                                  ? defaultPrevDaysTextStyle
+                                  : isNextMonthDay
+                                    ? defaultNextDaysTextStyle
+                                    : isSelectable
+                                      ? defaultWeekendTextStyle
+                                      : defaultInactiveWeekendTextStyle)
+                                : isToday
+                                  ? defaultTodayTextStyle
+                                  : isSelectable && textStyle != null
+                                      ? textStyle
+                                      : defaultTextStyle != null
+                                        ? defaultTextStyle
+                                        : defaultInactiveDaysTextStyle,
                               child: Text(
                                 '${now.day}',
-                                style: (_localeDate.dateSymbols.WEEKENDRANGE
-                                            .contains(
-                                                (index - 1 + firstDayOfWeek) %
-                                                    7)) &&
-                                        !isSelectedDay &&
-                                        isThisMonthDay &&
-                                        !isToday
-                                    ? (isSelectable
-                                        ? widget.weekendTextStyle
-                                        : widget.inactiveWeekendTextStyle)
-                                    : isPrevMonthDay
-                                        ? widget.prevDaysTextStyle
-                                        : isNextMonthDay
-                                            ? widget.nextDaysTextStyle
-                                            : isSelectedDay
-                                                ? widget.selectedDayTextStyle
-                                                : isToday
-                                                    ? widget.todayTextStyle
-                                                    : isSelectable
-                                                        ? widget.daysTextStyle
-                                                        : widget
-                                                            .inactiveDaysTextStyle,
+                                style: (_localeDate.dateSymbols.WEEKENDRANGE.contains(
+                                  (index - 1 + firstDayOfWeek) % 7))
+                                  && !isSelectedDay
+                                  && isThisMonthDay
+                                  && !isToday
+                                  ? (isSelectable
+                                      ? widget.weekendTextStyle
+                                      : widget.inactiveWeekendTextStyle)
+                                  : isPrevMonthDay
+                                      ? widget.prevDaysTextStyle
+                                      : isNextMonthDay
+                                        ? widget.nextDaysTextStyle
+                                        : isSelectedDay
+                                            ? widget.selectedDayTextStyle
+                                            : isToday
+                                                ? widget.todayTextStyle
+                                                : isSelectable
+                                                  ? widget.daysTextStyle
+                                                  : widget.inactiveDaysTextStyle,
                                 maxLines: 1,
                               ),
                             ),
@@ -508,10 +510,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   crossAxisCount: 7,
                   childAspectRatio: widget.childAspectRatio,
                   padding: EdgeInsets.zero,
-                  children: List.generate(weekDays.length,
-
-                      /// last day of month + weekday
-                      (index) {
+                  children: List.generate(weekDays.length, (index) { /// last day of month + weekday
                     bool isToday = weekDays[index].day == DateTime.now().day &&
                         weekDays[index].month == DateTime.now().month &&
                         weekDays[index].year == DateTime.now().year;
@@ -534,15 +533,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                       defaultTextStyle = defaultPrevDaysTextStyle;
                     } else if (isThisMonthDay) {
                       textStyle = isSelectedDay
-                          ? widget.selectedDayTextStyle
-                          : isToday
-                              ? widget.todayTextStyle
-                              : widget.daysTextStyle;
+                        ? widget.selectedDayTextStyle
+                        : isToday
+                          ? widget.todayTextStyle
+                          : widget.daysTextStyle;
                       defaultTextStyle = isSelectedDay
-                          ? defaultSelectedDayTextStyle
-                          : isToday
-                              ? defaultTodayTextStyle
-                              : defaultDaysTextStyle;
+                        ? defaultSelectedDayTextStyle
+                        : isToday
+                          ? defaultTodayTextStyle
+                          : defaultDaysTextStyle;
                     } else if (!widget.showOnlyCurrentMonthDate) {
                       textStyle = widget.nextDaysTextStyle;
                       defaultTextStyle = defaultNextDaysTextStyle;
@@ -561,88 +560,81 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                     return Container(
                       margin: EdgeInsets.all(widget.dayPadding),
                       child: FlatButton(
-                        color: isSelectedDay &&
-                                widget.selectedDayButtonColor != null
-                            ? widget.selectedDayButtonColor
-                            : isToday && widget.todayButtonColor != null
-                                ? widget.todayButtonColor
-                                : widget.dayButtonColor,
+                        color: isSelectedDay && widget.selectedDayButtonColor != null
+                          ? widget.selectedDayButtonColor
+                          : isToday && widget.todayButtonColor != null
+                              ? widget.todayButtonColor
+                              : widget.dayButtonColor,
                         onPressed: () => _onDayPressed(now),
                         padding: EdgeInsets.all(widget.dayPadding),
-                        shape: widget.daysHaveCircularBorder == null
+                        shape: widget.markedDateCustomShapeBorder != null
+                          && widget.markedDatesMap != null
+                          && widget.markedDatesMap.getEvents(now).length > 0
+                          ? widget.markedDateCustomShapeBorder
+                          : widget.daysHaveCircularBorder == null
                             ? CircleBorder()
-                            : widget.daysHaveCircularBorder
-                                ? CircleBorder(
-                                    side: BorderSide(
-                                      color: isSelectedDay
-                                          ? widget.selectedDayBorderColor
-                                          : isToday &&
-                                                  widget.todayBorderColor !=
-                                                      null
-                                              ? widget.todayBorderColor
-                                              : isPrevMonthDay
-                                                  ? widget
-                                                      .prevMonthDayBorderColor
-                                                  : isNextMonthDay
-                                                      ? widget
-                                                          .nextMonthDayBorderColor
-                                                      : widget
-                                                          .thisMonthDayBorderColor,
-                                    ),
-                                  )
-                                : RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      color: isSelectedDay
-                                          ? widget.selectedDayBorderColor
-                                          : isToday &&
-                                                  widget.todayBorderColor !=
-                                                      null
-                                              ? widget.todayBorderColor
-                                              : isPrevMonthDay
-                                                  ? widget
-                                                      .prevMonthDayBorderColor
-                                                  : isNextMonthDay
-                                                      ? widget
-                                                          .nextMonthDayBorderColor
-                                                      : widget
-                                                          .thisMonthDayBorderColor,
-                                    ),
+                            : widget.daysHaveCircularBorder?? false
+                              ? CircleBorder(
+                                  side: BorderSide(
+                                    color: isSelectedDay
+                                      ? widget.selectedDayBorderColor
+                                      : isToday && widget.todayBorderColor != null
+                                          ? widget.todayBorderColor
+                                          : isPrevMonthDay
+                                            ? widget.prevMonthDayBorderColor
+                                            : isNextMonthDay
+                                                ? widget.nextMonthDayBorderColor
+                                                : widget.thisMonthDayBorderColor,
                                   ),
+                                )
+                              : RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: isSelectedDay
+                                        ? widget.selectedDayBorderColor
+                                        : isToday && widget.todayBorderColor != null
+                                          ? widget.todayBorderColor
+                                          : isPrevMonthDay
+                                            ? widget.prevMonthDayBorderColor
+                                            : isNextMonthDay
+                                                ? widget.nextMonthDayBorderColor
+                                                : widget.thisMonthDayBorderColor,
+                                  ),
+                                ),
                         child: Stack(
                           children: <Widget>[
                             Center(
                               child: DefaultTextStyle(
                                 style: (index % 7 == 0 || index % 7 == 6) &&
-                                        !isSelectedDay &&
-                                        !isToday &&
-                                        !isPrevMonthDay &&
-                                        !isNextMonthDay
+                                      !isSelectedDay &&
+                                      !isToday &&
+                                      !isPrevMonthDay &&
+                                      !isNextMonthDay
                                     ? (isSelectable
-                                        ? defaultWeekendTextStyle
-                                        : defaultInactiveWeekendTextStyle)
+                                      ? defaultWeekendTextStyle
+                                      : defaultInactiveWeekendTextStyle)
                                     : isToday
-                                        ? defaultTodayTextStyle
-                                        : textStyle != null
-                                          ? textStyle
-                                          : defaultTextStyle,
+                                      ? defaultTodayTextStyle
+                                      : textStyle != null
+                                        ? textStyle
+                                        : defaultTextStyle,
                                 child: Text(
                                   '${now.day}',
                                   style: (index % 7 == 0 || index % 7 == 6) &&
-                                          !isSelectedDay &&
-                                          !isToday
-                                      ? widget.weekendTextStyle
-                                      : isToday
-                                          ? widget.todayTextStyle
-                                          : isSelectable
-                                              ? textStyle
-                                              : widget.inactiveDaysTextStyle,
+                                    !isSelectedDay &&
+                                    !isToday
+                                    ? widget.weekendTextStyle
+                                    : isToday
+                                      ? widget.todayTextStyle
+                                      : isSelectable
+                                        ? textStyle
+                                        : widget.inactiveDaysTextStyle,
                                   maxLines: 1,
                                 ),
                               ),
                             ),
                             widget.markedDatesMap != null
-                                ? _renderMarkedMapContainer(now)
-                                : Container(),
+                              ? _renderMarkedMapContainer(now)
+                              : Container(),
                           ],
                         ),
                       ),
@@ -680,10 +672,10 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     });
     if (widget.onDayPressed != null)
       widget.onDayPressed(
-          picked,
-          widget.markedDatesMap != null
-              ? widget.markedDatesMap.getEvents(picked)
-              : []);
+        picked,
+        widget.markedDatesMap != null
+          ? widget.markedDatesMap.getEvents(picked)
+          : []);
     _setDate();
   }
 
@@ -692,11 +684,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       context: context,
       initialDate: _selectedDate ?? new DateTime.now(),
       firstDate: widget.minSelectedDate != null
-          ? widget.minSelectedDate
-          : DateTime(1960),
+        ? widget.minSelectedDate
+        : DateTime(1960),
       lastDate: widget.maxSelectedDate != null
-          ? widget.maxSelectedDate
-          : DateTime(2050),
+        ? widget.maxSelectedDate
+        : DateTime(2050),
     );
 
     if (selected != null) {
@@ -707,10 +699,10 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       });
       if (widget.onDayPressed != null)
         widget.onDayPressed(
-            selected,
-            widget.markedDatesMap != null
-                ? widget.markedDatesMap.getEvents(selected)
-                : []);
+          selected,
+          widget.markedDatesMap != null
+            ? widget.markedDatesMap.getEvents(selected)
+            : []);
       _setDate();
     }
   }
@@ -718,11 +710,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   void _setDatesAndWeeks() {
     /// Setup default calendar format
     DateTime date0 =
-        DateTime(this._selectedDate.year, this._selectedDate.month - 1, 1);
+      DateTime(this._selectedDate.year, this._selectedDate.month - 1, 1);
     DateTime date1 =
-        DateTime(this._selectedDate.year, this._selectedDate.month, 1);
+      DateTime(this._selectedDate.year, this._selectedDate.month, 1);
     DateTime date2 =
-        DateTime(this._selectedDate.year, this._selectedDate.month + 1, 1);
+      DateTime(this._selectedDate.year, this._selectedDate.month + 1, 1);
 
     /// Setup week-only format
     DateTime now = this._selectedDate;
@@ -761,19 +753,15 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         List<List<DateTime>> newWeeks = this._weeks;
         if (page == 0) {
           curr = _weeks[0].first;
-          newWeeks[0] =
-              _getDaysInWeek(DateTime(curr.year, curr.month, curr.day - 7));
+          newWeeks[0] = _getDaysInWeek(DateTime(curr.year, curr.month, curr.day - 7));
           newWeeks[1] = _getDaysInWeek(curr);
-          newWeeks[2] =
-              _getDaysInWeek(DateTime(curr.year, curr.month, curr.day + 7));
+          newWeeks[2] = _getDaysInWeek(DateTime(curr.year, curr.month, curr.day + 7));
           page += 1;
         } else if (page == 2) {
           curr = _weeks[2].first;
           newWeeks[1] = _getDaysInWeek(curr);
-          newWeeks[0] =
-              _getDaysInWeek(DateTime(curr.year, curr.month, curr.day - 7));
-          newWeeks[2] =
-              _getDaysInWeek(DateTime(curr.year, curr.month, curr.day + 7));
+          newWeeks[0] = _getDaysInWeek(DateTime(curr.year, curr.month, curr.day - 7));
+          newWeeks[2] = _getDaysInWeek(DateTime(curr.year, curr.month, curr.day + 7));
           page -= 1;
         }
         setState(() {
@@ -814,8 +802,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _isReloadSelectedDate = false;
         widget.onCalendarChanged(!widget.weekFormat
-            ? this._dates[1]
-            : this._weeks[1][firstDayOfWeek]);
+          ? this._dates[1]
+          : this._weeks[1][firstDayOfWeek]);
       });
     }
   }
@@ -875,25 +863,27 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 bottom: 0.0,
                 right: 0.0,
                 child: Container(
-                  padding: EdgeInsets.all(3.0),
+                  padding: EdgeInsets.all(4.0),
+                  width: widget.markedDateMoreShowTotal ? 18 : null,
+                  height: widget.markedDateMoreShowTotal ? 18 : null,
                   decoration: widget.markedDateMoreCustomDecoration == null
-                      ? new BoxDecoration(
-                          color: Colors.red,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(1000.0)),
-                        )
-                      : widget.markedDateMoreCustomDecoration,
+                    ? new BoxDecoration(
+                        color: Colors.red,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(1000.0)),
+                      )
+                    : widget.markedDateMoreCustomDecoration,
                   child: Center(
                     child: Text(
                       widget.markedDateMoreShowTotal
-                          ? (count + widget.markedDateIconMaxShown).toString()
-                          : (count.toString() + '+'),
+                        ? (count + widget.markedDateIconMaxShown).toString()
+                        : (count.toString() + '+'),
                       style: widget.markedDateMoreCustomTextStyle == null
-                          ? TextStyle(
-                              fontSize: 9.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal)
-                          : widget.markedDateMoreCustomTextStyle,
+                        ? TextStyle(
+                            fontSize: 9.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal)
+                        : widget.markedDateMoreCustomTextStyle,
                     ),
                   ),
                 ),
