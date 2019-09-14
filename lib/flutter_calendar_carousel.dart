@@ -40,9 +40,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final TextStyle headerTextStyle;
   final Widget headerText;
   final TextStyle weekendTextStyle;
-  final List<DateTime> markedDates;
   final EventList<T> markedDatesMap;
-  final Color markedDateColor;
   final Widget markedDateWidget;
   final bool markedDateShowIcon;
   final Color markedDateIconBorderColor;
@@ -108,9 +106,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.headerTextStyle,
     this.headerText,
     this.weekendTextStyle,
-    @deprecated this.markedDates,
     this.markedDatesMap,
-    @deprecated this.markedDateColor,
     this.markedDateShowIcon = false,
     this.markedDateIconBorderColor,
     this.markedDateIconMaxShown = 2,
@@ -466,7 +462,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                           ),
                           widget.markedDatesMap != null
                               ? _renderMarkedMapContainer(now)
-                              : _renderMarked(now),
+                              : Container(),
                         ],
                       ),
                     ),
@@ -646,7 +642,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                             ),
                             widget.markedDatesMap != null
                                 ? _renderMarkedMapContainer(now)
-                                : _renderMarked(now),
+                                : Container(),
                           ],
                         ),
                       ),
@@ -822,20 +818,6 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             : this._weeks[1][firstDayOfWeek]);
       });
     }
-  }
-
-  Widget _renderMarked(DateTime now) {
-    if (widget.markedDates != null && widget.markedDates.length > 0) {
-      List<DateTime> markedDates = widget.markedDates.map((date) {
-        return DateTime(date.year, date.month, date.day);
-      }).toList();
-      if (markedDates.contains(now)) {
-        return widget.markedDateWidget != null
-            ? widget.markedDateWidget
-            : defaultMarkedDateWidget;
-      }
-    }
-    return Container();
   }
 
   Widget _renderMarkedMapContainer(DateTime now) {
