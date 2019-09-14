@@ -173,14 +173,17 @@ class _MyHomePageState extends State<MyHomePage> {
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
+      selectedDayTextStyle: TextStyle(
+        color: Colors.yellow,
+      ),
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
       markedDateIconBuilder: (event) {
         return event.icon;
       },
-      minSelectedDate: _currentDate.subtract(Duration(days: 180)),
-      maxSelectedDate: _currentDate.add(Duration(days: 180)),
+      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate.add(Duration(days: 360)),
       todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
@@ -226,8 +229,8 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDayTextStyle: TextStyle(
         color: Colors.yellow,
       ),
-      minSelectedDate: _currentDate.subtract(Duration(days: 180)),
-      maxSelectedDate: _currentDate.add(Duration(days: 180)),
+      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate.add(Duration(days: 360)),
       prevDaysTextStyle: TextStyle(
         fontSize: 16,
         color: Colors.pinkAccent,
