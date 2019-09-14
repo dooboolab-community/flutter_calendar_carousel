@@ -1,5 +1,6 @@
 ## [1.3.21]
 + Support intl >= 0.15.7 < 0.17.0 to inclease `pub` health
++ Removed deprecated methods ~~`markedDates`~~, ~~`markedDateColor`~~
 ## [1.3.20]
 + Support intl >= 0.15.7
 ## [1.3.19]

@@ -53,9 +53,7 @@ For help getting started with Flutter, view our online
 | headerTextStyle         | `TextStyle`     | `fontSize: 20.0, color: Colors.blue`                                                                              |
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
-| ~~markedDates~~         | `List<DateTime>`| []                                                                                                                |
 | markedDatesMap          | `Events`        | `null`                                                                                                            |
-| markedDateColor         | `Color`         | Colors.blueAccent                                                                                                 |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | markedDateShowIcon      | `bool`          | false                                                                                                             |
 | markedDateIconBorderColor | `Color`       |                                                                                                                   |
@@ -108,7 +106,6 @@ Widget widget() {
 //      headerText: Container( /// Example for rendering custom header
 //        child: Text('Custom Header'),
 //      ),
-//      markedDates: _markedDate,
       weekFormat: false,
       markedDatesMap: _markedDateMap,
       height: 420.0,
@@ -136,5 +133,4 @@ Widget widget() {
 I've been maintaining quite many repos these days and burning out slowly. If you could help me cheer up, buying me a cup of coffee will make my life really happy and get much energy out of it.
 <br/>
 <a href="https://www.buymeacoffee.com/dooboolab" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
-<br/>
 [![Paypal](https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png)](https://paypal.me/dooboolab)
