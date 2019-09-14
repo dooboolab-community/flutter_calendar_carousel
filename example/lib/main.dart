@@ -71,6 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
           date: new DateTime(2019, 2, 10),
           title: 'Event 1',
           icon: _eventIcon,
+          dot: Container(
+            margin: EdgeInsets.symmetric(horizontal: 1.0),
+            color: Colors.red,
+            height: 5.0,
+            width: 5.0,
+          ),
         ),
         new Event(
           date: new DateTime(2019, 2, 10),
@@ -155,24 +161,29 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       thisMonthDayBorderColor: Colors.grey,
 //          weekDays: null, /// for pass null when you do not want to render weekDays
-//          headerText: Container( /// Example for rendering custom header
-//            child: Text('Custom Header'),
-//          ),
+      headerText: 'Custom Header',
 //          markedDates: _markedDate,
       weekFormat: true,
       markedDatesMap: _markedDateMap,
       height: 200.0,
       selectedDateTime: _currentDate2,
+      showIconBehindDayText: true,
 //          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
+      selectedDayTextStyle: TextStyle(
+        color: Colors.yellow,
+      ),
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
       markedDateIconBuilder: (event) {
         return event.icon;
       },
+      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate.add(Duration(days: 360)),
+      todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
           false, // null for not showing hidden events indicator
@@ -187,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
         this.setState(() => _currentDate2 = date);
         events.forEach((event) => print(event.title));
       },
+      daysHaveCircularBorder: true,
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),
@@ -196,14 +208,19 @@ class _MyHomePageState extends State<MyHomePage> {
       height: 420.0,
       selectedDateTime: _currentDate2,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 2,
-      markedDateMoreShowTotal:
-          false, // null for not showing hidden events indicator
+      markedDateCustomShapeBorder: CircleBorder(
+        side: BorderSide(color: Colors.yellow)
+      ),
+      markedDateCustomTextStyle: TextStyle(
+        fontSize: 18,
+        color: Colors.blue,
+      ),
       showHeader: false,
-      markedDateIconBuilder: (event) {
-        return event.icon;
-      },
+      // markedDateIconBuilder: (event) {
+      //   return Container(
+      //     color: Colors.blue,
+      //   );
+      // },
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
@@ -211,11 +228,21 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDayTextStyle: TextStyle(
         color: Colors.yellow,
       ),
-      minSelectedDate: _currentDate,
-      maxSelectedDate: _currentDate.add(Duration(days: 60)),
-//      inactiveDateColor: Colors.black12,
+      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate.add(Duration(days: 360)),
+      prevDaysTextStyle: TextStyle(
+        fontSize: 16,
+        color: Colors.pinkAccent,
+      ),
+      inactiveDaysTextStyle: TextStyle(
+        color: Colors.tealAccent,
+        fontSize: 16,
+      ),
       onCalendarChanged: (DateTime date) {
         this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
+      },
+      onDayLongPressed: (DateTime date) {
+        print('long pressed date $date');
       },
     );
 
