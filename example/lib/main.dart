@@ -71,6 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
           date: new DateTime(2019, 2, 10),
           title: 'Event 1',
           icon: _eventIcon,
+          dot: Container(
+            margin: EdgeInsets.symmetric(horizontal: 1.0),
+            color: Colors.red,
+            height: 5.0,
+            width: 5.0,
+          ),
         ),
         new Event(
           date: new DateTime(2019, 2, 10),
