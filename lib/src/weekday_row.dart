@@ -43,6 +43,7 @@ class WeekdayRow extends StatelessWidget {
               style: defaultWeekdayTextStyle,
               child: Text(
                 weekDay,
+                semanticsLabel: weekDay,
                 style: weekdayTextStyle,
               ),
             ),

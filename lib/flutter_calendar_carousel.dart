@@ -315,6 +315,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
               : defaultTextStyle,
         child: Text(
           '${now.day}',
+          semanticsLabel: now.day.toString(),
           style:
             isSelectedDay && widget.selectedDayTextStyle != null
             ? widget.selectedDayTextStyle
@@ -843,6 +844,9 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                   child: Center(
                     child: Text(
                       widget.markedDateMoreShowTotal
+                        ? (count + widget.markedDateIconMaxShown).toString()
+                        : (count.toString() + '+'),
+                      semanticsLabel: widget.markedDateMoreShowTotal
                         ? (count + widget.markedDateIconMaxShown).toString()
                         : (count.toString() + '+'),
                       style: widget.markedDateMoreCustomTextStyle == null
