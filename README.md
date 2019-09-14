@@ -28,59 +28,61 @@ For help getting started with Flutter, view our online
 ## Props
 | props                   | types           | defaultValues                                                                                                     |
 | :---------------------- | :-------------: | :---------------------------------------------------------------------------------------------------------------: |
-| viewPortFraction        | `double`        | 1.0                                                                                                               |
-| prevDaysTextStyle       | `TextStyle`     |                                                                                                                   |
-| daysTextStyle           | `TextStyle`     |                                                                                                                   |
-| nextDaysTextStyle       | `TextStyle`     |                                                                                                                   |
-| prevMonthDayBorderColor | `Color`         | Colors.transparent                                                                                                |
-| thisMonthDayBorderColor | `Color`         | Colors.transparent                                                                                                |
-| nextMonthDayBorderColor | `Color`         | Colors.transparent                                                                                                |
-| dayPadding              | `double`        | 2.0                                                                                                               |
-| height                  | `double`        | double.infinity                                                                                                   |
-| width                   | `double`        | double.infinity                                                                                                   |
-| todayTextStyle          | `TextStyle`     | `fontSize: 14.0, color: Colors.white`                                                                             |
-| dayButtonColor          | `Color`         | Colors.red                                                                                                        |
-| todayBorderColor        | `Color`         | Colors.red                                                                                                        |
-| todayButtonColor        | `Colors`        | Colors.red                                                                                                        |
-| selectedDateTime        | `DateTime`      |                                                                                                                   |
-| selectedDayTextStyle    | `TextStyle`     | `fontSize: 14.0, color: Colors.white`                                                                             |
-| selectedDayBorderColor  | `Color`         | Colors.green                                                                                                      |
-| selectedDayButtonColor  | `Color`         | Colors.green                                                                                                      |
-| daysHaveCircularBorder  | `bool`          |                                                                                                                   |
-| onDayPressed            | `Func`          |                                                                                                                   |
-| weekdayTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.deepOrange`                                                                        |
-| iconColor               | `Color`         | Colors.blueAccent                                                                                                 |
-| headerTextStyle         | `TextStyle`     | `fontSize: 20.0, color: Colors.blue`                                                                              |
-| headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`)                                                             |
-| weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent`                                                                        |
-| markedDatesMap          | `Events`        | `null`                                                                                                            |
+| viewPortFraction        | `double`        | 1.0 |
+| prevDaysTextStyle       | `TextStyle`     | |
+| daysTextStyle           | `TextStyle`     | |
+| nextDaysTextStyle       | `TextStyle`     | |
+| prevMonthDayBorderColor | `Color`         | Colors.transparent |
+| thisMonthDayBorderColor | `Color`         | Colors.transparent |
+| nextMonthDayBorderColor | `Color`         | Colors.transparent |
+| dayPadding              | `double`        | 2.0 |
+| height                  | `double`        | double.infinity |
+| width                   | `double`        | double.infinity |
+| todayTextStyle          | `TextStyle`     | `fontSize: 14.0, color: Colors.white` |
+| dayButtonColor          | `Color`         | Colors.red |
+| todayBorderColor        | `Color`         | Colors.red |
+| todayButtonColor        | `Colors`        | Colors.red |
+| selectedDateTime        | `DateTime`      | |
+| selectedDayTextStyle    | `TextStyle`     | `fontSize: 14.0, color: Colors.white` |
+| selectedDayBorderColor  | `Color`         | Colors.green |
+| selectedDayButtonColor  | `Color`         | Colors.green |
+| daysHaveCircularBorder  | `bool`          | |
+| onDayPressed            | `Func`          | |
+| weekdayTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.deepOrange` |
+| iconColor               | `Color`         | Colors.blueAccent |
+| headerTextStyle         | `TextStyle`     | `fontSize: 20.0, color: Colors.blue` |
+| headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
+| weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent` |
+| markedDatesMap          | `Events`        | `null` |
 | markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
-| markedDateShowIcon      | `bool`          | false                                                                                                             |
-| markedDateIconBorderColor | `Color`       |                                                                                                                   |
-| markedDateIconMaxShown  | `int`           | 2                                                                                                                 |
-| markedDateIconMargin    | `double`        | 5.0                                                                                                               |
-| markedDateIconBuilder   | `MarkedDateIconBuilder<T>` |                                                                                                        |
-| markedDateIconOffset    | `double`        | 5.0                                                                                                               |
-| markedDateMoreCustomDecoration | `Decoration` |                                                                                                               |
-| markedDateMoreCustomTextStyle | `TextStyle` |                                                                                                                 |
-| headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)`                                                                      |
-| headerTitleTouchable    | `bool`          | `false`                                                                                                           |
-| onHeaderTitlePressed    | `Function`      | `() => _selectDateFromPicker()`                                                                                   |
-| showHeader              | `bool`          |                                                                                                                   |
-| showHeaderButton        | `bool`          |                                                                                                                   |
-| childAspectRatio        | `double`        | `1.0`                                                                                                             |
-| weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)`                                                                              |
-| weekFormat              | `bool`          | `false`                                                                                                           |
-| locale                  | `String`        | `en`                                                                                                              |
-| firstDayOfWeek          | `int`           | `null`                                                                                                            |
-| onCalendarChanged       | `Function(DateTime)` |                                                                                                              |
-| minSelectedDate         | `DateTime`      |                                                                                                                   |
-| maxSelectedDate         | `DateTime`      |                                                                                                                   |
-| inactiveDaysTextStyle   | `TextStyle`     |                                                                                                                   |
-| inactiveWeekendTextStyle | `TextStyle`    |                                                                                                                   |
-| weekDayFormat           | `WeekdayFormat` | `short`                                                                                                           |
-| staticSixWeekFormat     | `bool`          | `false`                                                                                                           |
-| showOnlyCurrentMonthDate | `bool`          | `false`                                                                                                           |
+| markedDateShowIcon      | `bool`          | false |
+| markedDateIconBorderColor | `Color`       | |
+| markedDateIconMaxShown  | `int`           | 2 |
+| markedDateIconMargin    | `double`        | 5.0 |
+| markedDateIconBuilder   | `MarkedDateIconBuilder<T>` | |
+| markedDateIconOffset    | `double`        | 5.0 |
+| markedDateCustomShapeBorder | `ShapeBorder` | null |
+| markedDateCustomTextStyle | `TextStyle` | null |
+| markedDateMoreCustomDecoration | `Decoration` |    |
+| markedDateMoreCustomTextStyle | `TextStyle` |   |
+| headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)` |
+| headerTitleTouchable    | `bool`          | `false` |
+| onHeaderTitlePressed    | `Function`      | `() => _selectDateFromPicker()` |
+| showHeader              | `bool`          | |
+| showHeaderButton        | `bool`          | |
+| childAspectRatio        | `double`        | `1.0` |
+| weekDayMargin           | `EdgeInsets`    | `const EdgeInsets.only(bottom: 4.0)` |
+| weekFormat              | `bool`          | `false` |
+| locale                  | `String`        | `en` |
+| firstDayOfWeek          | `int`           | `null` |
+| onCalendarChanged       | `Function(DateTime)` | |
+| minSelectedDate         | `DateTime`      | |
+| maxSelectedDate         | `DateTime`      | |
+| inactiveDaysTextStyle   | `TextStyle`     | |
+| inactiveWeekendTextStyle | `TextStyle`    | |
+| weekDayFormat           | `WeekdayFormat` | `short` |
+| staticSixWeekFormat     | `bool`          | `false` |
+| showOnlyCurrentMonthDate | `bool`          | `false` |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 

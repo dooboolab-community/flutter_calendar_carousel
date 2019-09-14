@@ -41,18 +41,24 @@ class CalendarCarousel<T> extends StatefulWidget {
   final Widget headerText;
   final TextStyle weekendTextStyle;
   final EventList<T> markedDatesMap;
+  /// Change `makredDateWidget` when `markedDateShowIcon` is set to false.
   final Widget markedDateWidget;
+  /// Change `ShapeBorder` when `markedDateShowIcon` is set to false.
+  final ShapeBorder markedDateCustomShapeBorder;
+  /// Change `TextStyle` when `markedDateShowIcon` is set to false.
+  final TextStyle markedDateCustomTextStyle;
+
+  /// Icon will overlap the [Day] widget when `markedDateShowIcon` is set to true.
+  /// This will also make below parameters work.
   final bool markedDateShowIcon;
   final Color markedDateIconBorderColor;
   final int markedDateIconMaxShown;
   final double markedDateIconMargin;
   final double markedDateIconOffset;
   final MarkedDateIconBuilder<T> markedDateIconBuilder;
-  final bool
-      markedDateMoreShowTotal; // null - no indicator, true - show the total events, false - show the total of hidden events
+  /// null - no indicator, true - show the total events, false - show the total of hidden events
+  final bool markedDateMoreShowTotal;
   final Decoration markedDateMoreCustomDecoration;
-  final ShapeBorder markedDateCustomShapeBorder;
-  final TextStyle markedDateCustomTextStyle;
   final TextStyle markedDateMoreCustomTextStyle;
   final EdgeInsets headerMargin;
   final double childAspectRatio;
