@@ -1,6 +1,11 @@
 ## [1.3.21]
 + Support intl >= 0.15.7 < 0.17.0 to inclease `pub` health
 + Removed deprecated methods ~~`markedDates`~~, ~~`markedDateColor`~~
++ Fixes [#101](https://github.com/dooboolab/flutter_calendar_carousel/issues/101)
++ Fixes [#104](https://github.com/dooboolab/flutter_calendar_carousel/issues/104)
++ Fixes [#112](https://github.com/dooboolab/flutter_calendar_carousel/issues/112)
++ Fixes [#119](https://github.com/dooboolab/flutter_calendar_carousel/issues/119)
++ Support long pressed as a feature request[#103](https://github.com/dooboolab/flutter_calendar_carousel/issues/103)
 ## [1.3.20]
 + Support intl >= 0.15.7
 ## [1.3.19]

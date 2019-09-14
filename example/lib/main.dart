@@ -242,6 +242,9 @@ class _MyHomePageState extends State<MyHomePage> {
       onCalendarChanged: (DateTime date) {
         this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
       },
+      onDayLongPressed: (DateTime date) {
+        print('long pressed date $date');
+      },
     );
 
     return new Scaffold(

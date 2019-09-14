@@ -14,6 +14,7 @@ import 'package:intl/intl.dart' show DateFormat;
 export 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 typedef MarkedDateIconBuilder<Event> = Widget Function(Event event);
+typedef void OnDayLongPressed(DateTime day);
 
 class CalendarCarousel<T> extends StatefulWidget {
   final double viewportFraction;
@@ -88,6 +89,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final bool isScrollable;
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
+  final OnDayLongPressed onDayLongPressed;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -155,6 +157,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.isScrollable = true,
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
+    this.onDayLongPressed,
   });
 
   @override
@@ -351,57 +354,60 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   ) {
     return Container(
       margin: EdgeInsets.all(widget.dayPadding),
-      child: FlatButton(
-        color:
-            isSelectedDay && widget.selectedDayButtonColor != null
-                ? widget.selectedDayButtonColor
-                : isToday && widget.todayButtonColor != null
-                    ? widget.todayButtonColor
-                    : widget.dayButtonColor,
-        onPressed: () => _onDayPressed(now),
-        padding: EdgeInsets.all(widget.dayPadding),
-        shape: widget.markedDateCustomShapeBorder != null
-          && widget.markedDatesMap != null
-          && widget.markedDatesMap.getEvents(now).length > 0
-          ? widget.markedDateCustomShapeBorder
-          : widget.daysHaveCircularBorder == null
-            ? CircleBorder()
-            : widget.daysHaveCircularBorder ?? false
-              ? CircleBorder(
-                  side: BorderSide(
-                    color: isSelectedDay
-                      ? widget.selectedDayBorderColor
-                      : isToday && widget.todayBorderColor != null
-                        ? widget.todayBorderColor
-                        : isPrevMonthDay
-                          ? widget.prevMonthDayBorderColor
-                          : isNextMonthDay
-                            ? widget.nextMonthDayBorderColor
-                            : widget.thisMonthDayBorderColor,
-                  ),
-                )
-              : RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: isSelectedDay
+      child: GestureDetector(
+        onLongPress: () => _onDayLongPressed(now),
+        child: FlatButton(
+          color:
+              isSelectedDay && widget.selectedDayButtonColor != null
+                  ? widget.selectedDayButtonColor
+                  : isToday && widget.todayButtonColor != null
+                      ? widget.todayButtonColor
+                      : widget.dayButtonColor,
+          onPressed: () => _onDayPressed(now),
+          padding: EdgeInsets.all(widget.dayPadding),
+          shape: widget.markedDateCustomShapeBorder != null
+            && widget.markedDatesMap != null
+            && widget.markedDatesMap.getEvents(now).length > 0
+            ? widget.markedDateCustomShapeBorder
+            : widget.daysHaveCircularBorder == null
+              ? CircleBorder()
+              : widget.daysHaveCircularBorder ?? false
+                ? CircleBorder(
+                    side: BorderSide(
+                      color: isSelectedDay
                         ? widget.selectedDayBorderColor
                         : isToday && widget.todayBorderColor != null
-                            ? widget.todayBorderColor
-                            : isPrevMonthDay
-                                ? widget.prevMonthDayBorderColor
-                                : isNextMonthDay
-                                    ? widget.nextMonthDayBorderColor
-                                    : widget.thisMonthDayBorderColor,
+                          ? widget.todayBorderColor
+                          : isPrevMonthDay
+                            ? widget.prevMonthDayBorderColor
+                            : isNextMonthDay
+                              ? widget.nextMonthDayBorderColor
+                              : widget.thisMonthDayBorderColor,
+                    ),
+                  )
+                : RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: isSelectedDay
+                          ? widget.selectedDayBorderColor
+                          : isToday && widget.todayBorderColor != null
+                              ? widget.todayBorderColor
+                              : isPrevMonthDay
+                                  ? widget.prevMonthDayBorderColor
+                                  : isNextMonthDay
+                                      ? widget.nextMonthDayBorderColor
+                                      : widget.thisMonthDayBorderColor,
+                    ),
                   ),
-                ),
-        child: Stack(
-          children: <Widget>[
-            Center(
-              child: getDefaultTextStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
-            ),
-            widget.markedDatesMap != null
-                ? _renderMarkedMapContainer(now)
-                : Container(),
-          ],
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: getDefaultTextStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
+              ),
+              widget.markedDatesMap != null
+                  ? _renderMarkedMapContainer(now)
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );
@@ -612,6 +618,10 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
 
     return Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
         .toList();
+  }
+
+  void _onDayLongPressed(DateTime picked) {
+    widget.onDayLongPressed(picked);
   }
 
   void _onDayPressed(DateTime picked) {
