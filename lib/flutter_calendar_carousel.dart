@@ -19,6 +19,7 @@ typedef void OnDayLongPressed(DateTime day);
 
 /// This builder is called for every day in the calendar.
 /// If you want to build only few custom day containers, return null for the days you want to leave with default looks
+/// All characteristics like circle border are also applied to the custom day container [DayBuilder] provides.
 /// (if supplied function returns null, Calendar's function will be called for [day]).
 /// [isSelectable] - is between [CalendarCarousel.minSelectedDate] and [CalendarCarousel.maxSelectedDate]
 /// [index] - DOES NOT equal day number! Index of the day built in current visible field
