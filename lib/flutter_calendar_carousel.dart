@@ -16,6 +16,29 @@ export 'package:flutter_calendar_carousel/classes/event_list.dart';
 typedef MarkedDateIconBuilder<Event> = Widget Function(Event event);
 typedef void OnDayLongPressed(DateTime day);
 
+
+/// This builder is called for every day in the calendar.
+/// If you want to build only few custom day containers, return null for the days you want to leave with default looks
+/// (if supplied function returns null, Calendar's function will be called for [day]).
+/// [isSelectable] - is between [CalendarCarousel.minSelectedDate] and [CalendarCarousel.maxSelectedDate]
+/// [index] - DOES NOT equal day number! Index of the day built in current visible field
+/// [isSelectedDay] - if the day is selected
+/// [isToday] - if the day is similar to [DateTime.now()]
+/// [isPrevMonthDay] - if the day is from previous month
+/// [isNextMonthDay] - if the day is from next month
+/// [isThisMonthDay] - if the day is from next month
+/// [day] - day being built.
+typedef Widget DayBuilder(
+    bool isSelectable,
+    int index,
+    bool isSelectedDay,
+    bool isToday,
+    bool isPrevMonthDay,
+    bool isNextMonthDay,
+    bool isThisMonthDay,
+    DateTime day
+    );
+
 class CalendarCarousel<T> extends StatefulWidget {
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
@@ -67,6 +90,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final EdgeInsets weekDayMargin;
   final EdgeInsets weekDayPadding;
   final WeekdayBuilder customWeekDayBuilder;
+  final DayBuilder customDayBuilder;
   final Color weekDayBackgroundColor;
   final bool weekFormat;
   final bool showWeekDays;
@@ -139,6 +163,7 @@ class CalendarCarousel<T> extends StatefulWidget {
     this.weekDayPadding = const EdgeInsets.all(0.0),
     this.weekDayBackgroundColor = Colors.transparent,
     this.customWeekDayBuilder,
+    this.customDayBuilder,
     this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeader = true,
@@ -292,7 +317,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
     );
   }
 
-  Widget getDayContainer(
+  Widget getDefaultDayContainer(
     bool isSelectable,
     int index,
     bool isSelectedDay,
@@ -423,11 +448,17 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                 widget.markedDatesMap != null
                     ? _renderMarkedMapContainer(now)
                     : Container(),
-                getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
+                widget.customDayBuilder != null
+                    ? widget.customDayBuilder(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, isNextMonthDay, isThisMonthDay, now)
+                      ?? getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now)
+                    : getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
               ]
               : <Widget>[
-                getDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
-                widget.markedDatesMap != null
+                widget.customDayBuilder != null
+                    ? widget.customDayBuilder(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, isNextMonthDay, isThisMonthDay, now)
+                     ?? getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now)
+                    : getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now),
+               widget.markedDatesMap != null
                     ? _renderMarkedMapContainer(now)
                     : Container(),
               ],
