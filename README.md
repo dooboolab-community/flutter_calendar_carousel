@@ -6,6 +6,9 @@
 
 Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable. Now you can even add your icon for each event.
 
+## New Feature
++ Check out great feature `customDayBuilder` work done by [maxgmer](https://github.com/maxgmer) :tada:.
+
 #### Rectangular style
 ![image](https://raw.githubusercontent.com/dooboolab/flutter_calendar_carousel/master/doc/calendar1.gif)
 
@@ -155,7 +158,7 @@ Widget widget() {
 - [x] Week Calendar.
 - [x] Carousel Week Calendar.
 - [ ] Multiple days selections. 
-- [ ] Widget test. 
+- [x] Widget test. 
 
 ## Help Maintenance
 I've been maintaining quite many repos these days and burning out slowly. If you could help me cheer up, buying me a cup of coffee will make my life really happy and get much energy out of it.

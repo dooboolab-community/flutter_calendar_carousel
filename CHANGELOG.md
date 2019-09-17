@@ -1,3 +1,5 @@
+## [1.3.26]
++ Support custom day container feature [#145](https://github.com/dooboolab/flutter_calendar_carousel/pull/145).
 ## [1.3.23]
 + Support intl >= 0.15.7 < 0.17.0 to inclease `pub` health
 + Removed deprecated methods ~~`markedDates`~~, ~~`markedDateColor`~~
