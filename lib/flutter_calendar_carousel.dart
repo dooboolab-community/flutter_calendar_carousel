@@ -1012,12 +1012,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       bool isThisMonthDay,
       DateTime now) {
     if (widget.customDayBuilder != null) {
-      TextStyle styleForBuilder = getDayStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay);
-      if (styleForBuilder == null) {
-        styleForBuilder = getDefaultDayStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay);
-      }
+      final TextStyle appTextStyle = DefaultTextStyle.of(context).style;
+      TextStyle styleForBuilder = appTextStyle.merge(getDayStyle(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay));
+
       return widget.customDayBuilder(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, styleForBuilder, isNextMonthDay, isThisMonthDay, now)
-             ?? getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
+          ?? getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
     } else {
       return getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
     }
