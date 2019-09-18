@@ -56,14 +56,7 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
-  date_utils:
-    dependency: "direct main"
-    description:
-      name: date_utils
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0+2"
+    version: "2.1.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -87,7 +80,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.7"
+    version: "0.16.0"
   matcher:
     dependency: transitive
     description:

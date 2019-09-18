@@ -2,7 +2,6 @@ library flutter_calendar_dooboo;
 
 import 'dart:async';
 
-import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
@@ -637,11 +636,42 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   List<DateTime> _getDaysInWeek([DateTime selectedDate]) {
     if (selectedDate == null) selectedDate = new DateTime.now();
 
-    var firstDayOfCurrentWeek = Utils.firstDayOfWeek(selectedDate);
-    var lastDayOfCurrentWeek = Utils.lastDayOfWeek(selectedDate);
+    var firstDayOfCurrentWeek = _firstDayOfWeek(selectedDate);
+    var lastDayOfCurrentWeek = _lastDayOfWeek(selectedDate);
 
-    return Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
+    return _daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
         .toList();
+  }
+
+  DateTime _firstDayOfWeek(DateTime date) {
+    var day = _createUTCMiddayDateTime(date);
+    return day.subtract(new Duration(days: date.weekday % 7));
+  }
+
+  DateTime _lastDayOfWeek(DateTime date) {
+    var day = _createUTCMiddayDateTime(date);
+    return day.add(new Duration(days: 7 - day.weekday % 7));
+  }
+
+  DateTime _createUTCMiddayDateTime(DateTime date) {
+    // Magic const: 12 is to maintain compatibility with date_utils
+    return new DateTime.utc(date.year, date.month, date.day, 12, 0, 0);
+  }
+
+  Iterable<DateTime> _daysInRange(DateTime start, DateTime end) {
+    var offset = start.timeZoneOffset;
+
+    return List<int>.generate(end.difference(start).inDays, (i) => i + 1)
+      .map((int i) {
+      var d = start.add(Duration(days: i));
+
+      var timeZoneDiff = d.timeZoneOffset - offset;
+      if (timeZoneDiff.inSeconds != 0) {
+        offset = d.timeZoneOffset;
+        d = d.subtract(new Duration(seconds: timeZoneDiff.inSeconds));
+      }
+      return d;
+    });
   }
 
   void _onDayLongPressed(DateTime picked) {
