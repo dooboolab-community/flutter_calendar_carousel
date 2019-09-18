@@ -1,3 +1,6 @@
+## [1.3.27]
++ customDayBuilder fix.
++ Remove date_utils dep.
 ## [1.3.26]
 + Support custom day container feature [#145](https://github.com/dooboolab/flutter_calendar_carousel/pull/145).
 ## [1.3.23]
