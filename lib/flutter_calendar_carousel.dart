@@ -12,7 +12,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
 export 'package:flutter_calendar_carousel/classes/event_list.dart';
 
-typedef MarkedDateIconBuilder<Event> = Widget Function(Event event);
+typedef MarkedDateIconBuilder<T> = Widget Function(T event);
 typedef void OnDayLongPressed(DateTime day);
 
 
@@ -50,7 +50,7 @@ typedef Widget DayBuilder(
 /// [weekdayName] - string representation of the weekday (Mon, Tue, Wed, etc).
 typedef Widget WeekdayBuilder(int weekday, String weekdayName);
 
-class CalendarCarousel<T> extends StatefulWidget {
+class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
   final TextStyle daysTextStyle;
@@ -76,7 +76,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final TextStyle headerTextStyle;
   final String headerText;
   final TextStyle weekendTextStyle;
-  final EventList<Event> markedDatesMap;
+  final EventList<T> markedDatesMap;
   /// Change `makredDateWidget` when `markedDateShowIcon` is set to false.
   final Widget markedDateWidget;
   /// Change `ShapeBorder` when `markedDateShowIcon` is set to false.
@@ -91,7 +91,7 @@ class CalendarCarousel<T> extends StatefulWidget {
   final int markedDateIconMaxShown;
   final double markedDateIconMargin;
   final double markedDateIconOffset;
-  final MarkedDateIconBuilder<Event> markedDateIconBuilder;
+  final MarkedDateIconBuilder<T> markedDateIconBuilder;
   /// null - no indicator, true - show the total events, false - show the total of hidden events
   final bool markedDateMoreShowTotal;
   final Decoration markedDateMoreCustomDecoration;
@@ -215,7 +215,7 @@ enum WeekdayFormat {
   standaloneNarrow,
 }
 
-class _CalendarState<T> extends State<CalendarCarousel<T>> {
+class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>> {
   PageController _controller;
   List<DateTime> _dates = List(3);
   List<List<DateTime>> _weeks = List(3);
@@ -861,7 +861,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       int eventIndex = 0;
       double offset = 0.0;
       double padding = widget.markedDateIconMargin;
-      widget.markedDatesMap.getEvents(now).forEach((Event event) {
+      widget.markedDatesMap.getEvents(now).forEach((T event) {
         if (widget.markedDateShowIcon) {
           if (tmp.length > 0 && tmp.length < widget.markedDateIconMaxShown) {
             offset += widget.markedDateIconOffset;
@@ -925,8 +925,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
             if (widget.markedDateIconBuilder != null) {
               tmp.add(widget.markedDateIconBuilder(event));
             } else {
-              if (event.dot != null) {
-                tmp.add(event.dot);
+              if (event.getDot() != null) {
+                tmp.add(event.getDot());
               }
               else if (widget.markedDateWidget != null) {
                 tmp.add(widget.markedDateWidget);
