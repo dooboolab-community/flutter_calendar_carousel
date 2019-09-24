@@ -4,8 +4,6 @@ import 'package:flutter_calendar_carousel/src/default_styles.dart'
     show defaultWeekdayTextStyle;
 import 'package:intl/intl.dart';
 
-typedef Widget WeekdayBuilder(String weekday);
-
 class WeekdayRow extends StatelessWidget {
   WeekdayRow(
       this.firstDayOfWeek,
@@ -28,8 +26,8 @@ class WeekdayRow extends StatelessWidget {
   final DateFormat localeDate;
   final int firstDayOfWeek;
 
-  Widget _weekdayContainer(String weekDay) {
-    return customWeekdayBuilder != null ? customWeekdayBuilder(weekDay) :
+  Widget _weekdayContainer(int weekday, String weekDayName) {
+    return customWeekdayBuilder != null ? customWeekdayBuilder(weekday, weekDayName) :
     Expanded(
         child: Container(
           decoration: BoxDecoration(
@@ -42,8 +40,8 @@ class WeekdayRow extends StatelessWidget {
             child: DefaultTextStyle(
               style: defaultWeekdayTextStyle,
               child: Text(
-                weekDay,
-                semanticsLabel: weekDay,
+                weekDayName,
+                semanticsLabel: weekDayName,
                 style: weekdayTextStyle,
               ),
             ),
@@ -118,7 +116,7 @@ class WeekdayRow extends StatelessWidget {
           weekDay = localeDate.dateSymbols.STANDALONEWEEKDAYS[i];
           break;
       }
-      list.add(_weekdayContainer(weekDay));
+      list.add(_weekdayContainer(count, weekDay));
     }
 
     return list;

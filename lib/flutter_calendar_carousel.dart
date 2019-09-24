@@ -45,6 +45,11 @@ typedef Widget DayBuilder(
     DateTime day
     );
 
+/// This builder is called for every weekday container (7 times, from Mon to Sun).
+/// [weekday] - weekday built, from 0 to 6.
+/// [weekdayName] - string representation of the weekday (Mon, Tue, Wed, etc).
+typedef Widget WeekdayBuilder(int weekday, String weekdayName);
+
 class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
