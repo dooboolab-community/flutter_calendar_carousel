@@ -199,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
         events.forEach((event) => print(event.title));
       },
       daysHaveCircularBorder: true,
+      showOnlyCurrentMonthDate: true,
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),

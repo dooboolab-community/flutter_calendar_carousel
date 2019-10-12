@@ -1,3 +1,5 @@
+## [1.3.29]
++ Resolve [#157](https://github.com/dooboolab/flutter_calendar_carousel/issues/157).
 ## [1.3.28]
 + Allow the use of generic type with Interface [#149](https://github.com/dooboolab/flutter_calendar_carousel/pull/149)
 + Added doc to custom weekday builder. Weekday number is now supplied to the builder [#150](https://github.com/dooboolab/flutter_calendar_carousel/pull/150)
