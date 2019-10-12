@@ -1,3 +1,5 @@
+## [1.4.0]
++ Resolve [#154](https://github.com/dooboolab/flutter_calendar_carousel/issues/154).
 ## [1.3.29]
 + Resolve [#157](https://github.com/dooboolab/flutter_calendar_carousel/issues/157).
 ## [1.3.28]

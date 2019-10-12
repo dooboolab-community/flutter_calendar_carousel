@@ -199,12 +199,13 @@ class _MyHomePageState extends State<MyHomePage> {
         events.forEach((event) => print(event.title));
       },
       daysHaveCircularBorder: true,
-      showOnlyCurrentMonthDate: true,
+      showOnlyCurrentMonthDate: false,
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),
       thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
+//      firstDayOfWeek: 4,
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate2,
