@@ -748,11 +748,11 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     List<DateTime> week1 = _getDaysInWeek(now);
     List<DateTime> week2 = _getDaysInWeek(now.add(new Duration(days: 7)));
 
-    _startWeekday = date1.weekday - firstDayOfWeek - 1;
+    _startWeekday = date1.weekday - firstDayOfWeek;
     if (widget.showOnlyCurrentMonthDate && _startWeekday == 7) {
       _startWeekday = 0;
     }
-    _endWeekday = date2.weekday - firstDayOfWeek - 1;
+    _endWeekday = date2.weekday - firstDayOfWeek;
     this._dates = [
       date0,
       date1,
