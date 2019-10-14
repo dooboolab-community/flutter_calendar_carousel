@@ -668,7 +668,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
 
     return List<int>.generate(end.difference(start).inDays, (i) => i + 1)
       .map((int i) {
-      var d = start.add(Duration(days: i));
+      var d = start.add(Duration(days: i - 1));
 
       var timeZoneDiff = d.timeZoneOffset - offset;
       if (timeZoneDiff.inSeconds != 0) {
