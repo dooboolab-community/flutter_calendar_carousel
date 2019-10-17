@@ -122,6 +122,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final WeekdayFormat weekDayFormat;
   final bool staticSixWeekFormat;
   final bool isScrollable;
+  final Axis scrollDirection;
   final bool showOnlyCurrentMonthDate;
   final bool pageSnapping;
   final OnDayLongPressed onDayLongPressed;
@@ -194,6 +195,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.weekDayFormat = WeekdayFormat.short,
     this.staticSixWeekFormat = false,
     this.isScrollable = true,
+    this.scrollDirection = Axis.horizontal,
     this.showOnlyCurrentMonthDate = false,
     this.pageSnapping = false,
     this.onDayLongPressed,
@@ -314,6 +316,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             physics: widget.isScrollable
                 ? ScrollPhysics()
                 : NeverScrollableScrollPhysics(),
+            scrollDirection: widget.scrollDirection,
             onPageChanged: (index) {
               this._setDate(index);
             },
