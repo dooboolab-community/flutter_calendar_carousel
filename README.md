@@ -89,6 +89,7 @@ For help getting started with Flutter, view our online
 | dayCrossAxisAlignment | `CrossAxisAlignment` | `CrossAxisAlignment.center` |
 | dayMainAxisAlignment | `MainAxisAlignment` | `CrossAlignment.center` |
 | showIconBehindDayText | `bool` | `false` |
+| pageScrollPhysics | `ScrollPhysics` | `ScrollPhysics` |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 
