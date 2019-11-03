@@ -1,3 +1,5 @@
+## [1.4.4]
++ Expose `pageScrollPhysics` for pageView.
 ## [1.4.2]
 + Add option for setting scrollDirection [#166](https://github.com/dooboolab/flutter_calendar_carousel/pull/166)
 + Resolve [#123](https://github.com/dooboolab/flutter_calendar_carousel/issues/123) in [#165](https://github.com/dooboolab/flutter_calendar_carousel/pull/165).
