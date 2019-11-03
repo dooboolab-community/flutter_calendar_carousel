@@ -129,6 +129,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final CrossAxisAlignment dayCrossAxisAlignment;
   final MainAxisAlignment dayMainAxisAlignment;
   final bool showIconBehindDayText;
+  final ScrollPhysics scrollPhysics;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -202,6 +203,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.dayCrossAxisAlignment = CrossAxisAlignment.center,
     this.dayMainAxisAlignment = MainAxisAlignment.center,
     this.showIconBehindDayText = false,
+    this.scrollPhysics = const ScrollPhysics(),
   });
 
   @override
@@ -327,7 +329,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
               child: PageView.builder(
             itemCount: widget.weekFormat ? this._weeks.length : this._dates.length,
             physics: widget.isScrollable
-                ? ScrollPhysics()
+                ? widget.scrollPhysics
                 : NeverScrollableScrollPhysics(),
             scrollDirection: widget.scrollDirection,
             onPageChanged: (index) {
