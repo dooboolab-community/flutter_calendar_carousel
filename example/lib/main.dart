@@ -148,6 +148,44 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  Widget _customHeader({headerTitle,
+    headerMargin,
+    showHeader,
+    headerTextStyle,
+    showHeaderButtons,
+    headerIconColor,
+    leftButtonIcon,
+    rightButtonIcon,
+    onLeftButtonPressed,
+    onRightButtonPressed,
+    isTitleTouchable,
+    onHeaderTitlePressed}){
+    return  new Row(
+      children: <Widget>[
+        Expanded(
+            child: Text(
+              headerTitle,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+              ),
+            )),
+        FlatButton(
+          child: Text('PREV'),
+          onPressed: () {
+            onLeftButtonPressed();
+          },
+        ),
+        FlatButton(
+          child: Text('NEXT'),
+          onPressed: () {
+            onRightButtonPressed();
+          },
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Example with custom icon
@@ -217,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
         fontSize: 18,
         color: Colors.blue,
       ),
-      showHeader: false,
+      customHeaderBuilder: _customHeader,
       // markedDateIconBuilder: (event) {
       //   return Container(
       //     color: Colors.blue,
@@ -263,47 +301,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: _calendarCarousel,
               ), // This trailing comma makes auto-formatting nicer for build methods.
               //custom icon without header
-              Container(
-                margin: EdgeInsets.only(
-                  top: 30.0,
-                  bottom: 16.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: new Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Text(
-                      _currentMonth,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
-                      ),
-                    )),
-                    FlatButton(
-                      child: Text('PREV'),
-                      onPressed: () {
-                        setState(() {
-                          _currentDate2 =
-                              _currentDate2.subtract(Duration(days: 30));
-                          _currentMonth =
-                              DateFormat.yMMM().format(_currentDate2);
-                        });
-                      },
-                    ),
-                    FlatButton(
-                      child: Text('NEXT'),
-                      onPressed: () {
-                        setState(() {
-                          _currentDate2 = _currentDate2.add(Duration(days: 30));
-                          _currentMonth =
-                              DateFormat.yMMM().format(_currentDate2);
-                        });
-                      },
-                    )
-                  ],
-                ),
-              ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: _calendarCarouselNoHeader,

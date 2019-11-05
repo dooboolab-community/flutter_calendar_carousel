@@ -50,6 +50,21 @@ typedef Widget DayBuilder(
 /// [weekdayName] - string representation of the weekday (Mon, Tue, Wed, etc).
 typedef Widget WeekdayBuilder(int weekday, String weekdayName);
 
+typedef Widget HeaderBuilder({
+    @required headerTitle,
+    headerMargin,
+    showHeader,
+    headerTextStyle,
+    showHeaderButtons,
+    headerIconColor,
+    leftButtonIcon,
+    rightButtonIcon,
+    @required onLeftButtonPressed,
+    @required onRightButtonPressed,
+    isTitleTouchable,
+    @required onHeaderTitlePressed
+    });
+
 class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final double viewportFraction;
   final TextStyle prevDaysTextStyle;
@@ -102,6 +117,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final EdgeInsets weekDayPadding;
   final WeekdayBuilder customWeekDayBuilder;
   final DayBuilder customDayBuilder;
+  final HeaderBuilder customHeaderBuilder;
   final Color weekDayBackgroundColor;
   final bool weekFormat;
   final bool showWeekDays;
@@ -177,6 +193,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.weekDayBackgroundColor = Colors.transparent,
     this.customWeekDayBuilder,
     this.customDayBuilder,
+    this.customHeaderBuilder,
     this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeader = true,
@@ -294,7 +311,26 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       height: widget.height,
       child: Column(
         children: <Widget>[
-          CalendarHeader(
+          widget.customHeaderBuilder != null ? widget.customHeaderBuilder(
+            showHeader: widget.showHeader,
+            headerMargin: widget.headerMargin,
+            headerTitle: widget.headerText != null
+                ? widget.headerText
+                : widget.weekFormat
+                ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
+                : '${_localeDate.format(this._dates[this._pageNum])}',
+            headerTextStyle: widget.headerTextStyle,
+            showHeaderButtons: widget.showHeaderButton,
+            headerIconColor: widget.iconColor,
+            leftButtonIcon: widget.leftButtonIcon,
+            rightButtonIcon: widget.rightButtonIcon,
+            onLeftButtonPressed: () => this._pageNum > 0 ? _setDate(this._pageNum - 1) : null,
+            onRightButtonPressed: () => widget.weekFormat ? (this._weeks.length -1 > this._pageNum ? _setDate(this._pageNum + 1) : null) : (this._dates.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null),
+            isTitleTouchable: widget.headerTitleTouchable,
+            onHeaderTitlePressed: widget.onHeaderTitlePressed != null
+                ? widget.onHeaderTitlePressed
+                : () => _selectDateFromPicker(),
+          ) : CalendarHeader(
             showHeader: widget.showHeader,
             headerMargin: widget.headerMargin,
             headerTitle: widget.headerText != null
