@@ -307,8 +307,10 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             headerIconColor: widget.iconColor,
             leftButtonIcon: widget.leftButtonIcon,
             rightButtonIcon: widget.rightButtonIcon,
-            onLeftButtonPressed: () => _setDate(this._pageNum - 1),
-            onRightButtonPressed: () => _setDate(this._pageNum + 1),
+            onLeftButtonPressed: () => this._pageNum > 0 ? _setDate(this._pageNum - 1) : null,
+            onRightButtonPressed: () => widget.weekFormat
+                ? (this._weeks.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null)
+                : (this._dates.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null),
             isTitleTouchable: widget.headerTitleTouchable,
             onHeaderTitlePressed: widget.onHeaderTitlePressed != null
                 ? widget.onHeaderTitlePressed
@@ -765,7 +767,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     /// Setup week-only format
     List<List<DateTime>> week = [];
     for (int _cnt = 0;
-    0 >= widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(widget.maxSelectedDate).inDays;
+    0 >= widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(widget.maxSelectedDate.add(Duration(days: 7))).inDays;
     _cnt++) {
       week.add(_getDaysInWeek(widget.minSelectedDate.add(new Duration(days: 7 * _cnt))));
     }
