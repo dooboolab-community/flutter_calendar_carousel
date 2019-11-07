@@ -1,3 +1,5 @@
+## [1.4.6]
++ Set default `minSelectedDate` and `maxSelectedDate` [#179](https://github.com/dooboolab/flutter_calendar_carousel/pull/179).
 ## [1.4.4]
 + Expose `pageScrollPhysics` for pageView.
 ## [1.4.2]
