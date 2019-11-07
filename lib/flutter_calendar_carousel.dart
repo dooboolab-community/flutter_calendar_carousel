@@ -229,6 +229,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
   int _endWeekday = 0;
   DateFormat _localeDate;
   int _pageNum = 0;
+  DateTime minDate;
+  DateTime maxDate;
 
   /// When FIRSTDAYOFWEEK is 0 in dart-intl, it represents Monday. However it is the second day in the arrays of Weekdays.
   /// Therefore we need to add 1 modulo 7 to pick the right weekday from intl. (cf. [GlobalMaterialLocalizations])
@@ -241,6 +243,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     super.initState();
     initializeDateFormatting();
 
+    minDate = widget.minSelectedDate ?? DateTime(2018);
+    maxDate = widget.maxSelectedDate ?? DateTime(DateTime.now().year + 1, DateTime.now().month, DateTime.now().day);
+
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
@@ -248,14 +253,14 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
 
     if (widget.weekFormat) {
       for (int _cnt = 0;
-      0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
+      0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
       }
     } else {
       for (int _cnt = 0;
-      0 > DateTime(widget.minSelectedDate.year,
-        widget.minSelectedDate.month + _cnt,
+      0 > DateTime(minDate.year,
+        minDate.month + _cnt,
       ).difference(DateTime(_targetDate.year, _targetDate.month)).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
@@ -552,13 +557,13 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                     textStyle = widget.markedDateCustomTextStyle;
                   }
                   bool isSelectable = true;
-                  if (widget.minSelectedDate != null &&
+                  if (minDate != null &&
                       now.millisecondsSinceEpoch <
-                          widget.minSelectedDate.millisecondsSinceEpoch)
+                          minDate.millisecondsSinceEpoch)
                     isSelectable = false;
-                  else if (widget.maxSelectedDate != null &&
+                  else if (maxDate != null &&
                       now.millisecondsSinceEpoch >
-                          widget.maxSelectedDate.millisecondsSinceEpoch)
+                          maxDate.millisecondsSinceEpoch)
                     isSelectable = false;
                   return renderDay(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
                 }),
@@ -641,13 +646,13 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                       return Container();
                     }
                     bool isSelectable = true;
-                    if (widget.minSelectedDate != null &&
+                    if (minDate != null &&
                         now.millisecondsSinceEpoch <
-                            widget.minSelectedDate.millisecondsSinceEpoch)
+                            minDate.millisecondsSinceEpoch)
                       isSelectable = false;
-                    else if (widget.maxSelectedDate != null &&
+                    else if (maxDate != null &&
                         now.millisecondsSinceEpoch >
-                            widget.maxSelectedDate.millisecondsSinceEpoch)
+                            maxDate.millisecondsSinceEpoch)
                       isSelectable = false;
                     return renderDay(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
                   }),
@@ -705,12 +710,12 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
 
   void _onDayPressed(DateTime picked) {
     if (picked == null) return;
-    if (widget.minSelectedDate != null &&
+    if (minDate != null &&
         picked.millisecondsSinceEpoch <
-            widget.minSelectedDate.millisecondsSinceEpoch) return;
-    if (widget.maxSelectedDate != null &&
+            minDate.millisecondsSinceEpoch) return;
+    if (maxDate != null &&
         picked.millisecondsSinceEpoch >
-            widget.maxSelectedDate.millisecondsSinceEpoch) return;
+            maxDate.millisecondsSinceEpoch) return;
 
     setState(() {
       _selectedDate = picked;
@@ -727,12 +732,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     DateTime selected = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? new DateTime.now(),
-      firstDate: widget.minSelectedDate != null
-        ? widget.minSelectedDate
-        : DateTime(1960),
-      lastDate: widget.maxSelectedDate != null
-        ? widget.maxSelectedDate
-        : DateTime(2050),
+      firstDate: minDate,
+      lastDate: maxDate,
     );
 
     if (selected != null) {
@@ -754,11 +755,11 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     List<DateTime> date = [];
     int currentDateIndex = 0;
     for (int _cnt = 0;
-      0 >= DateTime(widget.minSelectedDate.year,
-        widget.minSelectedDate.month+_cnt
-        ).difference(DateTime(widget.maxSelectedDate.year, widget.maxSelectedDate.month)).inDays;
+      0 >= DateTime(minDate.year,
+          minDate.month+_cnt
+        ).difference(DateTime(maxDate.year, maxDate.month)).inDays;
     _cnt++) {
-      date.add(DateTime(widget.minSelectedDate.year, widget.minSelectedDate.month + _cnt, 1));
+      date.add(DateTime(minDate.year, minDate.month + _cnt, 1));
       if (0 == date.last.difference(DateTime(this._targetDate.year, this._targetDate.month)).inDays) {
         currentDateIndex = _cnt;
       }
@@ -767,9 +768,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     /// Setup week-only format
     List<List<DateTime>> week = [];
     for (int _cnt = 0;
-    0 >= widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(widget.maxSelectedDate.add(Duration(days: 7))).inDays;
+    0 >= minDate.add(Duration(days: 7 * _cnt)).difference(maxDate.add(Duration(days: 7))).inDays;
     _cnt++) {
-      week.add(_getDaysInWeek(widget.minSelectedDate.add(new Duration(days: 7 * _cnt))));
+      week.add(_getDaysInWeek(minDate.add(new Duration(days: 7 * _cnt))));
     }
 
     _startWeekday = date[currentDateIndex].weekday - firstDayOfWeek;
