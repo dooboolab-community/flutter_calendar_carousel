@@ -275,6 +275,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
         this._pageNum = _cnt + 1;
       }
     } else {
+      _targetDate = _selectedDate;
       for (int _cnt = 0;
       0 > DateTime(minDate.year,
         minDate.month + _cnt,
