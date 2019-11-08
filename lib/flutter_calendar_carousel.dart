@@ -249,15 +249,15 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
-    _targetDate = _selectedDate;
-
     if (widget.weekFormat) {
+      _targetDate = _firstDayOfWeek(_selectedDate);
       for (int _cnt = 0;
       0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
       }
     } else {
+      _targetDate = _selectedDate;
       for (int _cnt = 0;
       0 > DateTime(minDate.year,
         minDate.month + _cnt,
