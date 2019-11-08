@@ -66,6 +66,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final Color todayBorderColor;
   final Color todayButtonColor;
   final DateTime selectedDateTime;
+  final DateTime targetDateTime;
   final TextStyle selectedDayTextStyle;
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
@@ -147,6 +148,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.todayBorderColor = Colors.red,
     this.todayButtonColor = Colors.red,
     this.selectedDateTime,
+    this.targetDateTime,
     this.selectedDayTextStyle,
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
@@ -249,18 +251,26 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
-    _targetDate = _selectedDate;
-
     if (widget.weekFormat) {
+      if (widget.targetDateTime != null) {
+        _targetDate = _firstDayOfWeek(widget.targetDateTime);
+      } else {
+        _targetDate = _firstDayOfWeek(_selectedDate);
+      }
       for (int _cnt = 0;
-      0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
+      0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
       }
     } else {
+      if (widget.targetDateTime != null) {
+        _targetDate = widget.targetDateTime;
+      } else {
+        _targetDate = _selectedDate;
+      }
       for (int _cnt = 0;
-      0 > DateTime(minDate.year,
-        minDate.month + _cnt,
+      0 > DateTime(widget.minSelectedDate.year,
+        widget.minSelectedDate.month + _cnt,
       ).difference(DateTime(_targetDate.year, _targetDate.month)).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
@@ -284,6 +294,34 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       firstDayOfWeek = widget.firstDayOfWeek;
 
     _setDate();
+  }
+
+  @override
+  void didUpdateWidget(CalendarCarousel<T> oldWidget) {
+    if (widget.targetDateTime != null && widget.targetDateTime != _targetDate) {
+      DateTime targetDate = widget.targetDateTime;
+      int _page = this._pageNum;
+      if (widget.weekFormat) {
+        targetDate = _firstDayOfWeek(widget.targetDateTime);
+        for (int _cnt = 0;
+        0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(targetDate).inDays;
+        _cnt++) {
+          _page = _cnt + 1;
+        }
+      } else {
+        for (int _cnt = 0;
+        0 > DateTime(widget.minSelectedDate.year,
+          widget.minSelectedDate.month + _cnt,
+        ).difference(DateTime(targetDate.year, targetDate.month)).inDays;
+        _cnt++) {
+          _page = _cnt + 1;
+        }
+      }
+
+      _setDate(_page);
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
