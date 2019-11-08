@@ -258,7 +258,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
         _targetDate = _firstDayOfWeek(_selectedDate);
       }
       for (int _cnt = 0;
-      0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
+      0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
       }
@@ -269,8 +269,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
         _targetDate = _selectedDate;
       }
       for (int _cnt = 0;
-      0 > DateTime(widget.minSelectedDate.year,
-        widget.minSelectedDate.month + _cnt,
+      0 > DateTime(minDate.year,
+        minDate.month + _cnt,
       ).difference(DateTime(_targetDate.year, _targetDate.month)).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
