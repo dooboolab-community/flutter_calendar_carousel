@@ -251,23 +251,30 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
-    if (widget.weekFormat) {
-      if (widget.targetDateTime != null) {
-        _targetDate = _firstDayOfWeek(widget.targetDateTime);
+    if (widget.targetDateTime != null) {
+      if (widget.targetDateTime
+          .difference(minDate)
+          .inDays < 0) {
+        _targetDate = minDate;
+      } else if (widget.targetDateTime
+          .difference(maxDate)
+          .inDays > 0) {
+        _targetDate = maxDate;
       } else {
-        _targetDate = _firstDayOfWeek(_selectedDate);
+        _targetDate = widget.targetDateTime;
       }
+    } else {
+      _targetDate = _selectedDate;
+    }
+
+    if (widget.weekFormat) {
+      _targetDate = _firstDayOfWeek(_targetDate);
       for (int _cnt = 0;
       0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
       _cnt++) {
         this._pageNum = _cnt + 1;
       }
     } else {
-      if (widget.targetDateTime != null) {
-        _targetDate = widget.targetDateTime;
-      } else {
-        _targetDate = _selectedDate;
-      }
       for (int _cnt = 0;
       0 > DateTime(minDate.year,
         minDate.month + _cnt,
@@ -300,9 +307,14 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
   void didUpdateWidget(CalendarCarousel<T> oldWidget) {
     if (widget.targetDateTime != null && widget.targetDateTime != _targetDate) {
       DateTime targetDate = widget.targetDateTime;
+      if (widget.targetDateTime.difference(minDate).inDays < 0) {
+        targetDate = minDate;
+      } else if (widget.targetDateTime.difference(maxDate).inDays > 0) {
+        targetDate = maxDate;
+      }
       int _page = this._pageNum;
       if (widget.weekFormat) {
-        targetDate = _firstDayOfWeek(widget.targetDateTime);
+        targetDate = _firstDayOfWeek(targetDate);
         for (int _cnt = 0;
         0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(targetDate).inDays;
         _cnt++) {
