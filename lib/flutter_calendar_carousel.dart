@@ -102,6 +102,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final EdgeInsets weekDayPadding;
   final WeekdayBuilder customWeekDayBuilder;
   final DayBuilder customDayBuilder;
+  final BoxDecoration customBoxDecoration;
   final Color weekDayBackgroundColor;
   final bool weekFormat;
   final bool showWeekDays;
@@ -177,6 +178,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.weekDayBackgroundColor = Colors.transparent,
     this.customWeekDayBuilder,
     this.customDayBuilder,
+    this.customBoxDecoration,
     this.showWeekDays = true,
     this.weekFormat = false,
     this.showHeader = true,
@@ -401,6 +403,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     DateTime now,
   ) {
     return Container(
+      decoration: widget.customBoxDecoration != null ? widget.customBoxDecoration : BoxDecoration(),
       margin: EdgeInsets.all(widget.dayPadding),
       child: GestureDetector(
         onLongPress: () => _onDayLongPressed(now),
