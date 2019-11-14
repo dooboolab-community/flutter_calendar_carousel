@@ -257,16 +257,16 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       if (DateTime(widget.targetDateTime.year, widget.targetDateTime.month)
           .difference(DateTime(minDate.year, minDate.month))
           .inDays < 0) {
-        _targetDate = DateTime(minDate.year, minDate.month);
+        _targetDate = minDate;
       } else if (DateTime(widget.targetDateTime.year, widget.targetDateTime.month)
           .difference(DateTime(maxDate.year, maxDate.month))
           .inDays > 0) {
-        _targetDate = DateTime(maxDate.year, maxDate.month);
+        _targetDate = maxDate;
       } else {
-        _targetDate = DateTime(widget.targetDateTime.year, widget.targetDateTime.month);
+        _targetDate = widget.targetDateTime;
       }
     } else {
-      _targetDate = DateTime(_selectedDate.year, _selectedDate.month);
+      _targetDate = _selectedDate;
     }
 
     if (widget.weekFormat) {
@@ -277,7 +277,6 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
         this._pageNum = _cnt + 1;
       }
     } else {
-      _targetDate = _selectedDate;
       for (int _cnt = 0;
       0 > DateTime(minDate.year,
         minDate.month + _cnt,
@@ -308,14 +307,16 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
 
   @override
   void didUpdateWidget(CalendarCarousel<T> oldWidget) {
+    DateTime targetDate;
     if (widget.targetDateTime != null && widget.targetDateTime != _targetDate) {
-      DateTime targetDate = widget.targetDateTime;
       if (widget.targetDateTime.difference(minDate).inDays < 0) {
         targetDate = minDate;
       } else if (widget.targetDateTime.difference(maxDate).inDays > 0) {
         targetDate = maxDate;
+      } else {
+        targetDate = widget.targetDateTime;
       }
-      int _page = this._pageNum;
+      int _page = 0;
       if (widget.weekFormat) {
         targetDate = _firstDayOfWeek(targetDate);
         for (int _cnt = 0;
@@ -326,8 +327,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       } else {
         for (int _cnt = 0;
         0 > DateTime(widget.minSelectedDate.year,
-          widget.minSelectedDate.month + _cnt,
-        ).difference(DateTime(targetDate.year, targetDate.month)).inDays;
+          widget.minSelectedDate.month + _cnt, 1
+        ).difference(DateTime(targetDate.year, targetDate.month, 1)).inDays;
         _cnt++) {
           _page = _cnt + 1;
         }
@@ -859,7 +860,13 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       } else {
         setState(() {
           this._pageNum = page;
-          this._targetDate = this._dates[page];
+          if (this._dates[page].difference(minDate).inDays < 0) {
+            this._targetDate = minDate;
+          } else if (this._dates[page].difference(maxDate).inDays > 0) {
+            this._targetDate = maxDate;
+          } else {
+            this._targetDate = this._dates[page];
+          }
           _startWeekday = _dates[page].weekday - firstDayOfWeek;
           _endWeekday = _lastDayOfWeek(_dates[page]).weekday - firstDayOfWeek;
         });
