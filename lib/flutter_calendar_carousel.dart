@@ -254,19 +254,19 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       _selectedDate = widget.selectedDateTime;
 
     if (widget.targetDateTime != null) {
-      if (widget.targetDateTime
-          .difference(minDate)
+      if (DateTime(widget.targetDateTime.year, widget.targetDateTime.month)
+          .difference(DateTime(minDate.year, minDate.month))
           .inDays < 0) {
-        _targetDate = minDate;
-      } else if (widget.targetDateTime
-          .difference(maxDate)
+        _targetDate = DateTime(minDate.year, minDate.month);
+      } else if (DateTime(widget.targetDateTime.year, widget.targetDateTime.month)
+          .difference(DateTime(maxDate.year, maxDate.month))
           .inDays > 0) {
-        _targetDate = maxDate;
+        _targetDate = DateTime(maxDate.year, maxDate.month);
       } else {
-        _targetDate = widget.targetDateTime;
+        _targetDate = DateTime(widget.targetDateTime.year, widget.targetDateTime.month);
       }
     } else {
-      _targetDate = _selectedDate;
+      _targetDate = DateTime(_selectedDate.year, _selectedDate.month);
     }
 
     if (widget.weekFormat) {
