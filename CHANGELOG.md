@@ -1,3 +1,5 @@
+## [1.4.7]
++ Fix current day showing incorrectly when using `showOnlyCurrentMonthDate` [#181](https://github.com/dooboolab/flutter_calendar_carousel/pull/182).
 ## [1.4.6]
 + Set default `minSelectedDate` and `maxSelectedDate` [#179](https://github.com/dooboolab/flutter_calendar_carousel/pull/179).
 ## [1.4.4]
