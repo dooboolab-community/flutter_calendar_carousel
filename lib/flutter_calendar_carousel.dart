@@ -774,9 +774,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     }
 
     _startWeekday = date[currentDateIndex].weekday - firstDayOfWeek;
-    if (widget.showOnlyCurrentMonthDate) {
+    /*if (widget.showOnlyCurrentMonthDate) {
       _startWeekday--;
-    }
+    }*/
     if (widget.showOnlyCurrentMonthDate && _startWeekday == 7) {
       _startWeekday = 0;
     }
