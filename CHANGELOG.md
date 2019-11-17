@@ -1,3 +1,5 @@
+## [1.4.8]
++ Add ability to set `targetDate` on header [#183](https://github.com/dooboolab/flutter_calendar_carousel/pull/183).
 ## [1.4.7]
 + Fix current day showing incorrectly when using `showOnlyCurrentMonthDate` [#181](https://github.com/dooboolab/flutter_calendar_carousel/pull/182).
 ## [1.4.6]
