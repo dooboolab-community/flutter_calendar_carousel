@@ -51,7 +51,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime(2019, 2, 3);
   DateTime _currentDate2 = DateTime(2019, 2, 3);
-  String _currentMonth = '';
+  String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
+  DateTime _targetDateTime = DateTime(2019, 2, 3);
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
     decoration: new BoxDecoration(
@@ -209,6 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate2,
+      targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateCustomShapeBorder: CircleBorder(
         side: BorderSide(color: Colors.yellow)
@@ -241,7 +243,10 @@ class _MyHomePageState extends State<MyHomePage> {
         fontSize: 16,
       ),
       onCalendarChanged: (DateTime date) {
-        this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
+        this.setState(() {
+          _targetDateTime = date;
+          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+        });
       },
       onDayLongPressed: (DateTime date) {
         print('long pressed date $date');
@@ -284,10 +289,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('PREV'),
                       onPressed: () {
                         setState(() {
-                          _currentDate2 =
-                              _currentDate2.subtract(Duration(days: 30));
-                          _currentMonth =
-                              DateFormat.yMMM().format(_currentDate2);
+                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month -1);
+                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                         });
                       },
                     ),
@@ -295,9 +298,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('NEXT'),
                       onPressed: () {
                         setState(() {
-                          _currentDate2 = _currentDate2.add(Duration(days: 30));
-                          _currentMonth =
-                              DateFormat.yMMM().format(_currentDate2);
+                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month +1);
+                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                         });
                       },
                     )
