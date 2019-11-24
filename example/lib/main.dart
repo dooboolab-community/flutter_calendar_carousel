@@ -157,6 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
         this.setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
       },
+      onHeaderRightButtonPressed: () {
+        print('onHeaderRightButtonPressed');
+      },
+      onHeaderLeftButtonPressed: () {
+        print('onHeaderLeftButtonPressed');
+      },
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),

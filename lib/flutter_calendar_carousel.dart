@@ -120,6 +120,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final TextStyle inactiveWeekendTextStyle;
   final bool headerTitleTouchable;
   final Function onHeaderTitlePressed;
+  final Function onHeaderLeftButtonPressed;
+  final Function onHeaderRightButtonPressed;
   final WeekdayFormat weekDayFormat;
   final bool staticSixWeekFormat;
   final bool isScrollable;
@@ -195,6 +197,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.inactiveWeekendTextStyle,
     this.headerTitleTouchable = false,
     this.onHeaderTitlePressed,
+    this.onHeaderLeftButtonPressed,
+    this.onHeaderRightButtonPressed,
     this.weekDayFormat = WeekdayFormat.short,
     this.staticSixWeekFormat = false,
     this.isScrollable = true,
@@ -363,10 +367,29 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             headerIconColor: widget.iconColor,
             leftButtonIcon: widget.leftButtonIcon,
             rightButtonIcon: widget.rightButtonIcon,
-            onLeftButtonPressed: () => this._pageNum > 0 ? _setDate(this._pageNum - 1) : null,
-            onRightButtonPressed: () => widget.weekFormat
-                ? (this._weeks.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null)
-                : (this._dates.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null),
+            onLeftButtonPressed: () {
+              if (this._pageNum > 0) {
+                _setDate(this._pageNum - 1);
+              }
+              if (widget.onHeaderLeftButtonPressed != null) {
+                widget.onHeaderLeftButtonPressed();
+              }
+            },
+            onRightButtonPressed: () {
+              if (widget.weekFormat) {
+                if (this._weeks.length - 1 > this._pageNum) {
+                  _setDate(this._pageNum + 1);
+                }
+              } else {
+                if (this._dates.length - 1 > this._pageNum) {
+                  _setDate(this._pageNum + 1);
+                }
+              }
+
+              if (widget.onHeaderRightButtonPressed != null) {
+                widget.onHeaderRightButtonPressed();
+              }
+            },
             isTitleTouchable: widget.headerTitleTouchable,
             onHeaderTitlePressed: widget.onHeaderTitlePressed != null
                 ? widget.onHeaderTitlePressed

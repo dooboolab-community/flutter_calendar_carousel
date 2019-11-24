@@ -71,6 +71,8 @@ For help getting started with Flutter, view our online
 | headerMargin            | `EdgetInsets`   | `const EdgeInsets.symmetric(vertical: 16.0)` |
 | headerTitleTouchable    | `bool`          | `false` |
 | onHeaderTitlePressed    | `Function`      | `() => _selectDateFromPicker()` |
+| onHeaderRightButtonPressed   | `Function` | `null` |
+| onHeaderLeftButtonPressed    | `Function` | `null` |
 | showHeader              | `bool`          | |
 | showHeaderButton        | `bool`          | |
 | childAspectRatio        | `double`        | `1.0` |

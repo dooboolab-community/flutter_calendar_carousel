@@ -1,3 +1,5 @@
+## [1.4.9]
++ Expose `onHeaderRightButtonPressed` and `onHeaderLeftButtonPressed`.
 ## [1.4.8]
 + Add ability to set `targetDate` on header [#183](https://github.com/dooboolab/flutter_calendar_carousel/pull/183).
 ## [1.4.7]
