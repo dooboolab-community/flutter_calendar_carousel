@@ -47,7 +47,13 @@ void main() {
   });
 
   testWidgets('Verify No header Renders', (WidgetTester tester) async {
-    final noHeaderEmpty = CalendarHeader(showHeader: false);
+    final noHeaderEmpty = CalendarHeader(
+      showHeader: false,
+      headerTitle: null,
+      onLeftButtonPressed: () {},
+      onHeaderTitlePressed: () {},
+      onRightButtonPressed: () {},
+    );
 
     await tester.pumpWidget(Container(child: noHeaderEmpty));
 

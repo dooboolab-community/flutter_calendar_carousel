@@ -45,7 +45,10 @@ class CalendarHeader extends StatelessWidget {
 
   Widget _headerTouchable() => FlatButton(
         onPressed: onHeaderTitlePressed,
-        child: Text(headerTitle, style: getTextStyle),
+        child: Text(headerTitle, 
+          semanticsLabel: headerTitle,
+          style: getTextStyle,
+        ),
       );
 
   @override

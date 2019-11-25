@@ -14,6 +14,9 @@ void main() {
     await tester.pumpWidget(wrapped(
       WeekdayRow(
         0,
+        null,
+        weekdayPadding: EdgeInsets.all(0),
+        weekdayBackgroundColor: Colors.transparent,
         showWeekdays: true,
         weekdayFormat: WeekdayFormat.short,
         weekdayMargin: margin,
@@ -32,14 +35,17 @@ void main() {
   });
 
   testWidgets('test narrow weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(WeekdayRow(
-      0,
-      showWeekdays: true,
-      weekdayFormat: WeekdayFormat.standaloneNarrow,
-      weekdayMargin: margin,
-      weekdayTextStyle: null,
-      localeDate: locale,
-    )));
+    await tester.pumpWidget(wrapped(
+      WeekdayRow(
+        0, null,
+        weekdayPadding: EdgeInsets.all(0),
+        weekdayBackgroundColor: Colors.transparent,
+        showWeekdays: true,
+        weekdayFormat: WeekdayFormat.standaloneNarrow,
+        weekdayMargin: margin,
+        weekdayTextStyle: null,
+        localeDate: locale,
+      )));
 
     // sat and sun
     expect(find.text('S'), findsNWidgets(2));
@@ -53,7 +59,9 @@ void main() {
 
   testWidgets('test standalone weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0,
+      0, null,
+      weekdayPadding: EdgeInsets.all(0),
+      weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
       weekdayFormat: WeekdayFormat.standalone,
       weekdayMargin: margin,
@@ -72,7 +80,9 @@ void main() {
 
   testWidgets('test standalone short weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0,
+      0, null,
+      weekdayPadding: EdgeInsets.all(0),
+      weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
       weekdayFormat: WeekdayFormat.standaloneShort,
       weekdayMargin: margin,
@@ -90,7 +100,15 @@ void main() {
   });
 
   testWidgets('test row does not render', (WidgetTester tester) async {
-    final emptyContainer = WeekdayRow(0, showWeekdays: false);
+    final emptyContainer = WeekdayRow(0, null,
+      weekdayPadding: EdgeInsets.all(0),
+      weekdayBackgroundColor: Colors.transparent,
+      showWeekdays: false,
+      weekdayFormat: WeekdayFormat.standaloneNarrow,
+      weekdayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    );
 
     await tester.pumpWidget(emptyContainer);
 

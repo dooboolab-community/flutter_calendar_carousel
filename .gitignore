@@ -1,5 +1,6 @@
 .DS_Store
 .dart_tool/
+.vscode/
 
 .packages
 .pub/
@@ -12,3 +13,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 .idea/
 flutter_calendar_carousel.iml
 pubspec.lock
+flutter_export_environment.sh

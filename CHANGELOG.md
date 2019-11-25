@@ -1,3 +1,46 @@
+## [1.4.9]
++ Expose `onHeaderRightButtonPressed` and `onHeaderLeftButtonPressed`.
+## [1.4.8]
++ Add ability to set `targetDate` on header [#183](https://github.com/dooboolab/flutter_calendar_carousel/pull/183).
+## [1.4.7]
++ Fix current day showing incorrectly when using `showOnlyCurrentMonthDate` [#181](https://github.com/dooboolab/flutter_calendar_carousel/pull/182).
+## [1.4.6]
++ Set default `minSelectedDate` and `maxSelectedDate` [#179](https://github.com/dooboolab/flutter_calendar_carousel/pull/179).
+## [1.4.4]
++ Expose `pageScrollPhysics` for pageView.
+## [1.4.2]
++ Add option for setting scrollDirection [#166](https://github.com/dooboolab/flutter_calendar_carousel/pull/166)
++ Resolve [#123](https://github.com/dooboolab/flutter_calendar_carousel/issues/123) in [#165](https://github.com/dooboolab/flutter_calendar_carousel/pull/165).
+## [1.4.1]
++ Resolve [#164](https://github.com/dooboolab/flutter_calendar_carousel/issues/164).
+## [1.4.0]
++ Resolve [#154](https://github.com/dooboolab/flutter_calendar_carousel/issues/154).
+## [1.3.29]
++ Resolve [#157](https://github.com/dooboolab/flutter_calendar_carousel/issues/157).
+## [1.3.28]
++ Allow the use of generic type with Interface [#149](https://github.com/dooboolab/flutter_calendar_carousel/pull/149)
++ Added doc to custom weekday builder. Weekday number is now supplied to the builder [#150](https://github.com/dooboolab/flutter_calendar_carousel/pull/150)
+## [1.3.27]
++ customDayBuilder fix.
++ Remove date_utils dep.
+## [1.3.26]
++ Support custom day container feature [#145](https://github.com/dooboolab/flutter_calendar_carousel/pull/145).
+## [1.3.23]
++ Support intl >= 0.15.7 < 0.17.0 to inclease `pub` health
++ Removed deprecated methods ~~`markedDates`~~, ~~`markedDateColor`~~
++ Fixes [#101](https://github.com/dooboolab/flutter_calendar_carousel/issues/101)
++ Fixes [#104](https://github.com/dooboolab/flutter_calendar_carousel/issues/104)
++ Fixes [#112](https://github.com/dooboolab/flutter_calendar_carousel/issues/112)
++ Fixes [#119](https://github.com/dooboolab/flutter_calendar_carousel/issues/119)
++ Support long pressed as a feature request[#103](https://github.com/dooboolab/flutter_calendar_carousel/issues/103)
++ Support semantic label as a feature request [#139](https://github.com/dooboolab/flutter_calendar_carousel/issues/139)
++ Expose `dayCrossAxisAlignment` and `dayMainAxisAlignment` to resolve [#122](https://github.com/dooboolab/flutter_calendar_carousel/issues/122)
++ Expose `showIconBehindDayText` to resolve [#131](https://github.com/dooboolab/flutter_calendar_carousel/issues/131)
++ Fixes [#94](https://github.com/dooboolab/flutter_calendar_carousel/issues/94)
+## [1.3.20]
++ Support intl >= 0.15.7
+## [1.3.19]
++ Improved customizability for weekday containers [#141](https://github.com/dooboolab/flutter_calendar_carousel/pull/141)
 ## [1.3.18]
 + Fix vertical scroll behavior for weekFormat calendar view. 
 + Reformat code with dartfmt
