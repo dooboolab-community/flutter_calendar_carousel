@@ -1,3 +1,7 @@
+## [1.4.10]
++ Fix Calendar displays incorrectly when scrolling horizontally [#193](https://github.com/dooboolab/flutter_calendar_carousel/pull/193)
+## [1.4.9]
++ Target date for custom header
 ## [1.4.8]
 + Add ability to set `targetDate` on header [#183](https://github.com/dooboolab/flutter_calendar_carousel/pull/183).
 ## [1.4.7]
