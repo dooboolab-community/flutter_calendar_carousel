@@ -518,6 +518,11 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
   }
 
   AnimatedBuilder builder(int slideIndex) {
+    _startWeekday = _dates[slideIndex].weekday - firstDayOfWeek;
+    if (_startWeekday == 7) {
+      _startWeekday = 0;
+    }
+    _endWeekday = DateTime(_dates[slideIndex].year, _dates[slideIndex].month + 1, 1).weekday - firstDayOfWeek;
     double screenWidth = MediaQuery.of(context).size.width;
     int totalItemCount = widget.staticSixWeekFormat
         ? 42
@@ -828,7 +833,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     /*if (widget.showOnlyCurrentMonthDate) {
       _startWeekday--;
     }*/
-    if (widget.showOnlyCurrentMonthDate && _startWeekday == 7) {
+    if (/*widget.showOnlyCurrentMonthDate && */_startWeekday == 7) {
       _startWeekday = 0;
     }
     _endWeekday = DateTime(date[currentDateIndex].year, date[currentDateIndex].month + 1, 1).weekday - firstDayOfWeek;
