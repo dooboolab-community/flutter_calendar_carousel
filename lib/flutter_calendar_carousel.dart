@@ -635,6 +635,10 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     double screenWidth = MediaQuery.of(context).size.width;
     List<DateTime> weekDays = _weeks[slideIndex];
 
+    weekDays = weekDays
+        .map((weekDay) => weekDay.add(Duration(days: firstDayOfWeek)))
+        .toList();
+
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
