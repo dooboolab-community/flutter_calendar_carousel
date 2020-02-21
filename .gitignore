@@ -4,6 +4,7 @@
 
 .packages
 .pub/
+coverage
 
 build/
 ios/.generated/
