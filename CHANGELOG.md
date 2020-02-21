@@ -1,3 +1,5 @@
+## [1.4.11]
++ Add first day of week offset to week builder [#204](https://github.com/dooboolab/flutter_calendar_carousel/pull/204)
 ## [1.4.10]
 + Fix Calendar displays incorrectly when scrolling horizontally [#193](https://github.com/dooboolab/flutter_calendar_carousel/pull/193)
 ## [1.4.9]
