@@ -1,3 +1,6 @@
+## [1.4.12]
++ Handle issue [#207](https://github.com/dooboolab/flutter_calendar_carousel/issues/207), [#209](https://github.com/dooboolab/flutter_calendar_carousel/issues/209)
+
 ## [1.4.11]
 + Add first day of week offset to week builder [#204](https://github.com/dooboolab/flutter_calendar_carousel/pull/204)
 ## [1.4.10]
