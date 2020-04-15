@@ -130,21 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: 'Event 3',
         icon: _eventIcon,
       ),
-      new Event(
-        date: new DateTime(2019, 2, 11),
-        title: 'Event 4',
-        icon: _eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2019, 2, 11),
-        title: 'Event 23',
-        icon: _eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2019, 2, 11),
-        title: 'Event 123',
-        icon: _eventIcon,
-      ),
     ]);
     super.initState();
   }
@@ -163,7 +148,6 @@ class _MyHomePageState extends State<MyHomePage> {
       thisMonthDayBorderColor: Colors.grey,
 //          weekDays: null, /// for pass null when you do not want to render weekDays
       headerText: 'Custom Header',
-//          markedDates: _markedDate,
       weekFormat: true,
       markedDatesMap: _markedDateMap,
       height: 200.0,
@@ -187,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
       todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
       markedDateMoreShowTotal:
-          false, // null for not showing hidden events indicator
+          true, // null for not showing hidden events indicator
 //          markedDateIconMargin: 9,
 //          markedDateIconOffset: 3,
     );
@@ -220,14 +204,16 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.blue,
       ),
       showHeader: false,
-      // markedDateIconBuilder: (event) {
-      //   return Container(
-      //     color: Colors.blue,
-      //   );
-      // },
       todayTextStyle: TextStyle(
         color: Colors.blue,
       ),
+      // markedDateShowIcon: true,
+      // markedDateIconMaxShown: 2,
+      // markedDateIconBuilder: (event) {
+      //   return event.icon;
+      // },
+      // markedDateMoreShowTotal:
+      //     true,
       todayButtonColor: Colors.yellow,
       selectedDayTextStyle: TextStyle(
         color: Colors.yellow,
