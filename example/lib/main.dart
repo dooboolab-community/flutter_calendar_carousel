@@ -71,13 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         new Event(
           date: new DateTime(2019, 2, 10),
           title: 'Event 1',
-          icon: _eventIcon,
-          dot: Container(
-            margin: EdgeInsets.symmetric(horizontal: 1.0),
-            color: Colors.red,
-            height: 5.0,
-            width: 5.0,
-          ),
+          description: 'kagsdksagdjkg',
+          color: Color(0xfffc5c65)
         ),
         new Event(
           date: new DateTime(2019, 2, 10),
@@ -103,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         new Event(
           date: new DateTime(2019, 2, 25),
           title: 'Event 5',
-          icon: _eventIcon,
+          color: Color(0xff42cd9b)
         ));
 
     _markedDateMap.add(
@@ -136,96 +131,62 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    /// Example with custom icon
-    _calendarCarousel = CalendarCarousel<Event>(
-      onDayPressed: (DateTime date, List<Event> events) {
-        this.setState(() => _currentDate = date);
-        events.forEach((event) => print(event.title));
-      },
-      weekendTextStyle: TextStyle(
-        color: Colors.red,
-      ),
-      thisMonthDayBorderColor: Colors.grey,
-//          weekDays: null, /// for pass null when you do not want to render weekDays
-      headerText: 'Custom Header',
-      weekFormat: true,
-      markedDatesMap: _markedDateMap,
-      height: 200.0,
-      selectedDateTime: _currentDate2,
-      showIconBehindDayText: true,
-//          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-      customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 2,
-      selectedDayTextStyle: TextStyle(
-        color: Colors.yellow,
-      ),
-      todayTextStyle: TextStyle(
-        color: Colors.blue,
-      ),
-      markedDateIconBuilder: (event) {
-        return event.icon;
-      },
-      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
-      maxSelectedDate: _currentDate.add(Duration(days: 360)),
-      todayButtonColor: Colors.transparent,
-      todayBorderColor: Colors.green,
-      markedDateMoreShowTotal:
-          true, // null for not showing hidden events indicator
-//          markedDateIconMargin: 9,
-//          markedDateIconOffset: 3,
-    );
-
     /// Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
       todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
-        events.forEach((event) => print(event.title));
+        events.forEach((event){
+          print(event.title);
+          print(event.description);
+          });
       },
       daysHaveCircularBorder: true,
       showOnlyCurrentMonthDate: false,
       weekendTextStyle: TextStyle(
-        color: Colors.red,
+        color: Colors.white,
       ),
       thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
-//      firstDayOfWeek: 4,
+      isWeekNeed: false,
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateCustomShapeBorder: CircleBorder(
-        side: BorderSide(color: Colors.yellow)
-      ),
       markedDateCustomTextStyle: TextStyle(
         fontSize: 18,
-        color: Colors.blue,
+        color: Colors.white,
       ),
       showHeader: false,
       todayTextStyle: TextStyle(
-        color: Colors.blue,
+        color: Colors.red,
       ),
-      // markedDateShowIcon: true,
-      // markedDateIconMaxShown: 2,
-      // markedDateIconBuilder: (event) {
-      //   return event.icon;
-      // },
-      // markedDateMoreShowTotal:
-      //     true,
       todayButtonColor: Colors.yellow,
       selectedDayTextStyle: TextStyle(
-        color: Colors.yellow,
+        color: Colors.lightBlue,
+        fontSize: 16,
       ),
       minSelectedDate: _currentDate.subtract(Duration(days: 360)),
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
       prevDaysTextStyle: TextStyle(
         fontSize: 16,
-        color: Colors.pinkAccent,
+        color: Color(0xffececf9),
       ),
+      daysTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+      ),
+      nextDaysTextStyle: TextStyle(
+        color: Color(0xffececf9),
+        fontSize: 16,
+      ),
+      selectedDayBorderColor: Colors.lightBlue,
+      selectedDayButtonColor: Colors.transparent,
+      prevMonthDayBorderColor: Color(0xffececf9),
+      nextMonthDayBorderColor: Color(0xffececf9),
       inactiveDaysTextStyle: TextStyle(
-        color: Colors.tealAccent,
+        color: Color(0xffececf9),
         fontSize: 16,
       ),
       onCalendarChanged: (DateTime date) {
@@ -248,12 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              //custom icon
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
-                child: _calendarCarousel,
-              ), // This trailing comma makes auto-formatting nicer for build methods.
-              //custom icon without header
               Container(
                 margin: EdgeInsets.only(
                   top: 30.0,
@@ -263,14 +218,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: new Row(
                   children: <Widget>[
-                    Expanded(
-                        child: Text(
-                      _currentMonth,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
-                      ),
-                    )),
+                    // Expanded(
+                    //     child: Text(
+                    //   _currentMonth,
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 24.0,
+                    //   ),
+                    // )),
                     FlatButton(
                       child: Text('PREV'),
                       onPressed: () {

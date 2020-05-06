@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 class Event implements EventInterface {
   final DateTime date;
   final String title;
+  final String description;
   final Widget icon;
   final Widget dot;
+  final Color color;
 
   Event({
     this.date,
     this.title,
     this.icon,
     this.dot,
+    this.description, 
+    this.color
   }) : assert(date != null);
 
   @override
@@ -18,7 +22,9 @@ class Event implements EventInterface {
     return this.date == other.date &&
         this.title == other.title &&
         this.icon == other.icon &&
-        this.dot == other.dot;
+        this.dot == other.dot && 
+        this.description == other.description && 
+        this.color == other.color;
   }
 
   @override
@@ -43,6 +49,16 @@ class Event implements EventInterface {
   String getTitle() {
     return title;
   }
+
+  @override
+  String getDescription() {
+    return description;
+  }
+
+  @override
+  Color getColor() {
+    return color;
+  }
 }
 
 abstract class EventInterface {
@@ -50,4 +66,6 @@ abstract class EventInterface {
   String getTitle();
   Widget getIcon();
   Widget getDot();
+  Color getColor();
+  String getDescription();
 }
