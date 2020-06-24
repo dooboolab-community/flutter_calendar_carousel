@@ -90,6 +90,7 @@ For help getting started with Flutter, view our online
 | dayMainAxisAlignment | `MainAxisAlignment` | `CrossAlignment.center` |
 | showIconBehindDayText | `bool` | `false` |
 | pageScrollPhysics | `ScrollPhysics` | `ScrollPhysics` |
+| inactiveDates | `List<DateTime>` | `[]` |
 
 With ``CalendarCarousel<YourEventClass>`` and ``EventList<YourEventClass>`` you can specifiy a custom Event class.
 
@@ -110,6 +111,7 @@ Widget widget() {
       weekendTextStyle: TextStyle(
         color: Colors.red,
       ),
+      inactiveDates: [DateTime(2020, 7, 2)],
       thisMonthDayBorderColor: Colors.grey,
 //      weekDays: null, /// for pass null when you do not want to render weekDays
 //      headerText: Container( /// Example for rendering custom header

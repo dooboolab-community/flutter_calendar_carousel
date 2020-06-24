@@ -131,6 +131,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final MainAxisAlignment dayMainAxisAlignment;
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
+  final List<DateTime> inactiveDates; 
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -206,6 +207,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.dayMainAxisAlignment = MainAxisAlignment.center,
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
+    this.inactiveDates
   });
 
   @override
@@ -454,7 +456,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     return Container(
       margin: EdgeInsets.all(widget.dayPadding),
       child: GestureDetector(
-        onLongPress: () => _onDayLongPressed(now),
+        onLongPress: isSelectable ? () => _onDayLongPressed(now) : null,
         child: FlatButton(
           color:
               isSelectedDay && widget.selectedDayButtonColor != null
@@ -462,7 +464,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                   : isToday && widget.todayButtonColor != null
                       ? widget.todayButtonColor
                       : widget.dayButtonColor,
-          onPressed: () => _onDayPressed(now),
+          onPressed: isSelectable ? () => _onDayPressed(now) : null,
           padding: EdgeInsets.all(widget.dayPadding),
           shape: widget.markedDateCustomShapeBorder != null
             && widget.markedDatesMap != null
@@ -621,6 +623,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                       now.millisecondsSinceEpoch >
                           maxDate.millisecondsSinceEpoch)
                     isSelectable = false;
+                  else if (isInactiveDate(now))
+                    isSelectable = false;
+
                   return renderDay(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
                 }),
               ),
@@ -714,6 +719,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                         now.millisecondsSinceEpoch >
                             maxDate.millisecondsSinceEpoch)
                       isSelectable = false;
+                    else if (isInactiveDate(now))
+                      isSelectable = false;
+                      
                     return renderDay(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now);
                   }),
                 ),
@@ -721,6 +729,19 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             ),
           ],
         ));
+  }
+
+  bool isInactiveDate(DateTime date) {
+    if(widget.inactiveDates == null) return false;
+
+    for (int i = 0; i < widget.inactiveDates.length -1; i++) {
+      DateTime inactive = widget.inactiveDates[i];
+      if (inactive.month == date.month && inactive.day == date.day && inactive.year == date.year) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   List<DateTime> _getDaysInWeek([DateTime selectedDate]) {
