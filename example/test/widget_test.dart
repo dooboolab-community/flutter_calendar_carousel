@@ -10,7 +10,8 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 void main() {
   DateTime selectedDateTime = DateTime.now();
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Default test for Calendar Carousel',
+      (WidgetTester tester) async {
     //  Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
