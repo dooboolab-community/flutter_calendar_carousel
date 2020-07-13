@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 void main() {
-  DateTime selectedDateTime = DateTime.now();
+  DateTime pressedDay;
   testWidgets('Default test for Calendar Carousel',
       (WidgetTester tester) async {
     //  Build our app and trigger a frame.
@@ -17,7 +17,6 @@ void main() {
       home: Scaffold(
         body: Container(
           child: CalendarCarousel(
-            selectedDateTime: selectedDateTime,
             daysHaveCircularBorder: null,
             weekendTextStyle: TextStyle(
               color: Colors.red,
@@ -39,18 +38,26 @@ void main() {
             markedDateIconBuilder: (event) {
               return event.icon;
             },
-            minSelectedDate: selectedDateTime.subtract(Duration(days: 360)),
-            maxSelectedDate: selectedDateTime.add(Duration(days: 360)),
             todayButtonColor: Colors.transparent,
             todayBorderColor: Colors.green,
             markedDateMoreShowTotal:
                 true, // null for not showing hidden events indicator
-            onDayPressed: (date, event) {},
+            onDayPressed: (date, event) {
+              pressedDay = date;
+            },
           ),
         ),
       ),
     ));
 
     expect(find.byType(CalendarCarousel), findsOneWidget);
+
+    expect(pressedDay, isNull);
+
+    await tester.tap(find.text(DateTime.now().day.toString().padLeft(2, '0')));
+
+    await tester.pump();
+
+    expect(pressedDay, isNotNull);
   });
 }
