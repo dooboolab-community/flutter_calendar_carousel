@@ -45,10 +45,7 @@ void main() {
             todayBorderColor: Colors.green,
             markedDateMoreShowTotal:
                 true, // null for not showing hidden events indicator
-            onDayPressed: (date, event) {
-              // this.setState(() => selectedDateTime = date);
-              print('Test');
-            },
+            onDayPressed: (date, event) {},
           ),
         ),
       ),
