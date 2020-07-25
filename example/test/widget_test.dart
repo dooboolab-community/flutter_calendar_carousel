@@ -4,26 +4,60 @@
 // find child widgets in the widget tree, read text, and verify that the values of widget properties
 // are correct.
 
-//import 'package:flutter/material.dart';
-//import 'package:flutter_test/flutter_test.dart';
-//
-//import 'package:example/main.dart';
-//
-//void main() {
-//  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//      Build our app and trigger a frame.
-//    await tester.pumpWidget(new MyApp());
-//
-//    // Verify that our counter starts at 0.
-//    expect(find.text('0'), findsOneWidget);
-//    expect(find.text('1'), findsNothing);
-//
-//    // Tap the '+' icon and trigger a frame.
-//    await tester.tap(find.byIcon(Icons.add));
-//    await tester.pump();
-//
-//    // Verify that our counter has incremented.
-//    expect(find.text('0'), findsNothing);
-//    expect(find.text('1'), findsOneWidget);
-//  });
-//}
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+
+void main() {
+  DateTime pressedDay;
+  testWidgets('Default test for Calendar Carousel',
+      (WidgetTester tester) async {
+    //  Build our app and trigger a frame.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Container(
+          child: CalendarCarousel(
+            daysHaveCircularBorder: null,
+            weekendTextStyle: TextStyle(
+              color: Colors.red,
+            ),
+            thisMonthDayBorderColor: Colors.grey,
+            headerText: 'Custom Header',
+            weekFormat: true,
+            height: 200.0,
+            showIconBehindDayText: true,
+            customGridViewPhysics: NeverScrollableScrollPhysics(),
+            markedDateShowIcon: true,
+            markedDateIconMaxShown: 2,
+            selectedDayTextStyle: TextStyle(
+              color: Colors.yellow,
+            ),
+            todayTextStyle: TextStyle(
+              color: Colors.blue,
+            ),
+            markedDateIconBuilder: (event) {
+              return event.icon;
+            },
+            todayButtonColor: Colors.transparent,
+            todayBorderColor: Colors.green,
+            markedDateMoreShowTotal:
+                true, // null for not showing hidden events indicator
+            onDayPressed: (date, event) {
+              pressedDay = date;
+            },
+          ),
+        ),
+      ),
+    ));
+
+    expect(find.byType(CalendarCarousel), findsOneWidget);
+
+    expect(pressedDay, isNull);
+
+    await tester.tap(find.text(DateTime.now().day.toString().padLeft(2, '0')));
+
+    await tester.pump();
+
+    expect(pressedDay, isNotNull);
+  });
+}
