@@ -54,7 +54,7 @@ void main() {
 
     expect(pressedDay, isNull);
 
-    await tester.tap(find.text(DateTime.now().day.toString().padLeft(2, '0')));
+    await tester.tap(find.text(DateTime.now().day.toString()));
 
     await tester.pump();
 
