@@ -368,11 +368,16 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             leftButtonIcon: widget.leftButtonIcon,
             rightButtonIcon: widget.rightButtonIcon,
             onLeftButtonPressed: () {
-              widget.onLeftArrowPressed();
+              if(widget.onLeftArrowPressed != null) {
+                widget.onLeftArrowPressed();
+              }
               this._pageNum > 0 ? _setDate(this._pageNum - 1) : null;
             },
             onRightButtonPressed: () {
-              widget.onRightArrowPressed();
+              if(widget.onRightArrowPressed != null) {
+                widget.onRightArrowPressed();
+              }
+
               if (widget.weekFormat) {
                 this._weeks.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null;
               } else {
