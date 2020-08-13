@@ -133,6 +133,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final MainAxisAlignment dayMainAxisAlignment;
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
+  final bool isShowTransform;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
@@ -210,6 +211,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.dayMainAxisAlignment = MainAxisAlignment.center,
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
+    this.isShowTransform = true,
   });
 
   @override
@@ -496,6 +498,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
+        if (!widget.isShowTransform) {
+          return child;
+        }
         double value = 1.0;
         if (_controller.position.haveDimensions) {
           value = _controller.page - slideIndex;
