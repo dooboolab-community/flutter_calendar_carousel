@@ -841,8 +841,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           this._targetDate = this._weeks[page].first;
         });
 
-        _controller.animateToPage(page,
-            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+//        _controller.animateToPage(page,
+//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       } else {
         setState(() {
           this._pageNum = page;
@@ -850,8 +850,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           _startWeekday = _dates[page].weekday - firstDayOfWeek;
           _endWeekday = _lastDayOfWeek(_dates[page]).weekday - firstDayOfWeek;
         });
-        _controller.animateToPage(page,
-            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+//        _controller.animateToPage(page,
+//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       }
 
       //call callback
