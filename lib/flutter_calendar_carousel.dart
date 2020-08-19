@@ -134,10 +134,12 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final MainAxisAlignment dayMainAxisAlignment;
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
+  final Color dayDefaultColor;
 
   CalendarCarousel({
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
+    this.dayDefaultColor = const Color(0xffababab),
     this.daysTextStyle,
     this.nextDaysTextStyle,
     this.prevMonthDayBorderColor = Colors.transparent,
@@ -458,7 +460,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     DateTime now,
   ) {
 
-    Color dayColor = Color(0xffececf9);
+    Color dayColor = widget.dayDefaultColor;
     List<Event> events = [];
     if(widget.markedDatesMap != null){
       List<Event> events = widget.markedDatesMap.getEvents(now);
