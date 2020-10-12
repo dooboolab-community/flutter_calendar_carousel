@@ -1,3 +1,7 @@
+## [1.5.0]
++ Add key to widget constructor [#234](https://github.com/dooboolab/flutter_calendar_carousel/pull/234/files)
++ Enhance initilizing page numbers [#231](https://github.com/dooboolab/flutter_calendar_carousel/pull/231)
+
 ## [1.4.12]
 + Handle issue [#207](https://github.com/dooboolab/flutter_calendar_carousel/issues/207), [#209](https://github.com/dooboolab/flutter_calendar_carousel/issues/209)
 

@@ -133,8 +133,10 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final MainAxisAlignment dayMainAxisAlignment;
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
+  final bool shouldShowTransform;
 
   CalendarCarousel({
+    Key key,
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
     this.daysTextStyle,
@@ -210,7 +212,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.dayMainAxisAlignment = MainAxisAlignment.center,
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
-  });
+    this.shouldShowTransform = true,
+  }): super(key: key);
 
   @override
   _CalendarState<T> createState() => _CalendarState<T>();
@@ -255,39 +258,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
-    if (widget.targetDateTime != null) {
-      if (widget.targetDateTime
-          .difference(minDate)
-          .inDays < 0) {
-        _targetDate = minDate;
-      } else if (widget.targetDateTime
-          .difference(maxDate)
-          .inDays > 0) {
-        _targetDate = maxDate;
-      } else {
-        _targetDate = widget.targetDateTime;
-      }
-    } else {
-      _targetDate = _selectedDate;
-    }
-
-    if (widget.weekFormat) {
-      _targetDate = _firstDayOfWeek(_targetDate);
-      for (int _cnt = 0;
-      0 > minDate.add(Duration(days: 7 * _cnt)).difference(_targetDate).inDays;
-      _cnt++) {
-        this._pageNum = _cnt + 1;
-      }
-    } else {
-      _targetDate = _selectedDate;
-      for (int _cnt = 0;
-      0 > DateTime(minDate.year,
-        minDate.month + _cnt,
-      ).difference(DateTime(_targetDate.year, _targetDate.month)).inDays;
-      _cnt++) {
-        this._pageNum = _cnt + 1;
-      }
-    }
+    _init();
 
     /// setup pageController
     _controller = PageController(
@@ -311,31 +282,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
   @override
   void didUpdateWidget(CalendarCarousel<T> oldWidget) {
     if (widget.targetDateTime != null && widget.targetDateTime != _targetDate) {
-      DateTime targetDate = widget.targetDateTime;
-      if (widget.targetDateTime.difference(minDate).inDays < 0) {
-        targetDate = minDate;
-      } else if (widget.targetDateTime.difference(maxDate).inDays > 0) {
-        targetDate = maxDate;
-      }
-      int _page = this._pageNum;
-      if (widget.weekFormat) {
-        targetDate = _firstDayOfWeek(targetDate);
-        for (int _cnt = 0;
-        0 > widget.minSelectedDate.add(Duration(days: 7 * _cnt)).difference(targetDate).inDays;
-        _cnt++) {
-          _page = _cnt + 1;
-        }
-      } else {
-        for (int _cnt = 0;
-        0 > DateTime(widget.minSelectedDate.year,
-          widget.minSelectedDate.month + _cnt,
-        ).difference(DateTime(targetDate.year, targetDate.month)).inDays;
-        _cnt++) {
-          _page = _cnt + 1;
-        }
-      }
-
-      _setDate(_page);
+      _init();
+      _setDate(_pageNum);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -551,6 +499,9 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
+        if (!widget.shouldShowTransform) {
+          return child;
+        }
         double value = 1.0;
         if (_controller.position.haveDimensions) {
           value = _controller.page - slideIndex;
@@ -735,6 +686,25 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
         ));
   }
 
+  _init() {
+    if (widget.targetDateTime != null) {
+      if (widget.targetDateTime.difference(minDate).inDays < 0) {
+        _targetDate = minDate;
+      } else if (widget.targetDateTime.difference(maxDate).inDays > 0) {
+        _targetDate = maxDate;
+      } else {
+        _targetDate = widget.targetDateTime;
+      }
+    } else {
+      _targetDate = _selectedDate;
+    }
+    if (widget.weekFormat) {
+      _pageNum = _targetDate.difference(_firstDayOfWeek(minDate)).inDays ~/ 7;
+    } else {
+      _pageNum = (_targetDate.year - minDate.year) * 12 + _targetDate.month - minDate.month;
+    }
+  }
+
   List<DateTime> _getDaysInWeek([DateTime selectedDate]) {
     if (selectedDate == null) selectedDate = new DateTime.now();
 
@@ -873,8 +843,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           this._targetDate = this._weeks[page].first;
         });
 
-        _controller.animateToPage(page,
-            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+//        _controller.animateToPage(page,
+//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       } else {
         setState(() {
           this._pageNum = page;
@@ -882,8 +852,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           _startWeekday = _dates[page].weekday - firstDayOfWeek;
           _endWeekday = _lastDayOfWeek(_dates[page]).weekday - firstDayOfWeek;
         });
-        _controller.animateToPage(page,
-            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+//        _controller.animateToPage(page,
+//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       }
 
       //call callback
