@@ -747,6 +747,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
   }
 
   void _onDayLongPressed(DateTime picked) {
+    if (widget.onDayLongPressed == null) return;
     widget.onDayLongPressed(picked);
   }
 
