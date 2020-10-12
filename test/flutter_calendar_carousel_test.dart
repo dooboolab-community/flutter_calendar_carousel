@@ -51,13 +51,116 @@ void main() {
     ));
 
     expect(find.byType(CalendarCarousel), findsOneWidget);
-
-    expect(pressedDay, isNull);
-
-    await tester.tap(find.text(DateTime.now().day.toString()));
-
-    await tester.pump();
-
-    expect(pressedDay, isNotNull);
   });
+
+  testWidgets(
+    'make sure onDayPressed is called when the user tap',
+    (WidgetTester tester) async {
+      DateTime pressedDay;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Container(
+              child: CalendarCarousel(
+                weekFormat: true,
+                height: 200.0,
+                onDayPressed: (date, event) {
+                  pressedDay = date;
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CalendarCarousel), findsOneWidget);
+
+      expect(pressedDay, isNull);
+
+      await tester.tap(find.text(DateTime.now().day.toString()));
+
+      await tester.pump();
+
+      expect(pressedDay, isNotNull);
+    },
+  );
+
+  testWidgets(
+    'should do nothing when the user tap and onDayPressed is not provided',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Container(
+              child: CalendarCarousel(
+                weekFormat: true,
+                height: 200.0,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CalendarCarousel), findsOneWidget);
+
+      await tester.tap(find.text(DateTime.now().day.toString()));
+      await tester.pump();
+    },
+  );
+
+  testWidgets(
+    'make sure onDayLongPressed is called when the user press and hold',
+    (WidgetTester tester) async {
+      DateTime longPressedDay;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Container(
+              child: CalendarCarousel(
+                weekFormat: true,
+                height: 200.0,
+                onDayLongPressed: (date) {
+                  longPressedDay = date;
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CalendarCarousel), findsOneWidget);
+
+      expect(longPressedDay, isNull);
+
+      await tester.longPress(find.text(DateTime.now().day.toString()));
+      await tester.pump();
+
+      expect(longPressedDay, isNotNull);
+    },
+  );
+
+  testWidgets(
+    'should do nothing when the user press and hold and onDayLongPressed is not provided',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Container(
+              child: CalendarCarousel(
+                weekFormat: true,
+                height: 200.0,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CalendarCarousel), findsOneWidget);
+
+      await tester.longPress(find.text(DateTime.now().day.toString()));
+      await tester.pump();
+    },
+  );
 }
