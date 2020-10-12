@@ -136,6 +136,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool shouldShowTransform;
 
   CalendarCarousel({
+    Key key,
     this.viewportFraction = 1.0,
     this.prevDaysTextStyle,
     this.daysTextStyle,
@@ -212,7 +213,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
     this.shouldShowTransform = true,
-  });
+  }): super(key: key);
 
   @override
   _CalendarState<T> createState() => _CalendarState<T>();
