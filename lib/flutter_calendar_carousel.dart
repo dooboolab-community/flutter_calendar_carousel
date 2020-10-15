@@ -316,11 +316,17 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
             leftButtonIcon: widget.leftButtonIcon,
             rightButtonIcon: widget.rightButtonIcon,
             onLeftButtonPressed: () {
-              widget.onLeftArrowPressed();
+              if(widget.onLeftArrowPressed != null){
+                widget.onLeftArrowPressed();
+              }
+
               this._pageNum > 0 ? _setDate(this._pageNum - 1) : null;
             },
             onRightButtonPressed: () {
-              widget.onRightArrowPressed();
+              if(widget.onRightArrowPressed != null){
+                widget.onRightArrowPressed();
+              }
+
               if (widget.weekFormat) {
                 this._weeks.length - 1 > this._pageNum ? _setDate(this._pageNum + 1) : null;
               } else {
@@ -843,8 +849,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           this._targetDate = this._weeks[page].first;
         });
 
-//        _controller.animateToPage(page,
-//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+       _controller.animateToPage(page,
+           duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       } else {
         setState(() {
           this._pageNum = page;
@@ -852,8 +858,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           _startWeekday = _dates[page].weekday - firstDayOfWeek;
           _endWeekday = _lastDayOfWeek(_dates[page]).weekday - firstDayOfWeek;
         });
-//        _controller.animateToPage(page,
-//            duration: Duration(milliseconds: 1), curve: Threshold(0.0));
+       _controller.animateToPage(page,
+           duration: Duration(milliseconds: 1), curve: Threshold(0.0));
       }
 
       //call callback
