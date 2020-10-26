@@ -170,10 +170,13 @@ class _MyHomePageState extends State<MyHomePage> {
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
       todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
+      daysHaveCircularBorder: false,
+      borderRadiusCircullar: BorderRadius.circular(12.0),
       markedDateMoreShowTotal:
           true, // null for not showing hidden events indicator
 //          markedDateIconMargin: 9,
 //          markedDateIconOffset: 3,
+
     );
 
     /// Example Calendar Carousel without header and custom prev & next button

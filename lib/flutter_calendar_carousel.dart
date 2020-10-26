@@ -134,6 +134,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
   final bool shouldShowTransform;
+  final BorderRadius borderRadiusCircullar;
 
   CalendarCarousel({
     Key key,
@@ -213,6 +214,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
     this.shouldShowTransform = true,
+    this.borderRadiusCircullar
   }): super(key: key);
 
   @override
@@ -451,6 +453,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                     ),
                   )
                 : RoundedRectangleBorder(
+                    borderRadius: widget.borderRadiusCircullar ?? BorderRadius.zero,
                     side: BorderSide(
                       color: isSelectedDay
                           ? widget.selectedDayBorderColor
