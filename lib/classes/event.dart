@@ -5,8 +5,9 @@ class Event implements EventInterface {
   final String title;
   final Widget icon;
   final Widget dot;
-
+  final int id;
   Event({
+    this.id,
     this.date,
     this.title,
     this.icon,
@@ -18,15 +19,21 @@ class Event implements EventInterface {
     return this.date == other.date &&
         this.title == other.title &&
         this.icon == other.icon &&
-        this.dot == other.dot;
+        this.dot == other.dot &&
+        this.id == other.id;
   }
 
   @override
-  int get hashCode => hashValues(date, title, icon);
+  int get hashCode => hashValues(date, title, icon, id);
 
   @override
   DateTime getDate() {
     return date;
+  }
+
+  @override
+  int getId() {
+    return id;
   }
 
   @override
@@ -50,4 +57,5 @@ abstract class EventInterface {
   String getTitle();
   Widget getIcon();
   Widget getDot();
+  int getId();
 }
