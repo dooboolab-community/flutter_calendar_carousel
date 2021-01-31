@@ -1,3 +1,6 @@
+## [1.5.3]
+- Add `id` to event model [#257](https://github.com/dooboolab/flutter_calendar_carousel/pull/257)
+
 ## [1.5.2]
 - Bump up `intl` dependency [#254](https://github.com/dooboolab/flutter_calendar_carousel/pull/254)
 
