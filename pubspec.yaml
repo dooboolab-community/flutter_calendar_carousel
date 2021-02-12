@@ -8,7 +8,7 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
-  intl: ^0.16.1
+  intl: ^0.17.0
   flutter:
     sdk: flutter
 
