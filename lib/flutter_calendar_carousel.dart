@@ -71,7 +71,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool? daysHaveCircularBorder; //todo: reconsider making `null`
-  final Function(DateTime, List<T>?)? onDayPressed;
+  final Function(DateTime, List<T>)? onDayPressed;
   final TextStyle? weekdayTextStyle;
   final Color iconColor;
   final TextStyle? headerTextStyle;
@@ -766,9 +766,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
     });
     widget.onDayPressed?.call(
       picked,
-      widget.markedDatesMap != null
-        ? widget.markedDatesMap!.getEvents(picked)
-        : []);
+      widget.markedDatesMap?.getEvents(picked) ?? const []);
   }
 
   Future<Null> _selectDateFromPicker() async {
@@ -786,9 +784,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
       });
       widget.onDayPressed?.call(
         selected,
-        widget.markedDatesMap != null
-          ? widget.markedDatesMap!.getEvents(selected)
-          : []);
+          widget.markedDatesMap?.getEvents(selected) ?? const []);
     }
   }
 
