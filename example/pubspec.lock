@@ -80,7 +80,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.17.0"
   matcher:
     dependency: transitive
     description:

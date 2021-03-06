@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../lib/classes/event.dart';
+
 void main() {
-  DateTime pressedDay;
   testWidgets('Default test for Calendar Carousel',
       (WidgetTester tester) async {
+    DateTime? pressedDay;
     //  Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
@@ -35,8 +37,8 @@ void main() {
             todayTextStyle: TextStyle(
               color: Colors.blue,
             ),
-            markedDateIconBuilder: (event) {
-              return event.icon;
+            markedDateIconBuilder: (Event event) {
+              return event.icon ?? Icon(Icons.help_outline);
             },
             todayButtonColor: Colors.transparent,
             todayBorderColor: Colors.green,
@@ -51,12 +53,13 @@ void main() {
     ));
 
     expect(find.byType(CalendarCarousel), findsOneWidget);
+    expect(pressedDay, isNull);
   });
 
   testWidgets(
     'make sure onDayPressed is called when the user tap',
     (WidgetTester tester) async {
-      DateTime pressedDay;
+      DateTime? pressedDay;
 
       await tester.pumpWidget(
         MaterialApp(
@@ -112,7 +115,7 @@ void main() {
   testWidgets(
     'make sure onDayLongPressed is called when the user press and hold',
     (WidgetTester tester) async {
-      DateTime longPressedDay;
+      DateTime? longPressedDay;
 
       await tester.pumpWidget(
         MaterialApp(

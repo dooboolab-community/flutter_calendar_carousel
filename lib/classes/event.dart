@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 class Event implements EventInterface {
   final DateTime date;
-  final String title;
-  final Widget icon;
-  final Widget dot;
-  final int id;
+  final String? title;
+  final Widget? icon;
+  final Widget? dot;
+  final int? id;
   Event({
     this.id,
-    this.date,
+    required this.date,
     this.title,
     this.icon,
     this.dot,
-  }) : assert(date != null);
+  });
 
   @override
   bool operator ==(dynamic other) {
@@ -32,30 +32,30 @@ class Event implements EventInterface {
   }
 
   @override
-  int getId() {
+  int? getId() {
     return id;
   }
 
   @override
-  Widget getDot() {
+  Widget? getDot() {
     return dot;
   }
 
   @override
-  Widget getIcon() {
+  Widget? getIcon() {
     return icon;
   }
 
   @override
-  String getTitle() {
+  String? getTitle() {
     return title;
   }
 }
 
 abstract class EventInterface {
   DateTime getDate();
-  String getTitle();
-  Widget getIcon();
-  Widget getDot();
-  int getId();
+  String? getTitle();
+  Widget? getIcon();
+  Widget? getDot();
+  int? getId();
 }

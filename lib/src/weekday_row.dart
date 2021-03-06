@@ -8,25 +8,26 @@ class WeekdayRow extends StatelessWidget {
   WeekdayRow(
       this.firstDayOfWeek,
       this.customWeekdayBuilder,
-      {@required this.showWeekdays,
-      @required this.weekdayFormat,
-      @required this.weekdayMargin,
-      @required this.weekdayPadding,
-      @required this.weekdayBackgroundColor,
-      @required this.weekdayTextStyle,
-      @required this.localeDate});
+      {required this.showWeekdays,
+      required this.weekdayFormat,
+      required this.weekdayMargin,
+      required this.weekdayPadding,
+      required this.weekdayBackgroundColor,
+      required this.weekdayTextStyle,
+      required this.localeDate});
 
-  final WeekdayBuilder customWeekdayBuilder;
+  final WeekdayBuilder? customWeekdayBuilder;
   final bool showWeekdays;
   final WeekdayFormat weekdayFormat;
   final EdgeInsets weekdayMargin;
   final EdgeInsets weekdayPadding;
   final Color weekdayBackgroundColor;
-  final TextStyle weekdayTextStyle;
+  final TextStyle? weekdayTextStyle;
   final DateFormat localeDate;
   final int firstDayOfWeek;
 
   Widget _weekdayContainer(int weekday, String weekDayName) {
+    final customWeekdayBuilder = this.customWeekdayBuilder;
     return customWeekdayBuilder != null ? customWeekdayBuilder(weekday, weekDayName) :
     Expanded(
         child: Container(
