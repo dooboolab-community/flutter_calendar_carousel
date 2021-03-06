@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../../lib/classes/event.dart';
+
 void main() {
-  DateTime pressedDay;
+  DateTime? pressedDay;
   testWidgets('Default test for Calendar Carousel',
       (WidgetTester tester) async {
     //  Build our app and trigger a frame.
@@ -35,8 +37,8 @@ void main() {
             todayTextStyle: TextStyle(
               color: Colors.blue,
             ),
-            markedDateIconBuilder: (event) {
-              return event.icon;
+            markedDateIconBuilder: (Event event) {
+              return event.icon ?? Icon(Icons.help_outline);
             },
             todayButtonColor: Colors.transparent,
             todayBorderColor: Colors.green,
