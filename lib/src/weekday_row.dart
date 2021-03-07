@@ -5,9 +5,7 @@ import 'package:flutter_calendar_carousel/src/default_styles.dart'
 import 'package:intl/intl.dart';
 
 class WeekdayRow extends StatelessWidget {
-  WeekdayRow(
-      this.firstDayOfWeek,
-      this.customWeekdayBuilder,
+  WeekdayRow(this.firstDayOfWeek, this.customWeekdayBuilder,
       {required this.showWeekdays,
       required this.weekdayFormat,
       required this.weekdayMargin,
@@ -28,27 +26,27 @@ class WeekdayRow extends StatelessWidget {
 
   Widget _weekdayContainer(int weekday, String weekDayName) {
     final customWeekdayBuilder = this.customWeekdayBuilder;
-    return customWeekdayBuilder != null ? customWeekdayBuilder(weekday, weekDayName) :
-    Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: weekdayBackgroundColor),
-            color: weekdayBackgroundColor,
-          ),
-          margin: weekdayMargin,
-          padding: weekdayPadding,
-          child: Center(
-            child: DefaultTextStyle(
-              style: defaultWeekdayTextStyle,
-              child: Text(
-                weekDayName,
-                semanticsLabel: weekDayName,
-                style: weekdayTextStyle,
+    return customWeekdayBuilder != null
+        ? customWeekdayBuilder(weekday, weekDayName)
+        : Expanded(
+            child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: weekdayBackgroundColor),
+              color: weekdayBackgroundColor,
+            ),
+            margin: weekdayMargin,
+            padding: weekdayPadding,
+            child: Center(
+              child: DefaultTextStyle(
+                style: defaultWeekdayTextStyle,
+                child: Text(
+                  weekDayName,
+                  semanticsLabel: weekDayName,
+                  style: weekdayTextStyle,
+                ),
               ),
             ),
-          ),
-        )
-    );
+          ));
   }
 
 //  List<Widget> _generateWeekdays() {
@@ -90,8 +88,8 @@ class WeekdayRow extends StatelessWidget {
 
     /// because of number of days in a week is 7, so it would be easier to count it til 7.
     for (var i = firstDayOfWeek, count = 0;
-    count < 7;
-    i = (i + 1) % 7, count++) {
+        count < 7;
+        i = (i + 1) % 7, count++) {
       String weekDay;
 
       switch (weekdayFormat) {
