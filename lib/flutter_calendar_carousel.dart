@@ -71,6 +71,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
+  final bool disableDayPressed;
   final Function(DateTime, List<T>) onDayPressed;
   final TextStyle weekdayTextStyle;
   final Color iconColor;
@@ -157,6 +158,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
+	this.disableDayPressed = false,
     this.onDayPressed,
     this.weekdayTextStyle,
     this.iconColor = Colors.blueAccent,
@@ -428,7 +430,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                   : isToday && widget.todayButtonColor != null
                       ? widget.todayButtonColor
                       : widget.dayButtonColor,
-          onPressed: () => _onDayPressed(now),
+          onPressed: widget.disableDayPressed ? null : () => _onDayPressed(now),
           padding: EdgeInsets.all(widget.dayPadding),
           shape: widget.markedDateCustomShapeBorder != null
             && widget.markedDatesMap != null
