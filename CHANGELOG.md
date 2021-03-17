@@ -1,3 +1,6 @@
+## [2.0.0]
+- Support null-safety [#260](https://github.com/dooboolab/flutter_calendar_carousel/pull/260)
+
 ## [1.5.3]
 - Add `id` to event model [#257](https://github.com/dooboolab/flutter_calendar_carousel/pull/257)
 
