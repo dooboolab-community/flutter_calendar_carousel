@@ -984,7 +984,7 @@ class _CalendarState<T extends EventInterface>
           if (tmp.length < markedDateIconMaxShown &&
               markedDateIconBuilder != null) {
             tmp.add(Center(
-                child: new Container(
+                child: Container(
               padding: EdgeInsets.only(
                 top: padding + offset,
                 left: padding + offset,
@@ -1008,7 +1008,7 @@ class _CalendarState<T extends EventInterface>
                   width: markedDateMoreShowTotal ? 18 : null,
                   height: markedDateMoreShowTotal ? 18 : null,
                   decoration: markedDateMoreCustomDecoration == null
-                      ? new BoxDecoration(
+                      ? BoxDecoration(
                           color: Colors.red,
                           borderRadius:
                               BorderRadius.all(Radius.circular(1000.0)),

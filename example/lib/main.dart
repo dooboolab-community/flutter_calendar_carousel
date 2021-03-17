@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'dooboolab flutter calendar',
       theme: new ThemeData(
         // This is the theme of your application.
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Calendar Carousel Example'),
+      home: MyHomePage(title: 'Flutter Calendar Carousel Example'),
     );
   }
 }
@@ -54,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
   DateTime _targetDateTime = DateTime(2019, 2, 3);
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  static Widget _eventIcon = new Container(
-    decoration: new BoxDecoration(
+  static Widget _eventIcon = Container(
+    decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(1000)),
         border: Border.all(color: Colors.blue, width: 2.0)),
@@ -236,9 +236,9 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
 
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.title),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -258,7 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 16.0,
                   right: 16.0,
                 ),
-                child: new Row(
+                child: Row(
                   children: <Widget>[
                     Expanded(
                         child: Text(
