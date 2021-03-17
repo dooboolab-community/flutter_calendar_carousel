@@ -35,17 +35,17 @@ void main() {
   });
 
   testWidgets('test narrow weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(
-      WeekdayRow(
-        0, null,
-        weekdayPadding: EdgeInsets.all(0),
-        weekdayBackgroundColor: Colors.transparent,
-        showWeekdays: true,
-        weekdayFormat: WeekdayFormat.standaloneNarrow,
-        weekdayMargin: margin,
-        weekdayTextStyle: null,
-        localeDate: locale,
-      )));
+    await tester.pumpWidget(wrapped(WeekdayRow(
+      0,
+      null,
+      weekdayPadding: EdgeInsets.all(0),
+      weekdayBackgroundColor: Colors.transparent,
+      showWeekdays: true,
+      weekdayFormat: WeekdayFormat.standaloneNarrow,
+      weekdayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    )));
 
     // sat and sun
     expect(find.text('S'), findsNWidgets(2));
@@ -59,7 +59,8 @@ void main() {
 
   testWidgets('test standalone weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0, null,
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
@@ -80,7 +81,8 @@ void main() {
 
   testWidgets('test standalone short weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0, null,
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
@@ -100,7 +102,9 @@ void main() {
   });
 
   testWidgets('test row does not render', (WidgetTester tester) async {
-    final emptyContainer = WeekdayRow(0, null,
+    final emptyContainer = WeekdayRow(
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: false,

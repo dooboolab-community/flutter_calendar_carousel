@@ -22,7 +22,6 @@ void main() {
       onHeaderTitlePressed: () => headerTapped = true,
       onRightButtonPressed: () => rightPressed = true,
       onLeftButtonPressed: () => leftPressed = true,
-      isTitleTouchable: true,
     )));
 
     expect(find.text(title), findsOneWidget);
@@ -49,7 +48,7 @@ void main() {
   testWidgets('Verify No header Renders', (WidgetTester tester) async {
     final noHeaderEmpty = CalendarHeader(
       showHeader: false,
-      headerTitle: null,
+      headerTitle: '',
       onLeftButtonPressed: () {},
       onHeaderTitlePressed: () {},
       onRightButtonPressed: () {},
@@ -67,10 +66,9 @@ void main() {
       showHeader: true,
       showHeaderButtons: true,
       headerIconColor: iconColor,
-      onHeaderTitlePressed: () {},
+      onHeaderTitlePressed: null,
       onRightButtonPressed: () {},
       onLeftButtonPressed: () {},
-      isTitleTouchable: false,
     )));
 
     // the header FlatButton Should not render
@@ -89,7 +87,6 @@ void main() {
       onHeaderTitlePressed: () {},
       onRightButtonPressed: () {},
       onLeftButtonPressed: () {},
-      isTitleTouchable: true,
     )));
 
     // the header IconButtons Should not render
