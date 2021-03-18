@@ -5,11 +5,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
-import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:flutter_calendar_carousel/src/calendar_header.dart';
+import 'package:flutter_calendar_carousel/src/default_styles.dart';
 import 'package:flutter_calendar_carousel/src/weekday_row.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
+
 export 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 typedef MarkedDateIconBuilder<T> = Widget Function(T event);
@@ -68,9 +69,10 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final TextStyle? selectedDayTextStyle;
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
-  final bool? daysHaveCircularBorder; //todo: reconsider making `null`
+  final bool? daysHaveCircularBorder;
+  final bool disableDayPressed;
   final Function(DateTime, List<T>)? onDayPressed;
-  final TextStyle? weekdayTextStyle;
+  final TextStyle weekdayTextStyle;
   final Color iconColor;
   final TextStyle? headerTextStyle;
   final String? headerText;
@@ -159,8 +161,9 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.selectedDayBorderColor = Colors.green,
     this.selectedDayButtonColor = Colors.green,
     this.daysHaveCircularBorder,
+    this.disableDayPressed = false,
     this.onDayPressed,
-    this.weekdayTextStyle,
+    this.weekdayTextStyle = const TextStyle(),
     this.iconColor = Colors.blueAccent,
     this.headerTextStyle,
     this.headerText,
@@ -469,12 +472,12 @@ class _CalendarState<T extends EventInterface>
       child: GestureDetector(
         onLongPress: () => _onDayLongPressed(now),
         child: FlatButton(
-          color: isSelectedDay
+          color: isSelectedDay && widget.selectedDayButtonColor != null
               ? widget.selectedDayButtonColor
-              : isToday
+              : isToday && widget.todayButtonColor != null
                   ? widget.todayButtonColor
                   : widget.dayButtonColor,
-          onPressed: () => _onDayPressed(now),
+          onPressed: widget.disableDayPressed ? null : () => _onDayPressed(now),
           padding: EdgeInsets.all(widget.dayPadding),
           shape: widget.markedDateCustomShapeBorder != null &&
                   markedDatesMap != null &&
