@@ -1142,9 +1142,9 @@ class _CalendarState<T extends EventInterface>
       bool isNextMonthDay,
       bool isThisMonthDay,
       DateTime now) {
-    final customDayBuilder = this.widget.customDayBuilder;
+    final customDayBuilder = widget.customDayBuilder;
 
-    Widget? widget;
+    Widget? dayContainer;
     if (customDayBuilder != null) {
       final appTextStyle = DefaultTextStyle.of(context).style;
 
@@ -1162,11 +1162,11 @@ class _CalendarState<T extends EventInterface>
 
       final styleForBuilder = appTextStyle.merge(dayStyle);
 
-      widget = customDayBuilder(isSelectable, index, isSelectedDay, isToday,
+      dayContainer = customDayBuilder(isSelectable, index, isSelectedDay, isToday,
           isPrevMonthDay, styleForBuilder, isNextMonthDay, isThisMonthDay, now);
     }
 
-    return widget ??
+    return dayContainer ??
         getDefaultDayContainer(
           isSelectable,
           index,
