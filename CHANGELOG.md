@@ -1,5 +1,9 @@
 ## [2.0.1]
 
+- Null safety improvements [#272](https://github.com/dooboolab/flutter_calendar_carousel/pull/272)
+
+## [2.0.1]
+
 - Added disableDayPressed option [#267](https://github.com/dooboolab/flutter_calendar_carousel/pull/267)
 
 ## [2.0.0]
