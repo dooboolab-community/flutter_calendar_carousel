@@ -13,7 +13,7 @@ import 'package:intl/intl.dart' show DateFormat;
 
 export 'package:flutter_calendar_carousel/classes/event_list.dart';
 
-typedef MarkedDateIconBuilder<T> = Widget Function(T event);
+typedef MarkedDateIconBuilder<T> = Widget? Function(T event);
 typedef void OnDayLongPressed(DateTime day);
 
 /// This builder is called for every day in the calendar.
@@ -33,7 +33,7 @@ typedef void OnDayLongPressed(DateTime day);
 /// [isNextMonthDay] - if the day is from next month
 /// [isThisMonthDay] - if the day is from next month
 /// [day] - day being built.
-typedef Widget DayBuilder(
+typedef Widget? DayBuilder(
     bool isSelectable,
     int index,
     bool isSelectedDay,
@@ -72,7 +72,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool? daysHaveCircularBorder;
   final bool disableDayPressed;
   final Function(DateTime, List<T>)? onDayPressed;
-  final TextStyle weekdayTextStyle;
+  final TextStyle? weekdayTextStyle;
   final Color iconColor;
   final TextStyle? headerTextStyle;
   final String? headerText;
@@ -1040,8 +1040,14 @@ class _CalendarState<T extends EventInterface>
         } else {
           //max 5 dots
           if (eventIndex < 5) {
+            Widget? widget;
+
             if (markedDateIconBuilder != null) {
-              tmp.add(markedDateIconBuilder(event));
+              widget = markedDateIconBuilder(event);
+            }
+
+            if (widget != null) {
+              tmp.add(widget);
             } else {
               final dot = event.getDot();
               if (dot != null) {
@@ -1137,23 +1143,31 @@ class _CalendarState<T extends EventInterface>
       bool isThisMonthDay,
       DateTime now) {
     final customDayBuilder = widget.customDayBuilder;
-    if (customDayBuilder != null) {
-      final TextStyle appTextStyle = DefaultTextStyle.of(context).style;
-      TextStyle styleForBuilder = appTextStyle.merge(getDayStyle(
-          isSelectable,
-          index,
-          isSelectedDay,
-          isToday,
-          isPrevMonthDay,
-          textStyle,
-          defaultTextStyle,
-          isNextMonthDay,
-          isThisMonthDay));
 
-      return customDayBuilder(isSelectable, index, isSelectedDay, isToday,
+    Widget? dayContainer;
+    if (customDayBuilder != null) {
+      final appTextStyle = DefaultTextStyle.of(context).style;
+
+      final dayStyle = getDayStyle(
+        isSelectable,
+        index,
+        isSelectedDay,
+        isToday,
+        isPrevMonthDay,
+        textStyle,
+        defaultTextStyle,
+        isNextMonthDay,
+        isThisMonthDay,
+      );
+
+      final styleForBuilder = appTextStyle.merge(dayStyle);
+
+      dayContainer = customDayBuilder(isSelectable, index, isSelectedDay, isToday,
           isPrevMonthDay, styleForBuilder, isNextMonthDay, isThisMonthDay, now);
-    } else {
-      return getDefaultDayContainer(
+    }
+
+    return dayContainer ??
+        getDefaultDayContainer(
           isSelectable,
           index,
           isSelectedDay,
@@ -1163,7 +1177,7 @@ class _CalendarState<T extends EventInterface>
           defaultTextStyle,
           isNextMonthDay,
           isThisMonthDay,
-          now);
-    }
+          now,
+        );
   }
 }
