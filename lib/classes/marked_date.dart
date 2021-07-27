@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class MarkedDate implements MarkedDateInterface {
   final Color color;
-  final Color? borderColor;
   final int? id;
   final TextStyle? textStyle;
   final DateTime date;
@@ -10,7 +9,6 @@ class MarkedDate implements MarkedDateInterface {
   MarkedDate({
     required this.color,
     this.id,
-    this.borderColor,
     this.textStyle,
     required this.date,
   });
@@ -20,7 +18,6 @@ class MarkedDate implements MarkedDateInterface {
     return this.date == other.date &&
         this.color == other.color &&
         this.textStyle == other.textStyle &&
-        this.borderColor == other.BorderColor &&
         this.id == other.id;
   }
 
@@ -33,9 +30,7 @@ class MarkedDate implements MarkedDateInterface {
   @override
   Color getColor() => this.color;
 
-  @override
-  Color? getBorderColor() => this.borderColor;
-
+ 
   @override
   TextStyle? getTextStyle() => this.textStyle;
 }
@@ -46,7 +41,6 @@ class MarkedDate implements MarkedDateInterface {
 abstract class MarkedDateInterface {
   DateTime getDate();
   Color getColor();
-  Color? getBorderColor();
   int? getId();
   TextStyle? getTextStyle();
 
