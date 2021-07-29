@@ -1,3 +1,7 @@
+## [2.0.2]
+
+- Multiple days selection [#282](https://github.com/dooboolab/flutter_calendar_carousel/pull/284)
+
 ## [2.0.1]
 
 - Null safety improvements [#272](https://github.com/dooboolab/flutter_calendar_carousel/pull/272)
