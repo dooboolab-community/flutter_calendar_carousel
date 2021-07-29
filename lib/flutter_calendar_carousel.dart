@@ -11,6 +11,8 @@ import 'package:flutter_calendar_carousel/src/weekday_row.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
+import 'classes/multiple_marked_dates.dart';
+
 export 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 typedef MarkedDateIconBuilder<T> = Widget? Function(T event);
@@ -112,6 +114,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showWeekDays;
   final bool showHeader;
   final bool showHeaderButton;
+  final MultipleMarkedDates? multipleMarkedDates;
   final Widget? leftButtonIcon;
   final Widget? rightButtonIcon;
   final ScrollPhysics? customGridViewPhysics;
@@ -181,6 +184,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.markedDateCustomTextStyle,
     this.markedDateMoreCustomTextStyle,
     this.markedDateWidget,
+    this.multipleMarkedDates,
     this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
@@ -415,6 +419,9 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
     DateTime now,
   ) {
+
+    
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -432,7 +439,8 @@ class _CalendarState<T extends EventInterface>
                 textStyle,
                 defaultTextStyle,
                 isNextMonthDay,
-                isThisMonthDay),
+                isThisMonthDay
+                ),
             child: Text(
               '${now.day}',
               semanticsLabel: now.day.toString(),
@@ -445,7 +453,8 @@ class _CalendarState<T extends EventInterface>
                   textStyle,
                   defaultTextStyle,
                   isNextMonthDay,
-                  isThisMonthDay),
+                  isThisMonthDay,
+                  now),
               maxLines: 1,
             ),
           ),
@@ -466,6 +475,13 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
     DateTime now,
   ) {
+
+    // If day is in Multiple selection mode, get its color
+    bool isMultipleMarked = widget.multipleMarkedDates?.isMarked(now) ?? false;
+    Color? multipleMarkedColor = widget.multipleMarkedDates?.getColor(now);
+   
+      
+    
     final markedDatesMap = widget.markedDatesMap;
     return Container(
       margin: EdgeInsets.all(widget.dayPadding),
@@ -476,7 +492,12 @@ class _CalendarState<T extends EventInterface>
               ? widget.selectedDayButtonColor
               : isToday && widget.todayButtonColor != null
                   ? widget.todayButtonColor
-                  : widget.dayButtonColor,
+
+                  // If day is in Multiple selection mode, apply a different color
+                  : isMultipleMarked? 
+                      multipleMarkedColor
+                      : widget.dayButtonColor,
+                    
           onPressed: widget.disableDayPressed ? null : () => _onDayPressed(now),
           padding: EdgeInsets.all(widget.dayPadding),
           shape: widget.markedDateCustomShapeBorder != null &&
@@ -1080,23 +1101,25 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
   ) {
     return !isSelectable
-        ? defaultInactiveDaysTextStyle
-        : (_localeDate.dateSymbols.WEEKENDRANGE
-                    .contains((index - 1 + firstDayOfWeek) % 7)) &&
-                !isSelectedDay &&
-                !isToday
-            ? (isPrevMonthDay
-                ? defaultPrevDaysTextStyle
-                : isNextMonthDay
-                    ? defaultNextDaysTextStyle
-                    : isSelectable
-                        ? defaultWeekendTextStyle
-                        : defaultInactiveWeekendTextStyle)
-            : isToday
-                ? defaultTodayTextStyle
-                : isSelectable && textStyle != null
-                    ? textStyle
-                    : defaultTextStyle;
+        ?  
+          defaultInactiveDaysTextStyle
+            : (_localeDate.dateSymbols.WEEKENDRANGE
+                        .contains((index - 1 + firstDayOfWeek) % 7)) &&
+                    !isSelectedDay &&
+                    !isToday
+                ? (isPrevMonthDay
+                    ? defaultPrevDaysTextStyle
+                    : isNextMonthDay
+                        ? defaultNextDaysTextStyle
+                        : isSelectable
+                            ? defaultWeekendTextStyle
+                            : defaultInactiveWeekendTextStyle)
+                : 
+                isToday
+                    ? defaultTodayTextStyle
+                    : isSelectable && textStyle != null
+                        ? textStyle
+                        : defaultTextStyle;
   }
 
   TextStyle? getDayStyle(
@@ -1109,9 +1132,18 @@ class _CalendarState<T extends EventInterface>
     TextStyle defaultTextStyle,
     bool isNextMonthDay,
     bool isThisMonthDay,
+    DateTime now
   ) {
+
+    // If day is in multiple selection get its style(if available)
+    bool isMultipleMarked = widget.multipleMarkedDates?.isMarked(now) ?? false;
+    TextStyle? mutipleMarkedTextStyle = widget.multipleMarkedDates?.getTextStyle(now);
+
+   
     return isSelectedDay && widget.selectedDayTextStyle != null
         ? widget.selectedDayTextStyle
+        : isMultipleMarked?
+            mutipleMarkedTextStyle
         : (_localeDate.dateSymbols.WEEKENDRANGE
                     .contains((index - 1 + firstDayOfWeek) % 7)) &&
                 !isSelectedDay &&
@@ -1144,6 +1176,8 @@ class _CalendarState<T extends EventInterface>
       DateTime now) {
     final customDayBuilder = widget.customDayBuilder;
 
+   
+
     Widget? dayContainer;
     if (customDayBuilder != null) {
       final appTextStyle = DefaultTextStyle.of(context).style;
@@ -1158,6 +1192,7 @@ class _CalendarState<T extends EventInterface>
         defaultTextStyle,
         isNextMonthDay,
         isThisMonthDay,
+        now,
       );
 
       final styleForBuilder = appTextStyle.merge(dayStyle);
