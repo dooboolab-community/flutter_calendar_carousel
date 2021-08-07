@@ -1,3 +1,6 @@
+## [2.0.3]
+- Multiple days selection using `addRange` method [#285](https://github.com/dooboolab/flutter_calendar_carousel/pull/285)
+
 ## [2.0.2]
 
 - Multiple days selection [#282](https://github.com/dooboolab/flutter_calendar_carousel/pull/284)
