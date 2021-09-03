@@ -2,27 +2,29 @@ import 'package:flutter/material.dart';
 
 class Event implements EventInterface {
   final DateTime date;
-  final String title;
-  final Widget icon;
-  final Widget dot;
-
+  final String? title;
+  final Widget? icon;
+  final Widget? dot;
+  final int? id;
   Event({
-    this.date,
+    this.id,
+    required this.date,
     this.title,
     this.icon,
     this.dot,
-  }) : assert(date != null);
+  });
 
   @override
   bool operator ==(dynamic other) {
     return this.date == other.date &&
         this.title == other.title &&
         this.icon == other.icon &&
-        this.dot == other.dot;
+        this.dot == other.dot &&
+        this.id == other.id;
   }
 
   @override
-  int get hashCode => hashValues(date, title, icon);
+  int get hashCode => hashValues(date, title, icon, id);
 
   @override
   DateTime getDate() {
@@ -30,24 +32,30 @@ class Event implements EventInterface {
   }
 
   @override
-  Widget getDot() {
+  int? getId() {
+    return id;
+  }
+
+  @override
+  Widget? getDot() {
     return dot;
   }
 
   @override
-  Widget getIcon() {
+  Widget? getIcon() {
     return icon;
   }
 
   @override
-  String getTitle() {
+  String? getTitle() {
     return title;
   }
 }
 
 abstract class EventInterface {
   DateTime getDate();
-  String getTitle();
-  Widget getIcon();
-  Widget getDot();
+  String? getTitle();
+  Widget? getIcon();
+  Widget? getDot();
+  int? getId();
 }

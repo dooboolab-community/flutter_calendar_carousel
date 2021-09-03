@@ -7,6 +7,10 @@
 Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable. Now you can even add your icon for each event.
 
 ## New Feature
+
+[2.0.3]
++ Multiple days selection using `addRange` method [#285](https://github.com/dooboolab/flutter_calendar_carousel/pull/285)
+
 + Check out great feature `customDayBuilder` work done by [maxgmer](https://github.com/maxgmer) :tada:.
 
 #### Rectangular style
@@ -57,7 +61,7 @@ For help getting started with Flutter, view our online
 | headerText              | `Text`          | `Text('${DateFormat.yMMM().format(this._dates[1])}'`) |
 | weekendTextStyle        | `TextStyle`     | `fontSize: 14.0, color: Colors.pinkAccent` |
 | markedDatesMap          | `Events`        | `null` |
-| markedDateWidget        | `Color`         | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
+| markedDateWidget        | `Widget`        | ``` Positioned(child: Container(color: Colors.blueAccent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0); ``` |
 | markedDateShowIcon      | `bool`          | false |
 | markedDateIconBorderColor | `Color`       | |
 | markedDateIconMaxShown  | `int`           | 2 |
