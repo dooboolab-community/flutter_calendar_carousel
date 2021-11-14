@@ -419,9 +419,6 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
     DateTime now,
   ) {
-
-    
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -439,8 +436,7 @@ class _CalendarState<T extends EventInterface>
                 textStyle,
                 defaultTextStyle,
                 isNextMonthDay,
-                isThisMonthDay
-                ),
+                isThisMonthDay),
             child: Text(
               '${now.day}',
               semanticsLabel: now.day.toString(),
@@ -475,13 +471,10 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
     DateTime now,
   ) {
-
     // If day is in Multiple selection mode, get its color
     bool isMultipleMarked = widget.multipleMarkedDates?.isMarked(now) ?? false;
     Color? multipleMarkedColor = widget.multipleMarkedDates?.getColor(now);
-   
-      
-    
+
     final markedDatesMap = widget.markedDatesMap;
     return Container(
       margin: EdgeInsets.all(widget.dayPadding),
@@ -494,10 +487,9 @@ class _CalendarState<T extends EventInterface>
                   ? widget.todayButtonColor
 
                   // If day is in Multiple selection mode, apply a different color
-                  : isMultipleMarked? 
-                      multipleMarkedColor
+                  : isMultipleMarked
+                      ? multipleMarkedColor
                       : widget.dayButtonColor,
-                    
           onPressed: widget.disableDayPressed ? null : () => _onDayPressed(now),
           padding: EdgeInsets.all(widget.dayPadding),
           shape: widget.markedDateCustomShapeBorder != null &&
@@ -1101,66 +1093,62 @@ class _CalendarState<T extends EventInterface>
     bool isThisMonthDay,
   ) {
     return !isSelectable
-        ?  
-          defaultInactiveDaysTextStyle
-            : (_localeDate.dateSymbols.WEEKENDRANGE
-                        .contains((index - 1 + firstDayOfWeek) % 7)) &&
-                    !isSelectedDay &&
-                    !isToday
-                ? (isPrevMonthDay
-                    ? defaultPrevDaysTextStyle
-                    : isNextMonthDay
-                        ? defaultNextDaysTextStyle
-                        : isSelectable
-                            ? defaultWeekendTextStyle
-                            : defaultInactiveWeekendTextStyle)
-                : 
-                isToday
-                    ? defaultTodayTextStyle
-                    : isSelectable && textStyle != null
-                        ? textStyle
-                        : defaultTextStyle;
-  }
-
-  TextStyle? getDayStyle(
-    bool isSelectable,
-    int index,
-    bool isSelectedDay,
-    bool isToday,
-    bool isPrevMonthDay,
-    TextStyle? textStyle,
-    TextStyle defaultTextStyle,
-    bool isNextMonthDay,
-    bool isThisMonthDay,
-    DateTime now
-  ) {
-
-    // If day is in multiple selection get its style(if available)
-    bool isMultipleMarked = widget.multipleMarkedDates?.isMarked(now) ?? false;
-    TextStyle? mutipleMarkedTextStyle = widget.multipleMarkedDates?.getTextStyle(now);
-
-   
-    return isSelectedDay && widget.selectedDayTextStyle != null
-        ? widget.selectedDayTextStyle
-        : isMultipleMarked?
-            mutipleMarkedTextStyle
+        ? defaultInactiveDaysTextStyle
         : (_localeDate.dateSymbols.WEEKENDRANGE
                     .contains((index - 1 + firstDayOfWeek) % 7)) &&
                 !isSelectedDay &&
-                isThisMonthDay &&
                 !isToday
-            ? (isSelectable
-                ? widget.weekendTextStyle
-                : widget.inactiveWeekendTextStyle)
-            : !isSelectable
-                ? widget.inactiveDaysTextStyle
-                : isPrevMonthDay
-                    ? widget.prevDaysTextStyle
-                    : isNextMonthDay
-                        ? widget.nextDaysTextStyle
-                        : isToday
-                            ? widget.todayTextStyle
-                            : widget.daysTextStyle;
+            ? (isPrevMonthDay
+                ? defaultPrevDaysTextStyle
+                : isNextMonthDay
+                    ? defaultNextDaysTextStyle
+                    : isSelectable
+                        ? defaultWeekendTextStyle
+                        : defaultInactiveWeekendTextStyle)
+            : isToday
+                ? defaultTodayTextStyle
+                : isSelectable && textStyle != null
+                    ? textStyle
+                    : defaultTextStyle;
+  }
+
+  TextStyle? getDayStyle(
+      bool isSelectable,
+      int index,
+      bool isSelectedDay,
+      bool isToday,
+      bool isPrevMonthDay,
+      TextStyle? textStyle,
+      TextStyle defaultTextStyle,
+      bool isNextMonthDay,
+      bool isThisMonthDay,
+      DateTime now) {
+    // If day is in multiple selection get its style(if available)
+    bool isMultipleMarked = widget.multipleMarkedDates?.isMarked(now) ?? false;
+    TextStyle? mutipleMarkedTextStyle =
+        widget.multipleMarkedDates?.getTextStyle(now);
+
+    return isSelectedDay && widget.selectedDayTextStyle != null
+        ? widget.selectedDayTextStyle
+        : isMultipleMarked
+            ? mutipleMarkedTextStyle
+            : (_localeDate.dateSymbols.WEEKENDRANGE
+                        .contains((index - 1 + firstDayOfWeek) % 7)) &&
+                    !isSelectedDay &&
+                    isThisMonthDay &&
+                    !isToday
+                ? (isSelectable
+                    ? widget.weekendTextStyle
+                    : widget.inactiveWeekendTextStyle)
+                : !isSelectable
+                    ? widget.inactiveDaysTextStyle
+                    : isPrevMonthDay
+                        ? widget.prevDaysTextStyle
+                        : isNextMonthDay
+                            ? widget.nextDaysTextStyle
+                            : isToday
+                                ? widget.todayTextStyle
+                                : widget.daysTextStyle;
   }
 
   Widget getDayContainer(
@@ -1175,8 +1163,6 @@ class _CalendarState<T extends EventInterface>
       bool isThisMonthDay,
       DateTime now) {
     final customDayBuilder = widget.customDayBuilder;
-
-   
 
     Widget? dayContainer;
     if (customDayBuilder != null) {
@@ -1197,8 +1183,16 @@ class _CalendarState<T extends EventInterface>
 
       final styleForBuilder = appTextStyle.merge(dayStyle);
 
-      dayContainer = customDayBuilder(isSelectable, index, isSelectedDay, isToday,
-          isPrevMonthDay, styleForBuilder, isNextMonthDay, isThisMonthDay, now);
+      dayContainer = customDayBuilder(
+          isSelectable,
+          index,
+          isSelectedDay,
+          isToday,
+          isPrevMonthDay,
+          styleForBuilder,
+          isNextMonthDay,
+          isThisMonthDay,
+          now);
     }
 
     return dayContainer ??
