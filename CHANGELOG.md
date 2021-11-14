@@ -1,21 +1,26 @@
+## [2.1.0]
+
+Update build config on flutter V2 embedding (#293)
+
 ## [2.0.3]
-- Multiple days selection using `addRange` method [#285](https://github.com/dooboolab/flutter_calendar_carousel/pull/285)
+
+Multiple days selection using `addRange` method [#285](https://github.com/dooboolab/flutter_calendar_carousel/pull/285)
 
 ## [2.0.2]
 
-- Multiple days selection [#282](https://github.com/dooboolab/flutter_calendar_carousel/pull/284)
+Multiple days selection [#282](https://github.com/dooboolab/flutter_calendar_carousel/pull/284)
 
 ## [2.0.1]
 
-- Null safety improvements [#272](https://github.com/dooboolab/flutter_calendar_carousel/pull/272)
+Null safety improvements [#272](https://github.com/dooboolab/flutter_calendar_carousel/pull/272)
 
 ## [2.0.1]
 
-- Added disableDayPressed option [#267](https://github.com/dooboolab/flutter_calendar_carousel/pull/267)
+Added disableDayPressed option [#267](https://github.com/dooboolab/flutter_calendar_carousel/pull/267)
 
 ## [2.0.0]
 
-- Support null-safety [#260](https://github.com/dooboolab/flutter_calendar_carousel/pull/260)
+Support null-safety [#260](https://github.com/dooboolab/flutter_calendar_carousel/pull/260)
 
 ## [1.5.3]
 

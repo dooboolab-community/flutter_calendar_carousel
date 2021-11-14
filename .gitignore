@@ -14,4 +14,3 @@ ios/Runner/GeneratedPluginRegistrant.*
 .idea/
 flutter_calendar_carousel.iml
 flutter_export_environment.sh
-pubspec.lock
