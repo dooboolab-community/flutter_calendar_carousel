@@ -481,9 +481,9 @@ class _CalendarState<T extends EventInterface>
       child: GestureDetector(
         onLongPress: () => _onDayLongPressed(now),
         child: FlatButton(
-          color: isSelectedDay && widget.selectedDayButtonColor != null
+          color: isSelectedDay
               ? widget.selectedDayButtonColor
-              : isToday && widget.todayButtonColor != null
+              : isToday
                   ? widget.todayButtonColor
 
                   // If day is in Multiple selection mode, apply a different color
@@ -945,7 +945,7 @@ class _CalendarState<T extends EventInterface>
       //call callback
       final onCalendarChanged = widget.onCalendarChanged;
       if (onCalendarChanged != null) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           onCalendarChanged(!widget.weekFormat
               ? this._dates[page]
               : this._weeks[page][firstDayOfWeek]);
