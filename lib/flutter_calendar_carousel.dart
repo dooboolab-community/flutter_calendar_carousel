@@ -481,9 +481,9 @@ class _CalendarState<T extends EventInterface>
       child: GestureDetector(
         onLongPress: () => _onDayLongPressed(now),
         child: FlatButton(
-          color: isSelectedDay
+          color: isSelectedDay && widget.selectedDayButtonColor != null
               ? widget.selectedDayButtonColor
-              : isToday
+              : isToday && widget.selectedDayButtonColor != null
                   ? widget.todayButtonColor
 
                   // If day is in Multiple selection mode, apply a different color
