@@ -563,8 +563,6 @@ class _CalendarState<T extends EventInterface>
                   ],
           ),
         ),
-        // ),
-        // ),
       ),
     );
   }
