@@ -44,7 +44,7 @@ class CalendarHeader extends StatelessWidget {
             Icon(Icons.chevron_right, color: headerIconColor),
       );
 
-  Widget _headerTouchable() => FlatButton(
+  Widget _headerTouchable() => TextButton(
         onPressed: onHeaderTitlePressed,
         child: Text(
           headerTitle,

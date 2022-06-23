@@ -26,7 +26,7 @@ void main() {
 
     expect(find.text(title), findsOneWidget);
 
-    await tester.tap(find.byType(FlatButton));
+    await tester.tap(find.byType(TextButton));
 
     await tester.pump();
 
@@ -71,8 +71,8 @@ void main() {
       onLeftButtonPressed: () {},
     )));
 
-    // the header FlatButton Should not render
-    final touchableHeader = find.byType(FlatButton);
+    // the header TextButton Should not render
+    final touchableHeader = find.byType(TextButton);
 
     expect(touchableHeader, findsNothing);
   });
