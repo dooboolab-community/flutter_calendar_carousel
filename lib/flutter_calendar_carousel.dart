@@ -515,7 +515,7 @@ class _CalendarState<T extends EventInterface>
                                               : widget.thisMonthDayBorderColor,
                             ),
                           ),
-            primary: isSelectedDay
+            backgroundColor: isSelectedDay
                 ? widget.selectedDayButtonColor
                 : isToday
                     ? widget.todayButtonColor
