@@ -7,6 +7,9 @@
 
 Calendar widget for flutter that is swipeable horizontally. This widget can help you build your own calendar widget highly customizable. Now you can even add your icon for each event.
 
+## Notice
+This widget is compatible with flutter V3 from version `2.4.+`.
+
 ## New Feature
 
 [2.0.3]
