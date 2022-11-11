@@ -1,3 +1,7 @@
+## [2.4.1]
+
+Update iOS podspec and `info.plist`
+
 ## [2.1.0]
 
 Update build config on flutter V2 embedding (#293)
