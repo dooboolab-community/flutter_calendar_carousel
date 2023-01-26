@@ -30,7 +30,7 @@ class Event implements EventInterface {
   }
 
   @override
-  int get hashCode => hashValues(date, description, location, title, icon, id);
+  int get hashCode => Object.hash(date, description, location, title, icon, id);
 
   @override
   DateTime getDate() {

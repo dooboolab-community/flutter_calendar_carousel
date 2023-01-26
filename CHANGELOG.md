@@ -1,3 +1,6 @@
+## [2.4.2]
+
+Support Flutter version 3+
 ## [2.4.1]
 
 Update iOS podspec and `info.plist`
