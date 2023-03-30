@@ -267,7 +267,6 @@ class _CalendarState<T extends EventInterface>
   initState() {
     super.initState();
     initializeDateFormatting();
-    // widget.calenderController?.setDate = _setDate;
     minDate = widget.minSelectedDate ?? DateTime(2018);
     maxDate = widget.maxSelectedDate ??
         DateTime(
