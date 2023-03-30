@@ -46,8 +46,8 @@ typedef Widget? DayBuilder(
     bool isThisMonthDay,
     DateTime day);
 
-typedef Widget? HeaderBuilder(
-    Function previousMonth, Function nextMonth, String headerTitle);
+typedef Widget? HeaderBuilder(Function previousMonth, Function nextMonth,
+    String headerTitle, DateTime date);
 
 /// This builder is called for every weekday container (7 times, from Mon to Sun).
 /// [weekday] - weekday built, from 0 to 6.
@@ -339,7 +339,7 @@ class _CalendarState<T extends EventInterface>
       height: widget.height,
       child: Column(
         children: <Widget>[
-          if(widget.showHeader) getHeaderContainer(headerText),
+          if (widget.showHeader) getHeaderContainer(headerText),
           WeekdayRow(
             firstDayOfWeek,
             widget.customWeekDayBuilder,
@@ -448,6 +448,9 @@ class _CalendarState<T extends EventInterface>
         onLongPress: () => _onDayLongPressed(now),
         child: TextButton(
           style: TextButton.styleFrom(
+            elevation: 0,
+            splashFactory: NoSplash.splashFactory,
+            primary: Colors.transparent,
             shape: widget.markedDateCustomShapeBorder != null &&
                     markedDatesMap != null &&
                     markedDatesMap.getEvents(now).length > 0
@@ -468,7 +471,7 @@ class _CalendarState<T extends EventInterface>
                                               : widget.thisMonthDayBorderColor,
                             ),
                           )
-                        : RoundedRectangleBorder(
+                        : CircleBorder(
                             side: BorderSide(
                               color: isSelectedDay
                                   ? widget.selectedDayBorderColor
@@ -1194,21 +1197,19 @@ class _CalendarState<T extends EventInterface>
     Widget? headerContainer;
 
     if (customHeaderBuilder != null) {
-      headerContainer = customHeaderBuilder(
-        () {
-          widget.onLeftArrowPressed?.call();
-          moveMonthBackwards();
-        },
-        () {
-          widget.onRightArrowPressed?.call();
-          moveMonthForward();
-        },
-        monthYear != null
-            ? monthYear
-            : widget.weekFormat
-                ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
-                : '${_localeDate.format(this._dates[this._pageNum])}',
-      );
+      headerContainer = customHeaderBuilder(() {
+        widget.onLeftArrowPressed?.call();
+        moveMonthBackwards();
+      }, () {
+        widget.onRightArrowPressed?.call();
+        moveMonthForward();
+      },
+          monthYear != null
+              ? monthYear
+              : widget.weekFormat
+                  ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
+                  : '${_localeDate.format(this._dates[this._pageNum])}',
+          this._dates[this._pageNum + 1]);
     }
 
     return headerContainer ?? getDefaultHeaderContainer(monthYear);
