@@ -340,7 +340,7 @@ class _CalendarState<T extends EventInterface>
       height: widget.height,
       child: Column(
         children: <Widget>[
-          getHeaderContainer(headerText),
+          if(widget.showHeader) getHeaderContainer(headerText),
           WeekdayRow(
             firstDayOfWeek,
             widget.customWeekDayBuilder,
@@ -1217,7 +1217,6 @@ class _CalendarState<T extends EventInterface>
 
   Widget getDefaultHeaderContainer(String? headerText) {
     return CalendarHeader(
-      showHeader: widget.showHeader,
       headerMargin: widget.headerMargin,
       headerTitle: headerText != null
           ? headerText

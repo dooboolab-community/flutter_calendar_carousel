@@ -6,7 +6,6 @@ class CalendarHeader extends StatelessWidget {
   CalendarHeader(
       {required this.headerTitle,
       this.headerMargin,
-      required this.showHeader,
       this.headerTextStyle,
       this.showHeaderButtons = true,
       this.headerIconColor,
@@ -19,7 +18,6 @@ class CalendarHeader extends StatelessWidget {
 
   final String headerTitle;
   final EdgeInsetsGeometry? headerMargin;
-  final bool showHeader;
   final TextStyle? headerTextStyle;
   final bool showHeaderButtons;
   final Color? headerIconColor;
@@ -54,20 +52,18 @@ class CalendarHeader extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => showHeader
-      ? Container(
-          margin: headerMargin,
-          child: DefaultTextStyle(
-              style: getTextStyle,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    showHeaderButtons ? _leftButton() : Container(),
-                    isTitleTouchable
-                        ? _headerTouchable()
-                        : Text(headerTitle, style: getTextStyle),
-                    showHeaderButtons ? _rightButton() : Container(),
-                  ])),
-        )
-      : Container();
+  Widget build(BuildContext context) => Container(
+        margin: headerMargin,
+        child: DefaultTextStyle(
+            style: getTextStyle,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  showHeaderButtons ? _leftButton() : Container(),
+                  isTitleTouchable
+                      ? _headerTouchable()
+                      : Text(headerTitle, style: getTextStyle),
+                  showHeaderButtons ? _rightButton() : Container(),
+                ])),
+      );
 }
