@@ -46,6 +46,9 @@ typedef Widget? DayBuilder(
     bool isThisMonthDay,
     DateTime day);
 
+typedef Widget? HeaderBuilder(
+    Function previousMonth, Function nextMonth, String headerTitle);
+
 /// This builder is called for every weekday container (7 times, from Mon to Sun).
 /// [weekday] - weekday built, from 0 to 6.
 /// [weekdayName] - string representation of the weekday (Mon, Tue, Wed, etc).
@@ -141,88 +144,90 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
   final bool shouldShowTransform;
+  final HeaderBuilder? customHeaderBuilder;
 
-  CalendarCarousel({
-    Key? key,
-    this.viewportFraction = 1.0,
-    this.prevDaysTextStyle,
-    this.daysTextStyle,
-    this.nextDaysTextStyle,
-    this.prevMonthDayBorderColor = Colors.transparent,
-    this.thisMonthDayBorderColor = Colors.transparent,
-    this.nextMonthDayBorderColor = Colors.transparent,
-    this.dayPadding = 2.0,
-    this.height = double.infinity,
-    this.width = double.infinity,
-    this.todayTextStyle,
-    this.dayButtonColor = Colors.transparent,
-    this.todayBorderColor = Colors.red,
-    this.todayButtonColor = Colors.red,
-    this.selectedDateTime,
-    this.targetDateTime,
-    this.selectedDayTextStyle,
-    this.selectedDayBorderColor = Colors.green,
-    this.selectedDayButtonColor = Colors.green,
-    this.daysHaveCircularBorder,
-    this.disableDayPressed = false,
-    this.onDayPressed,
-    this.weekdayTextStyle = const TextStyle(),
-    this.iconColor = Colors.blueAccent,
-    this.headerTextStyle,
-    this.headerText,
-    this.weekendTextStyle,
-    this.markedDatesMap,
-    this.markedDateShowIcon = false,
-    this.markedDateIconBorderColor,
-    this.markedDateIconMaxShown = 2,
-    this.markedDateIconMargin = 5.0,
-    this.markedDateIconOffset = 5.0,
-    this.markedDateIconBuilder,
-    this.markedDateMoreShowTotal,
-    this.markedDateMoreCustomDecoration,
-    this.markedDateCustomShapeBorder,
-    this.markedDateCustomTextStyle,
-    this.markedDateMoreCustomTextStyle,
-    this.markedDateWidget,
-    this.multipleMarkedDates,
-    this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
-    this.childAspectRatio = 1.0,
-    this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
-    this.weekDayPadding = const EdgeInsets.all(0.0),
-    this.weekDayBackgroundColor = Colors.transparent,
-    this.customWeekDayBuilder,
-    this.customDayBuilder,
-    this.showWeekDays = true,
-    this.weekFormat = false,
-    this.showHeader = true,
-    this.showHeaderButton = true,
-    this.leftButtonIcon,
-    this.rightButtonIcon,
-    this.customGridViewPhysics,
-    this.onCalendarChanged,
-    this.locale = "en",
-    this.firstDayOfWeek,
-    this.minSelectedDate,
-    this.maxSelectedDate,
-    this.inactiveDaysTextStyle,
-    this.inactiveWeekendTextStyle,
-    this.headerTitleTouchable = false,
-    this.onHeaderTitlePressed,
-    this.onLeftArrowPressed,
-    this.onRightArrowPressed,
-    this.weekDayFormat = WeekdayFormat.short,
-    this.staticSixWeekFormat = false,
-    this.isScrollable = true,
-    this.scrollDirection = Axis.horizontal,
-    this.showOnlyCurrentMonthDate = false,
-    this.pageSnapping = false,
-    this.onDayLongPressed,
-    this.dayCrossAxisAlignment = CrossAxisAlignment.center,
-    this.dayMainAxisAlignment = MainAxisAlignment.center,
-    this.showIconBehindDayText = false,
-    this.pageScrollPhysics = const ScrollPhysics(),
-    this.shouldShowTransform = true,
-  }) : super(key: key);
+  CalendarCarousel(
+      {Key? key,
+      this.viewportFraction = 1.0,
+      this.prevDaysTextStyle,
+      this.daysTextStyle,
+      this.nextDaysTextStyle,
+      this.prevMonthDayBorderColor = Colors.transparent,
+      this.thisMonthDayBorderColor = Colors.transparent,
+      this.nextMonthDayBorderColor = Colors.transparent,
+      this.dayPadding = 2.0,
+      this.height = double.infinity,
+      this.width = double.infinity,
+      this.todayTextStyle,
+      this.dayButtonColor = Colors.transparent,
+      this.todayBorderColor = Colors.red,
+      this.todayButtonColor = Colors.red,
+      this.selectedDateTime,
+      this.targetDateTime,
+      this.selectedDayTextStyle,
+      this.selectedDayBorderColor = Colors.green,
+      this.selectedDayButtonColor = Colors.green,
+      this.daysHaveCircularBorder,
+      this.disableDayPressed = false,
+      this.onDayPressed,
+      this.weekdayTextStyle = const TextStyle(),
+      this.iconColor = Colors.blueAccent,
+      this.headerTextStyle,
+      this.headerText,
+      this.weekendTextStyle,
+      this.markedDatesMap,
+      this.markedDateShowIcon = false,
+      this.markedDateIconBorderColor,
+      this.markedDateIconMaxShown = 2,
+      this.markedDateIconMargin = 5.0,
+      this.markedDateIconOffset = 5.0,
+      this.markedDateIconBuilder,
+      this.markedDateMoreShowTotal,
+      this.markedDateMoreCustomDecoration,
+      this.markedDateCustomShapeBorder,
+      this.markedDateCustomTextStyle,
+      this.markedDateMoreCustomTextStyle,
+      this.markedDateWidget,
+      this.multipleMarkedDates,
+      this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
+      this.childAspectRatio = 1.0,
+      this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
+      this.weekDayPadding = const EdgeInsets.all(0.0),
+      this.weekDayBackgroundColor = Colors.transparent,
+      this.customWeekDayBuilder,
+      this.customDayBuilder,
+      this.showWeekDays = true,
+      this.weekFormat = false,
+      this.showHeader = true,
+      this.showHeaderButton = true,
+      this.leftButtonIcon,
+      this.rightButtonIcon,
+      this.customGridViewPhysics,
+      this.onCalendarChanged,
+      this.locale = "en",
+      this.firstDayOfWeek,
+      this.minSelectedDate,
+      this.maxSelectedDate,
+      this.inactiveDaysTextStyle,
+      this.inactiveWeekendTextStyle,
+      this.headerTitleTouchable = false,
+      this.onHeaderTitlePressed,
+      this.onLeftArrowPressed,
+      this.onRightArrowPressed,
+      this.weekDayFormat = WeekdayFormat.short,
+      this.staticSixWeekFormat = false,
+      this.isScrollable = true,
+      this.scrollDirection = Axis.horizontal,
+      this.showOnlyCurrentMonthDate = false,
+      this.pageSnapping = false,
+      this.onDayLongPressed,
+      this.dayCrossAxisAlignment = CrossAxisAlignment.center,
+      this.dayMainAxisAlignment = MainAxisAlignment.center,
+      this.showIconBehindDayText = false,
+      this.pageScrollPhysics = const ScrollPhysics(),
+      this.shouldShowTransform = true,
+      this.customHeaderBuilder})
+      : super(key: key);
 
   @override
   _CalendarState<T> createState() => _CalendarState<T>();
@@ -256,12 +261,13 @@ class _CalendarState<T extends EventInterface>
   late int firstDayOfWeek;
 
   /// If the setState called from this class, don't reload the selectedDate, but it should reload selected date if called from external class
+  ///
 
   @override
   initState() {
     super.initState();
     initializeDateFormatting();
-
+    // widget.calenderController?.setDate = _setDate;
     minDate = widget.minSelectedDate ?? DateTime(2018);
     maxDate = widget.maxSelectedDate ??
         DateTime(
@@ -334,46 +340,7 @@ class _CalendarState<T extends EventInterface>
       height: widget.height,
       child: Column(
         children: <Widget>[
-          CalendarHeader(
-            showHeader: widget.showHeader,
-            headerMargin: widget.headerMargin,
-            headerTitle: headerText != null
-                ? headerText
-                : widget.weekFormat
-                    ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
-                    : '${_localeDate.format(this._dates[this._pageNum])}',
-            headerTextStyle: widget.headerTextStyle,
-            showHeaderButtons: widget.showHeaderButton,
-            headerIconColor: widget.iconColor,
-            leftButtonIcon: widget.leftButtonIcon,
-            rightButtonIcon: widget.rightButtonIcon,
-            onLeftButtonPressed: () {
-              widget.onLeftArrowPressed?.call();
-
-              if (this._pageNum > 0) _setDate(this._pageNum - 1);
-            },
-            onRightButtonPressed: () {
-              widget.onRightArrowPressed?.call();
-
-              if (widget.weekFormat) {
-                if (this._weeks.length - 1 > this._pageNum)
-                  _setDate(this._pageNum + 1);
-              } else {
-                if (this._dates.length - 1 > this._pageNum)
-                  _setDate(this._pageNum + 1);
-              }
-            },
-            onHeaderTitlePressed: widget.headerTitleTouchable
-                ? () {
-                    final onHeaderTitlePressed = widget.onHeaderTitlePressed;
-                    if (onHeaderTitlePressed != null) {
-                      onHeaderTitlePressed();
-                    } else {
-                      _selectDateFromPicker();
-                    }
-                  }
-                : null,
-          ),
+          getHeaderContainer(headerText),
           WeekdayRow(
             firstDayOfWeek,
             widget.customWeekDayBuilder,
@@ -712,7 +679,6 @@ class _CalendarState<T extends EventInterface>
             value = _controller.page! - slideIndex;
             value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
           }
-
           return Center(
             child: SizedBox(
               height: Curves.easeOut.transform(value) * widget.height,
@@ -954,6 +920,18 @@ class _CalendarState<T extends EventInterface>
         });
       }
     }
+  }
+
+  void moveMonthForward() {
+    if (widget.weekFormat) {
+      if (this._weeks.length - 1 > this._pageNum) _setDate(this._pageNum + 1);
+    } else {
+      if (this._dates.length - 1 > this._pageNum) _setDate(this._pageNum + 1);
+    }
+  }
+
+  void moveMonthBackwards() {
+    if (this._pageNum > 0) _setDate(this._pageNum - 1);
   }
 
   Widget _renderMarkedMapContainer(DateTime now) {
@@ -1210,5 +1188,65 @@ class _CalendarState<T extends EventInterface>
           isThisMonthDay,
           now,
         );
+  }
+
+  Widget getHeaderContainer(String? monthYear) {
+    final customHeaderBuilder = widget.customHeaderBuilder;
+    Widget? headerContainer;
+
+    if (customHeaderBuilder != null) {
+      headerContainer = customHeaderBuilder(
+        () {
+          widget.onLeftArrowPressed?.call();
+          moveMonthBackwards();
+        },
+        () {
+          widget.onRightArrowPressed?.call();
+          moveMonthForward();
+        },
+        monthYear != null
+            ? monthYear
+            : widget.weekFormat
+                ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
+                : '${_localeDate.format(this._dates[this._pageNum])}',
+      );
+    }
+
+    return headerContainer ?? getDefaultHeaderContainer(monthYear);
+  }
+
+  Widget getDefaultHeaderContainer(String? headerText) {
+    return CalendarHeader(
+      showHeader: widget.showHeader,
+      headerMargin: widget.headerMargin,
+      headerTitle: headerText != null
+          ? headerText
+          : widget.weekFormat
+              ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
+              : '${_localeDate.format(this._dates[this._pageNum])}',
+      headerTextStyle: widget.headerTextStyle,
+      showHeaderButtons: widget.showHeaderButton,
+      headerIconColor: widget.iconColor,
+      leftButtonIcon: widget.leftButtonIcon,
+      rightButtonIcon: widget.rightButtonIcon,
+      onLeftButtonPressed: () {
+        widget.onLeftArrowPressed?.call();
+        moveMonthBackwards();
+      },
+      onRightButtonPressed: () {
+        widget.onRightArrowPressed?.call();
+        moveMonthForward();
+      },
+      onHeaderTitlePressed: widget.headerTitleTouchable
+          ? () {
+              final onHeaderTitlePressed = widget.onHeaderTitlePressed;
+              if (onHeaderTitlePressed != null) {
+                onHeaderTitlePressed();
+              } else {
+                _selectDateFromPicker();
+              }
+            }
+          : null,
+    );
   }
 }
