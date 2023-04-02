@@ -1192,7 +1192,7 @@ class _CalendarState<T extends EventInterface>
         );
   }
 
-  Widget getHeaderContainer(String? monthYear) {
+  Widget getHeaderContainer(String? headerText) {
     final customHeaderBuilder = widget.customHeaderBuilder;
     Widget? headerContainer;
 
@@ -1204,15 +1204,15 @@ class _CalendarState<T extends EventInterface>
         widget.onRightArrowPressed?.call();
         moveMonthForward();
       },
-          monthYear != null
-              ? monthYear
+          headerText != null
+              ? headerText
               : widget.weekFormat
                   ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
                   : '${_localeDate.format(this._dates[this._pageNum])}',
-          this._dates[this._pageNum + 1]);
+          this._dates[this._pageNum]);
     }
 
-    return headerContainer ?? getDefaultHeaderContainer(monthYear);
+    return headerContainer ?? getDefaultHeaderContainer(headerText);
   }
 
   Widget getDefaultHeaderContainer(String? headerText) {
