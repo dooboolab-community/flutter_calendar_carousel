@@ -46,7 +46,7 @@ For help getting started with Flutter, view our online
 ## Props
 
 | props                          |           types            |                                                defaultValues                                                |
-| :----------------------------- | :------------------------: | :---------------------------------------------------------------------------------------------------------: |
+|:-------------------------------|:--------------------------:|:-----------------------------------------------------------------------------------------------------------:|
 | viewPortFraction               |          `double`          |                                                     1.0                                                     |
 | prevDaysTextStyle              |        `TextStyle`         |                                                                                                             |
 | daysTextStyle                  |        `TextStyle`         |                                                                                                             |
@@ -66,6 +66,7 @@ For help getting started with Flutter, view our online
 | selectedDayBorderColor         |          `Color`           |                                                Colors.green                                                 |
 | selectedDayButtonColor         |          `Color`           |                                                Colors.green                                                 |
 | daysHaveCircularBorder         |           `bool`           |                                                                                                             |
+| daysCircularBorderRadius       |          `double`          |                                                      0                                                      |
 | onDayPressed                   |           `Func`           |                                                                                                             |
 | weekdayTextStyle               |        `TextStyle`         |                                 `fontSize: 14.0, color: Colors.deepOrange`                                  |
 | iconColor                      |          `Color`           |                                              Colors.blueAccent                                              |
