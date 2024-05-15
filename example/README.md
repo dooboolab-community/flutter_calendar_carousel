@@ -1,27 +1,16 @@
-# flutter_calendar_carousel
-```dart
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
-Widget widget() {
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: 16.0),
-    child: CalendarCarousel(
-      current: DateTime.now(),
-      onDayPressed: (DateTime date) {
-        this.setState(() => _currentDate = date);
-      },
-      thisMonthDayBorderColor: Colors.grey,
-      height: 420.0,
-      selectedDateTime: _currentDate,
-      daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-      markedDatesMap: _markedDateMap,
-//          weekendStyle: TextStyle(
-//            color: Colors.red,
-//          ),
-//          weekDays: null, /// for pass null when you do not want to render weekDays
-//          headerText: Container( /// Example for rendering custom header
-//            child: Text('Custom Header'),
-//          ),
-    ),
-  );
-}
-```
+# example
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
