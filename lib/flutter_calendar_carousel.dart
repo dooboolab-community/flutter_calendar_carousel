@@ -225,7 +225,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.dayMainAxisAlignment = MainAxisAlignment.center,
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
-    this.shouldShowTransform = true,this.maxDot = 5
+    this.shouldShowTransform = true,
+    this.maxDot = 5
   }) : super(key: key);
 
   @override

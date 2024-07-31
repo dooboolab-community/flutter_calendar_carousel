@@ -189,7 +189,7 @@
 			files = (
 			);
 			inputPaths = (
-            );
+			);
 			name = "Thin Binary";
 			outputPaths = (
 			);
