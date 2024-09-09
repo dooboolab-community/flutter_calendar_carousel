@@ -81,6 +81,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final TextStyle? weekendTextStyle;
   final EventList<T>? markedDatesMap;
 
+
   /// Change `makredDateWidget` when `markedDateShowIcon` is set to false.
   final Widget? markedDateWidget;
 
@@ -141,6 +142,9 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
   final bool shouldShowTransform;
+
+  ///Maximium number of dots to be shown
+  final int maxDot ;
 
   CalendarCarousel({
     Key? key,
@@ -222,6 +226,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
     this.shouldShowTransform = true,
+    this.maxDot = 5
   }) : super(key: key);
 
   @override
@@ -1054,7 +1059,7 @@ class _CalendarState<T extends EventInterface>
           }
         } else {
           //max 5 dots
-          if (eventIndex < 5) {
+          if (eventIndex < widget.maxDot) {
             Widget? widget;
 
             if (markedDateIconBuilder != null) {
