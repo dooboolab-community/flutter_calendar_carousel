@@ -1,3 +1,7 @@
+## [2.4.4]
+
+Upgrade intl to `^0.19.0`
+
 ## [2.4.3]
 
 Upgrade intl to `^0.18.1`
