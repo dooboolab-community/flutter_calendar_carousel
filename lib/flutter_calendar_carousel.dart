@@ -243,6 +243,7 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   int? _requestedPage;
   int _navigationRequest = 0;
   bool _pickerInProgress = false;
+  int? _pendingPage;
   final Set<DateTime> _reportedNavigationAnchors = <DateTime>{};
 
   @override
@@ -493,19 +494,22 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
       config: widget.weekdays,
       style: resolvedTheme.weekday,
     );
-    final pages = PageView.builder(
-      key: ValueKey<PageController>(_controller),
-      itemCount: _pager.pageCount,
-      physics: widget.paging.enabled
-          ? widget.paging.physics
-          : const NeverScrollableScrollPhysics(),
-      scrollDirection: widget.paging.axis,
-      onPageChanged: _handlePageChanged,
-      controller: _controller,
-      itemBuilder: (context, index) => widget.view == CalendarView.week
-          ? _buildWeekPage(index, resolvedTheme)
-          : _buildMonthPage(index, resolvedTheme),
-      pageSnapping: true,
+    final pages = NotificationListener<ScrollNotification>(
+      onNotification: _handleScrollNotification,
+      child: PageView.builder(
+        key: ValueKey<PageController>(_controller),
+        itemCount: _pager.pageCount,
+        physics: widget.paging.enabled
+            ? widget.paging.physics
+            : const NeverScrollableScrollPhysics(),
+        scrollDirection: widget.paging.axis,
+        onPageChanged: _handlePageChanged,
+        controller: _controller,
+        itemBuilder: (context, index) => widget.view == CalendarView.week
+            ? _buildWeekPage(index, resolvedTheme)
+            : _buildMonthPage(index, resolvedTheme),
+        pageSnapping: true,
+      ),
     );
 
     return LayoutBuilder(
@@ -898,11 +902,41 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
         });
   }
 
+  bool _handleScrollNotification(ScrollNotification notification) {
+    // When scroll ends and we have a pending page change, apply it.
+    // This defers the state update until after the scroll gesture completes,
+    // preventing the calendar from snapping unexpectedly.
+    // See: https://github.com/hyochan/flutter_calendar_carousel/issues/387
+    if (notification is ScrollEndNotification && _pendingPage != null) {
+      final page = _pendingPage!;
+      _pendingPage = null;
+      _applyPageChange(page);
+    }
+    return false; // Don't consume the notification
+  }
+
   void _handlePageChanged(int page) {
     if (_requestedPage == page) _requestedPage = null;
+    if (page == _page) return;
+
+    // Check if a user-initiated scroll is in progress by examining the
+    // controller's scroll position. When scrolling, defer the state update
+    // to avoid interfering with the scroll gesture.
+    // See: https://github.com/hyochan/flutter_calendar_carousel/issues/387
+    final isUserScrolling =
+        _controller.hasClients &&
+        _controller.position.isScrollingNotifier.value;
+    if (isUserScrolling) {
+      _pendingPage = page;
+      return;
+    }
+
+    _applyPageChange(page);
+  }
+
+  void _applyPageChange(int page) {
     final anchor = _pager.anchorForPage(page);
     final wasReported = _reportedNavigationAnchors.contains(anchor);
-    if (page == _page) return;
     setState(() {
       _page = page;
       _targetDate = anchor;

@@ -351,6 +351,51 @@ void main() {
     expect(changedPages, <DateTime>[DateTime(2026, 6)]);
   });
 
+  // Regression test for https://github.com/hyochan/flutter_calendar_carousel/issues/387
+  // and https://github.com/hyochan/flutter_calendar_carousel/issues/428
+  testWidgets(
+    'manual scroll past 50% threshold does not cause unexpected snap',
+    (tester) async {
+      final changedPages = <DateTime>[];
+      await tester.pumpWidget(
+        _host(
+          _calendar(
+            focusedDate: DateTime(2026, 5, 13),
+            onPageChanged: changedPages.add,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('May 2026'), findsOneWidget);
+
+      // Simulate a slow manual scroll that crosses the 50% threshold
+      // where onPageChanged would fire, but the user hasn't released yet.
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.byType(PageView)),
+      );
+
+      // Move past the 50% threshold (where onPageChanged fires)
+      await gesture.moveBy(const Offset(-250, 0));
+      await tester.pump();
+
+      // At this point, the page should still show May because we're mid-scroll.
+      // The calendar should NOT snap to June yet.
+      // After the fix, setState is deferred until scroll ends.
+
+      // Continue scrolling past 50%
+      await gesture.moveBy(const Offset(-100, 0));
+      await tester.pump();
+
+      // Release the gesture
+      await gesture.up();
+      await tester.pumpAndSettle();
+
+      // Now the calendar should settle on June
+      expect(find.text('Jun 2026'), findsOneWidget);
+      expect(changedPages, <DateTime>[DateTime(2026, 6)]);
+    },
+  );
+
   testWidgets('vertical drag pages instead of scrolling the day grid', (
     tester,
   ) async {
