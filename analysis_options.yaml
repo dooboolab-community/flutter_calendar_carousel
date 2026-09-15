@@ -2,3 +2,10 @@ include: package:flutter_lints/flutter.yaml
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+# Flutter's `analysis_options.yaml` migration adds these exclusions on
+# `flutter pub get`. They are checked in so the working tree stays clean and
+# `flutter pub publish --dry-run` keeps passing during a release.
+analyzer:
+  exclude:
+    - build/**
