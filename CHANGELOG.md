@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+- Keep a manual page drag from snapping back to the previous page when it is
+  released near the halfway point ([#428](https://github.com/hyochan/flutter_calendar_carousel/issues/428)).
+- Check in the analyzer exclusions that Flutter's `analysis_options.yaml`
+  migration writes during `flutter pub get`, so release validation runs
+  `flutter pub publish --dry-run` from a clean working tree.
+
 ## [3.0.0] - 2026-08-09
 
 ### Breaking changes
